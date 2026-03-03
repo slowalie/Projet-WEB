@@ -40,17 +40,23 @@
     width: auto;
     
 }
-.navbar .logo .logo-image {
-    width: 4%;
-    height: 4%;
-    margin-right: 10px;
-}
+
 .navbar .logo {
     font-size: 24px;
     font-weight: bold;
     margin: auto;
-    margin-left: 20px
+    margin-left: 20px;
+    display: flex;
+
 }
+
+.navbar .logo .logo-image {
+    margin-right: 10px;
+}
+
+
+
+
 .nav-links {
     display: flex;
     gap: 20px;
