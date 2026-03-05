@@ -489,12 +489,27 @@ main {
     justify-content: center;
     margin: 20px auto;
 }
+.step1{
+    position: relative; /* Indispensable pour placer le badge par rapport à ce carré */
+    width: 50px;
+    height: 50px;
+    background-color: var(--bg-yellow-muted);
+    border-radius: 20px; /* Bords arrondis */
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+}
 
 .step span {
-
     font-size: 30px;
     color: #5d3dfc;
 }
+
+.span1 {
+    font-size: 30px;
+    color: var(--yellow);
+}
+
 .step-number {
 position: absolute;
   top: -7.5px;    /* Ajuste la hauteur */
@@ -518,11 +533,26 @@ position: absolute;
 .step-content{
     border-radius: var(--border-radius);
     box-shadow: 0 5px 15px var(--shadow--purple);
-    padding: 10px; 
-    
-    
+    padding: 10px;    
 }
   
+.offer-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.offer-card {
+    background-color: rgb(255, 255, 255);
+    padding: 15px;
+    border-radius: 30px;
+    border: 2px solid var(--text-light);
+    color: var(--text-dark);
+    font-size: 0.9rem;
+    text-align: center;
+    
+}
+
 /* --- STYLES POUR LE FOOTER --- */
 
 footer {
