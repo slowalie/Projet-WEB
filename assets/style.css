@@ -6,6 +6,7 @@
     --bg-input: #ffffff;      /* Fond blanc de la barre de recherche */
     --bg-muted:  #192433da;     /* Bleu-gris pour les éléments de liste moins importants (ex: tags) */
     --back-ground-violet-muted: #5850ec23; /* Violet très clair pour les éléments de fond liés à la marque (ex: tags "stage") */    
+    --bg-yellow-muted: #facc1536; /* Jaune très clair pour les éléments de fond liés à la marque (ex: tags "alternance") */ 
 
     /* --- COULEURS DE MARQUE (ACCENTS) --- */
     --primary-violet: #5850ec; /* Le violet du bouton "S'inscrire" et du mot "stage" */
@@ -33,6 +34,7 @@
     --purple: #6366f1;
     --yellow: #f59e0b;
     --shadow--purple: rgba(99, 102, 241, 0.5);
+    --shadow-yellow: rgba(245, 158, 11, 0.5);
 
 }
 
@@ -373,6 +375,65 @@ main {
     translate: 0 -5px;
     box-shadow: 0 5px 15px var(--shadow--purple);
 }
+
+/* --- styles section offer-preview --- */
+
+.offer-preview {
+    background-color: rgba(185, 207, 255, 0.322);
+    color: var(--text-dark);
+    padding: 60px 5%;
+}
+
+.offer-preview-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    place-items: center;
+}
+
+.offer-bulle span {
+    margin-bottom: 15px;
+    box-shadow: 0 2px 15px var(--shadow-yellow);
+    border-radius: 30px;
+    padding: 5px 15px;
+    width: 100%;
+    color: var(--yellow);
+    background-color: var(--bg-yellow-muted);
+}
+.offer-preview-title h2{
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+
+.offer-preview-title p{
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.offer-page {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background-color: transparent;
+    color: var(--primary-violet);
+    border: 2px solid var(--text-light);
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+.offer-page:hover {
+    box-shadow: 0 5px 15px var(--shadow--purple);
+    border: 2px solid var(--text-light);
+    transition: box-shadow 0.3s ease;
+}
+
+ 
 
 
 /* --- Styles section process ---*/
