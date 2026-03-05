@@ -8,11 +8,11 @@
 </head>
 <body>
     <header>
-        <nav class="navbar">
+<nav class="navbar">
             <div class="logo">
                 <div class="logo-image">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
-                        <path color="#ffffff"d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5m1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0M1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5"/><
+                        <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5m1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0M1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5"/>
                     </svg>
                 </div>
                 <div class="logo-text">Idea<span>Stage</span></div>
@@ -25,13 +25,337 @@
             </div>
             <button class="button-connexion">Connexion</button>
             <button class="button-inscription">S'inscrire</button>
-        
+            <button class="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
+
+    <div class="recherche-offres">  
+        <div1>Recherche d'offres</div1>
+        <div2>  
+        Toutes les offres de stage & alternance
+        </div2>
+            <div class="search-bar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+                
+                <input type="text" placeholder="Poste, compétence, entreprise..." />
+    
+    <div class="select-wrapper">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+      </svg>
+      <select>
+        <option>Toutes</option>
+      </select>
+    </div>
+
+    <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>Rechercher</button>
+
+
+            </div>
+
+    </div>
+        
+
     </header>
     <main>
+    <div class="container">
+        <!-- SIDEBAR FILTRES -->
+        <aside class="sidebar">
+            <div class="filters-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+                <h3>Filtres</h3>
+            </div>
 
+            <!-- TYPE -->
+            <div class="filter-group">
+                <h4>TYPE</h4>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="type" value="tous" checked>
+                        <span>Tous</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="type" value="stage">
+                        <span>Stage</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="type" value="alternance">
+                        <span>Alternance</span>
+                    </label>
+                </div>
+            </div>
 
-    </main>
+            <!-- SECTEUR -->
+            <div class="filter-group">
+                <h4>SECTEUR</h4>
+                <div class="tag-buttons">
+                    <button class="tag active">Tous</button>
+                    <button class="tag">Tech</button>
+                    <button class="tag">Design</button>
+                    <button class="tag">Data</button>
+                    <button class="tag">Marketing</button>
+                    <button class="tag">Finance</button>
+                    <button class="tag">RH</button>
+                    <button class="tag">Commerce</button>
+                </div>
+            </div>
+
+            <!-- DURÉE -->
+            <div class="filter-group">
+                <h4>DURÉE</h4>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="duree" value="toutes" checked>
+                        <span>Toutes</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="duree" value="4mois">
+                        <span>4 mois</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="duree" value="6mois">
+                        <span>6 mois</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="duree" value="12mois">
+                        <span>12 mois</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="duree" value="24mois">
+                        <span>24 mois</span>
+                    </label>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <div class="header">
+                <h2>12 offres trouvées</h2>
+            </div>
+
+            <!-- GRID D'OFFRES -->
+            <div class="offers-grid">
+                <!-- OFFRE 1 -->
+                <div class="offer-card">
+                    <div class="offer-badge">
+                        <span class="badge badge-priority">★ À la une</span>
+                    </div>
+                    <div class="offer-header">
+                        <div class="company-logo">TV</div>
+                        <div class="offer-title">
+                            <h3>Développeur Full-Stack React/Node</h3>
+                            <p class="company-name">TechVision</p>
+                        </div>
+                        <button class="heart-btn">♡</button>
+                    </div>
+                    <div class="offer-tags">
+                        <span class="tag-type">Alternance</span>
+                        <span class="location">📍 Paris</span>
+                        <span class="duration">⏱ 24 mois</span>
+                    </div>
+                    <div class="skills">
+                        <span class="skill">React</span>
+                        <span class="skill">Node.js</span>
+                        <span class="skill">TypeScript</span>
+                    </div>
+                    <div class="offer-footer">
+                        <div class="salary">
+                            <span class="amount">€ 1 200€/mois</span>
+                            <span class="candidates">👥 42 candidatures</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">⭐ 4.8</span>
+                        </div>
+                        <button class="apply-btn">Postuler</button>
+                    </div>
+                </div>
+
+                <!-- OFFRE 2 -->
+                <div class="offer-card">
+                    <div class="offer-badge">
+                        <span class="badge badge-new">♦ Nouveau</span>
+                    </div>
+                    <div class="offer-header">
+                        <div class="company-logo logo-ds">DS</div>
+                        <div class="offer-title">
+                            <h3>Stage UX/UI Designer</h3>
+                            <p class="company-name">DesignStudio</p>
+                        </div>
+                        <button class="heart-btn">♡</button>
+                    </div>
+                    <div class="offer-tags">
+                        <span class="tag-type">Stage</span>
+                        <span class="location">📍 Lyon</span>
+                        <span class="duration">⏱ 6 mois</span>
+                    </div>
+                    <div class="skills">
+                        <span class="skill">Figma</span>
+                        <span class="skill">Sketch</span>
+                        <span class="skill">Prototypage</span>
+                    </div>
+                    <div class="offer-footer">
+                        <div class="salary">
+                            <span class="amount">€ 900€/mois</span>
+                            <span class="candidates">👥 67 candidatures</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">⭐ 4.5</span>
+                        </div>
+                        <button class="apply-btn">Postuler</button>
+                    </div>
+                </div>
+
+                <!-- OFFRE 3 -->
+                <div class="offer-card">
+                    <div class="offer-badge">
+                        <span class="badge badge-priority">★ À la une</span>
+                    </div>
+                    <div class="offer-header">
+                        <div class="company-logo logo-dc">DC</div>
+                        <div class="offer-title">
+                            <h3>Alternance Data Analyst</h3>
+                            <p class="company-name">DataCorp</p>
+                        </div>
+                        <button class="heart-btn">♡</button>
+                    </div>
+                    <div class="offer-tags">
+                        <span class="tag-type">Alternance</span>
+                        <span class="location">📍 Bordeaux</span>
+                        <span class="duration">⏱ 12 mois</span>
+                    </div>
+                    <div class="skills">
+                        <span class="skill">Python</span>
+                        <span class="skill">SQL</span>
+                        <span class="skill">Power BI</span>
+                    </div>
+                    <div class="offer-footer">
+                        <div class="salary">
+                            <span class="amount">€ 1 100€/mois</span>
+                            <span class="candidates">👥 31 candidatures</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">⭐ 4.7</span>
+                        </div>
+                        <button class="apply-btn">Postuler</button>
+                    </div>
+                </div>
+
+                <!-- OFFRE 4 -->
+                <div class="offer-card">
+                    <div class="offer-badge">
+                        <span class="badge badge-new">♦ Nouveau</span>
+                    </div>
+                    <div class="offer-header">
+                        <div class="company-logo logo-gh">GH</div>
+                        <div class="offer-title">
+                            <h3>Stage Marketing Digital</h3>
+                            <p class="company-name">GrowthHive</p>
+                        </div>
+                        <button class="heart-btn">♡</button>
+                    </div>
+                    <div class="offer-tags">
+                        <span class="tag-type">Stage</span>
+                        <span class="location">📍 Nantes</span>
+                        <span class="duration">⏱ 4 mois</span>
+                    </div>
+                    <div class="skills">
+                        <span class="skill">SEO</span>
+                        <span class="skill">Google Ads</span>
+                        <span class="skill">Analytics</span>
+                    </div>
+                    <div class="offer-footer">
+                        <div class="salary">
+                            <span class="amount">€ 700€/mois</span>
+                            <span class="candidates">👥 89 candidatures</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">⭐ 4.3</span>
+                        </div>
+                        <button class="apply-btn">Postuler</button>
+                    </div>
+                </div>
+
+                <!-- OFFRE 5 -->
+                <div class="offer-card">
+                    <div class="offer-badge">
+                        <span class="badge badge-priority">★ À la une</span>
+                    </div>
+                    <div class="offer-header">
+                        <div class="company-logo logo-sn">SN</div>
+                        <div class="offer-title">
+                            <h3>Alternance Cybersécurité</h3>
+                            <p class="company-name">SecureNet</p>
+                        </div>
+                        <button class="heart-btn">♡</button>
+                    </div>
+                    <div class="offer-tags">
+                        <span class="tag-type">Alternance</span>
+                        <span class="location">📍 Toulouse</span>
+                        <span class="duration">⏱ 24 mois</span>
+                    </div>
+                    <div class="skills">
+                        <span class="skill">Réseau</span>
+                        <span class="skill">Pentest</span>
+                        <span class="skill">SIEM</span>
+                    </div>
+                    <div class="offer-footer">
+                        <div class="salary">
+                            <span class="amount">€ 1 300€/mois</span>
+                            <span class="candidates">👥 18 candidatures</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">⭐ 4.9</span>
+                        </div>
+                        <button class="apply-btn">Postuler</button>
+                    </div>
+                </div>
+
+                <!-- OFFRE 6 -->
+                <div class="offer-card">
+                    <div class="offer-header">
+                        <div class="company-logo logo-fg">FG</div>
+                        <div class="offer-title">
+                            <h3>Stage Finance d'Entreprise</h3>
+                            <p class="company-name">FinGroup</p>
+                        </div>
+                        <button class="heart-btn">♡</button>
+                    </div>
+                    <div class="offer-tags">
+                        <span class="tag-type">Stage</span>
+                        <span class="location">📍 Paris</span>
+                        <span class="duration">⏱ 6 mois</span>
+                    </div>
+                    <div class="skills">
+                        <span class="skill">Excel</span>
+                        <span class="skill">Comptabilité</span>
+                        <span class="skill">Audit</span>
+                    </div>
+                    <div class="offer-footer">
+                        <div class="salary">
+                            <span class="amount">€ 1 000€/mois</span>
+                            <span class="candidates">👥 55 candidatures</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">⭐ 4.4</span>
+                        </div>
+                        <button class="apply-btn">Postuler</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
 
     <footer>
         <div class="footer-container">
@@ -113,6 +437,5 @@
         
     </footer>
 </body>
-
 </html>
     
