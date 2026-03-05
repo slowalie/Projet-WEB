@@ -5,7 +5,7 @@
     --bg-card: #1e293b;        /* Bleu légèrement plus clair pour les éléments de liste/tags */
     --bg-input: #ffffff;      /* Fond blanc de la barre de recherche */
     --bg-muted:  #192433da;     /* Bleu-gris pour les éléments de liste moins importants (ex: tags) */
-    --back-ground-violet-muted: #5850ec1a; /* Violet très clair pour les éléments de fond liés à la marque (ex: tags "stage") */    
+    --back-ground-violet-muted: #5850ec23; /* Violet très clair pour les éléments de fond liés à la marque (ex: tags "stage") */    
 
     /* --- COULEURS DE MARQUE (ACCENTS) --- */
     --primary-violet: #5850ec; /* Le violet du bouton "S'inscrire" et du mot "stage" */
@@ -32,6 +32,7 @@
     --bg-dark: #0a0b1e;
     --purple: #6366f1;
     --yellow: #f59e0b;
+    --shadow--purple: rgba(99, 102, 241, 0.5);
 
 }
 
@@ -159,7 +160,7 @@ main {
     min-height: 500px;
     padding: 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-dark);
+    
     padding: 0;
 }
 
@@ -297,6 +298,81 @@ main {
     margin-bottom: 10px;
 }
 
+/* --- Styles section "secteur" --- */
+
+.secteur-section {
+    background-color: rgb(185, 207, 255);
+    color: var(--text-main);
+    padding: 60px 5%;
+}
+
+.secteur-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    background-color: rgb(255, 255, 255);
+
+}
+
+.secteur-content {
+    padding: 20px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    
+}
+
+.secteur-text {  
+    margin-bottom: 15px;
+}
+
+.secteur-bulle span{
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px var(--shadow--purple);
+    border-radius: 30px;
+    padding: 5px 15px;
+    width: 100%;
+    color: var(--primary-violet);
+    background-color: var(--back-ground-violet-muted);
+
+}
+
+.secteur-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.secteur-description {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.secteur-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 8px;
+}
+
+.secteur-card {
+    background-color: rgb(255, 255, 255);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    color: var(--text-dark);
+    font-size: 0.9rem;
+    text-align: center;
+    
+}
+
+.secteur-card:hover {
+    transition: translate 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    translate: 0 -5px;
+    box-shadow: 0 5px 15px var(--shadow--purple);
+}
+
+
+  
 /* --- STYLES POUR LE FOOTER --- */
 
 footer {
@@ -493,6 +569,22 @@ footer .footer-content {
         padding: 10px;
     }
 
+    .title {
+        font-size: 2.8rem; /* On réduit la taille du titre */
+    }
+
+    .hero-container {
+        gap: 20px;
+    }
+    .hero-image-wrapper {
+        display: none;
+    }
+
+    .hero-bottom {
+        flex-wrap: wrap; /* Permet aux stats de passer à la ligne si besoin */
+    }
+
+
     /* Footer */
     footer .footer-content {
         flex-direction: column;
@@ -535,7 +627,70 @@ footer .footer-content {
         padding: 10px;
         min-height: 300px;
     }
+    .hero-section {
+        padding: 40px 20px;
+        height: auto; /* On laisse le contenu dicter la hauteur */
+    }
 
+    .hero-container {
+        grid-template-columns: 1fr; /* Une seule colonne : tout s'empile */
+        text-align: center;
+    }
+
+    .title {
+        font-size: 2.2rem;
+    }
+
+    /* Centrage de la barre de recherche */
+    .search-box {
+        display: flex;
+        flex-direction: column; /* Les inputs l'un sous l'autre sur mobile */
+        border-radius: 15px;
+        
+        
+    }   
+
+    .input-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .search-box input, .search-box select {
+        border-bottom: 1px solid #eee; /* Petite séparation visuelle */
+        
+    }
+
+    .btn-search {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    /* Gestion des badges flottants sur l'image */
+    .top-left {
+        left: 0;
+        top: 10px;
+        font-size: 0.8rem;
+    }
+    
+    .hero-image-wrapper {
+        display: none; /* On masque l'image sur mobile pour plus de lisibilité */
+    }
+
+    .bottom-right {
+        right: 0;
+        bottom: 10px;
+        font-size: 0.8rem;
+    }
+
+    /* Les statistiques en bas */
+    .hero-bottom {
+        flex-direction: column; /* Empilement des blocs de stats */
+        margin-top: 50px;
+    }
+
+    .tags {
+        justify-content: center; /* Centre les tags sous la barre de recherche */
+    }
     .footer-container {
         padding: 10px;
     }
