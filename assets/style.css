@@ -52,7 +52,7 @@ body {
     background-color: var(--bg-input);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     width: auto;
-    flex-wrap: wrap;
+    
 }
 
 .navbar .logo {
@@ -96,6 +96,11 @@ body {
 
 .nav-links a:hover {
     color: var(--text-violet);
+    font-weight: bold;
+}
+
+.nav-links a.active {
+    color: var(--primary-violet);
     font-weight: bold;
 }
 
@@ -158,10 +163,8 @@ body {
 
 main {
     min-height: 500px;
-    padding: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     
-    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 
@@ -372,6 +375,92 @@ main {
 }
 
 
+/* --- Styles section process ---*/
+
+.process-section {
+    background-color: rgb(185, 207, 255);
+    color: var(--text-main);
+    padding: 60px 5%;
+}
+
+.process-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.process-title h2{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.process-title p{
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.process-steps {
+    gap: 30px;    
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.process-steps .step {
+    display: flex;
+
+}
+
+.step{
+    position: relative; /* Indispensable pour placer le badge par rapport à ce carré */
+    width: 50px;
+    height: 50px;
+    background-color: #e8edff;
+    border-radius: 20px; /* Bords arrondis */
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.step span {
+
+    font-size: 30px;
+    color: #5d3dfc;
+}
+.step-number {
+position: absolute;
+  top: -7.5px;    /* Ajuste la hauteur */
+  right: -7.5px;  /* Ajuste la position latérale */
+  
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  color: #4a5568;
+  
+  border-radius: 50%; /* Pour faire un cercle parfait */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  font-weight: bolder;
+  font-family: sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Petit effet d'ombre */
+}
+
+.step-content{
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 15px var(--shadow--purple);
+    padding: 10px; 
+    
+    
+}
   
 /* --- STYLES POUR LE FOOTER --- */
 
@@ -537,6 +626,7 @@ footer .footer-content {
     /* Navbar */
     .navbar {
         position: relative;
+        justify-content: space-between;
     }
 
     .hamburger {
@@ -557,6 +647,7 @@ footer .footer-content {
         padding: 15px 0;
         gap: 15px;
         text-align: center;
+        justify-content: space-between;
     }
 
     .navbar.nav-open .button-connexion,
@@ -624,7 +715,7 @@ footer .footer-content {
     }
 
     main {
-        padding: 10px;
+        
         min-height: 300px;
     }
     .hero-section {
