@@ -342,3 +342,477 @@ footer .footer-content {
     color: var(--text-muted);
     text-decoration: none;
 }
+
+.legal-links a:hover {
+    color: var(--text-main);
+    
+}
+.recherche-offres {
+    background-color: var(--bg-dark);
+    height: 300px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 60px;
+}
+
+.recherche-offres div1 {     
+    color: var(--primary-violet);
+    font-size: 15px;
+    margin-top: 60px;
+    margin-left: 0;
+}
+
+.recherche-offres div2 {
+    color: var(--text-main);
+    font-weight: bold;
+    font-size: 42px;
+    margin-top: 5px;
+    margin-left: 0;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: white;
+  padding: 10px;
+  border-radius: 20px;
+  max-width: 100%;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.search-bar input {
+  flex: 1;              /* il prend l’espace restant */
+  min-width: 300px;     /* empêche l’écrasement */
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding-left: 20px;
+  margin-left: 10px;
+  padding: 15px 20px;
+  border : none;
+  background: #303e500e; 
+  border-radius: 20px;
+  border-radius: px;
+}
+
+.search-bar svg {
+  color: var(--primary-violet);
+  margin-left: 20px;
+  margin-right: 0px;
+}
+
+.search-bar select {
+  flex: 0 0 160px;      /* largeur FIXE */
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background: #303e5000;
+  color: #33363cbe; 
+}
+
+.select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 12px;
+  border : none;
+  background: #303e500e; 
+  border-radius: 20px;
+  border-radius: 20px;
+  
+}
+
+.select-wrapper svg {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.search-bar button {
+  background: var(--primary-violet);
+  color: white;
+  border: none;
+  padding: 14px 26px;
+  border-radius: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  
+}
+
+.search-bar button svg {
+  color: white;
+  margin-right: 10px;
+  margin-left: 0px;
+  display: flex column;
+  
+  
+}
+
+/* ========== PAGE OFFRES ========== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    gap: 30px;
+    padding: 30px 40px;
+    max-width: 1400px;
+    background-color: #f8fafc;
+    margin: 0 auto;
+}
+
+/* SIDEBAR FILTRES */
+.sidebar {
+    width: 250px;
+    flex-shrink: 0;
+}
+
+.filters-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.filters-header svg {
+    color: var(--primary-violet);
+    width: 24px;
+    height: 24px;
+}
+
+.filters-header h3 {
+    color: #1e293b;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.filter-group {
+    margin-bottom: 30px;
+}
+
+.filter-group h4 {
+    color: #475569;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+/* RADIO BUTTONS */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: #475569;
+    font-size: 14px;
+}
+
+.radio-group input[type="radio"] {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-violet);
+}
+
+.radio-group span {
+    color: #475569;
+}
+
+/* TAG BUTTONS */
+.tag-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    padding: 6px 12px;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    background-color: rgba(88, 80, 236, 0.1);
+    color: #475569;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.tag:hover {
+    background-color: rgba(88, 80, 236, 0.2);
+}
+
+.tag.active {
+    background-color: var(--primary-violet);
+    color: white;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.header {
+    margin-bottom: 25px;
+}
+
+.header h2 {
+    color: #475569;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* GRID D'OFFRES */
+.offers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+/* OFFER CARD */
+.offer-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+    transition: box-shadow 0.2s ease;
+}
+
+.offer-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+<<<<<<< HEAD
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+=======
+>>>>>>> 902af86057847099e40b41b0c5d9e57781389661
+}
+
+/* BADGES */
+.offer-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+.badge-priority {
+    background-color: var(--primary-violet);
+}
+
+.badge-new {
+    background-color: #ff9800;
+}
+
+/* OFFER HEADER */
+.offer-header {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding-top: 5px;
+}
+
+.company-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.company-logo.logo-ds {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.company-logo.logo-dc {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.company-logo.logo-gh {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.company-logo.logo-sn {
+    background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+}
+
+.company-logo.logo-fg {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.offer-title {
+    flex: 1;
+}
+
+.offer-title h3 {
+    color: var(--text-dark);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.company-name {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.heart-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #cbd5e1;
+    transition: color 0.2s ease;
+}
+
+.heart-btn:hover {
+    color: #ef4444;
+}
+
+/* OFFER TAGS */
+.offer-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.tag-type {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background-color: rgba(88, 80, 236, 0.15);
+    color: var(--primary-violet);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.location, .duration {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+/* SKILLS */
+.skills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.skill {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background-color: #f1f5f9;
+    color: var(--text-dark);
+    font-size: 12px;
+}
+
+/* OFFER FOOTER */
+.offer-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.salary {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.amount {
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.candidates {
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+.rating {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.stars {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.apply-btn {
+    background-color: var(--primary-violet);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.apply-btn:hover {
+    background-color: #4338ca;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .offers-grid {
+        grid-template-columns: 1fr;
+    }
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> 902af86057847099e40b41b0c5d9e57781389661
