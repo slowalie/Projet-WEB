@@ -11,6 +11,8 @@
     /* --- COULEURS DE MARQUE (ACCENTS) --- */
     --primary-violet: #5850ec; /* Le violet du bouton "S'inscrire" et du mot "stage" */
     --primary-yellow: #facc15; /* Le jaune moutarde du mot "alternance" */
+    --primary-blue: #3b82f6;   /* Bleu vif pour les éléments d'accentuation (ex: survol des liens) */
+    --primary-green: #22c55e;  /* Vert vif pour les éléments d'accentuation (ex: boutons) */
 
     /* --- TEXTE --- */
     --text-main: #ffffff;      /* Blanc pour les titres et textes principaux */
@@ -33,8 +35,17 @@
     --bg-dark: #0a0b1e;
     --purple: #6366f1;
     --yellow: #f59e0b;
+    --orange: #f97316;
+    --pink: #ec4899;
     --shadow--purple: rgba(99, 102, 241, 0.5);
     --shadow-yellow: rgba(245, 158, 11, 0.5);
+
+    --bg-color: #f8faff;
+    --card-bg: #ffffff;
+    --primary-purple: #6366f1;
+    --text-main: #1f2937;
+    --text-sub: #6b7280;
+    --border-color: #f3f4f6;
 
 }
 
@@ -169,6 +180,7 @@ main {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* --- STYLES POUR LE header --- */
 
 .head {
     background-color: var(--bg-dark);
@@ -193,7 +205,7 @@ main {
 .nav-candidat {
     display: flex;
     justify-content: center;
-    border: 1px solid var(--border-color);
+    
     border-radius: var(--border-radius);
     padding: 10px 0;
     margin-top: 30px;
@@ -228,6 +240,159 @@ main {
     margin-right: 8px;
     color: var(--primary-yellow);
 }
+
+.apercu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.apercu-card {
+    background-color: var(--bg-input);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.apercu-card h2 {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--text-dark);
+}
+
+.apercu-card:hover {
+    box-shadow: 0 4px 8px var(--shadow--purple);
+    transition: 0.3s ease-in-out;
+}
+
+.logo-card svg {
+    background-color: var(--primary-violet);
+    border-radius: 25%;
+    color: var(--primary-violet);
+    padding: 5px;
+}
+
+.logo-card1 svg  {
+    color: var(--primary-violet);
+}
+
+.logo-card2 svg {
+    color: var(--pink);
+}
+
+.logo-card3 svg {
+    color: var(--orange);
+}
+
+.logo-card4 svg {
+    color: var(--primary-green);
+}
+
+/* --- STYLES POUR LE activite --- */
+
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+h2 { font-size: 1.1rem; color: var(--text-main); margin-bottom: 20px; }
+h3 { font-size: 1rem; margin: 0; color: var(--text-main); }
+
+/* --- Liste d'activités --- */
+.activity-list { list-style: none; padding: 0; }
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.icon-circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+/* Couleurs des icônes */
+.tv { background: #eef2ff; color: #6366f1; }
+.ds { background: #fff1f2; color: #f43f5e; }
+.dc { background: #e0f2fe; color: #0ea5e9; }
+
+.activity-info { flex-grow: 1; }
+.activity-info p { margin: 4px 0 0; color: var(--text-sub); font-size: 0.9rem; }
+
+/* Badges */
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+.yellow { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+.blue { background: #eff6ff; color: #2563eb; border: 1px solid #dbeafe; }
+.red { background: #fef2f2; color: #dc2626; border: 1px solid #fee2e2; }
+
+.view-all { 
+  display: block; margin-top: 15px; color: var(--primary-purple); 
+  text-decoration: none; font-size: 0.9rem; font-weight: 500; 
+}
+
+/* --- Barre de progression --- */
+.space-between { display: flex; justify-content: space-between; align-items: center; }
+.percentage { color: var(--primary-purple); font-weight: bold; }
+
+.progress-bar-container {
+  background: #f3f4f6;
+  height: 10px;
+  border-radius: 5px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: var(--primary-purple);
+  height: 100%;
+  border-radius: 5px;
+}
+
+/* Checklist */
+.checklist { list-style: none; padding: 0; }
+.checklist li {
+  padding: 8px 0;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+}
+
+.checklist li::before {
+  content: '✓';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 12px;
+  font-size: 0.7rem;
+}
+
+.checked { color: var(--text-main); }
+.checked::before { border: 1.5px solid #10b981; color: #10b981; }
+
+.unchecked { color: #9ca3af; }
+.unchecked::before { border: 1.5px solid #d1d5db; color: transparent; }
 
 /* --- STYLES POUR LE FOOTER --- */
 
@@ -470,7 +635,7 @@ footer .footer-content {
    RESPONSIVE - MOBILE (max 480px)
    ============================================= */
 
-@media (max-width: 480px) {
+@media (max-width: 425px) {
 
     .navbar {
         padding: 10px;
@@ -566,4 +731,11 @@ footer .footer-content {
         gap: 10px;
         text-align: center;
     }
+
+    .nav-candidat a{
+        flex-direction: column;
+        padding: 5px 10px;
+        margin-top: 10px;
+    }
+
 }
