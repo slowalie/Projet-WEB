@@ -553,6 +553,63 @@ position: absolute;
     
 }
 
+/* --- styles section temoignage --- */
+
+.temoignages {
+    background-color: rgba(185, 207, 255, 0.322);
+    color: var(--text-dark);
+    padding: 60px 5%;
+}
+
+.temoignage-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    place-items: center;
+}
+
+.temoignage-bulle span {
+    margin-bottom: 15px;
+    box-shadow: 0 2px 15px var(--shadow-yellow);
+    border-radius: 30px;
+    padding: 5px 15px;
+    width: 100%;
+    color: var(--yellow);
+    background-color: var(--bg-yellow-muted);
+}
+.temoignage-title h2{
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+
+.temoignage-title p{
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.temoignage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.temoignage-card {
+    background-color: rgb(255, 255, 255);
+    padding: 15px;
+    border-radius: 30px;
+    border: 2px solid var(--text-light);
+    color: var(--text-dark);
+    font-size: 0.9rem;
+    text-align: center;
+    
+}
+
 /* --- STYLES POUR LE FOOTER --- */
 
 footer {
