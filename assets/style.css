@@ -765,6 +765,11 @@ footer .footer-content {
     text-decoration: none;
 }
 
+.legal-links a:hover {
+    color: var(--text-violet);
+    font-weight: bold;
+}
+
 /* =============================================
    RESPONSIVE - TABLETTE (max 768px)
    ============================================= */
