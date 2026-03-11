@@ -1000,6 +1000,9 @@ display: inline-block;
         gap: 10px;
         text-align: center;
     }
+
+    .main-img{
+    display: none;
+    }
 }
- 
  
