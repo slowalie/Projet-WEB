@@ -810,3 +810,8 @@ footer .footer-content {
         grid-template-columns: 1fr;
     }
 }
+
+.apply-btn{
+text-decoration: none;
+display: inline-block;
+}
