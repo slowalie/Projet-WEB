@@ -1326,6 +1326,10 @@ footer .footer-content {
         gap: 10px;
         text-align: center;
     }
+
+        .main-img{
+    display: none;
+    }
 }
  
  
