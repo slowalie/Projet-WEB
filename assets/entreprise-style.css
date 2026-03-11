@@ -33,10 +33,15 @@
  
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
     margin: 0;
     padding: 0;
     background-color: var(--bg-input);
+    overflow-x: hidden;
 }
 
 /* --- NAVBAR --- */
@@ -50,7 +55,7 @@ body {
     background-color: var(--bg-input);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     width: auto;
-    
+    position: relative;
 }
 
 .navbar .logo {
@@ -157,6 +162,12 @@ body {
     background-color: var(--text-dark);
     border-radius: 2px;
     transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Boutons mobiles cachés par défaut */
+.button-connexion-mobile,
+.button-inscription-mobile {
+    display: none;
 }
 
 /* --- STYLES POUR LE MAIN --- */
@@ -542,6 +553,8 @@ main {
     background-color: #e0e7ff;
     padding: 12px;
     border-radius: 10px;
+    width: 42px;
+    height: 42px;
 }
 
 .fonctionnalites-card-2 svg {
@@ -550,7 +563,8 @@ main {
     background-color: #fef3c7;
     padding: 12px;
     border-radius: 10px;
- 
+    width: 42px;
+    height: 42px;
 }
 
 .fonctionnalites-card-3 svg {
@@ -559,7 +573,8 @@ main {
     background-color: #d1fae5;
     padding: 12px;
     border-radius: 10px;
-
+    width: 42px;
+    height: 42px;
 }
 
 .fonctionnalites-card-4 svg {
@@ -568,7 +583,8 @@ main {
     background-color: #fee2e2;
     padding: 12px;
     border-radius: 10px;
- 
+    width: 42px;
+    height: 42px;
 }
 
 .fonctionnalites-card-5 svg {
@@ -577,6 +593,8 @@ main {
     background-color: #dbeafe;
     padding: 12px;
     border-radius: 10px;
+    width: 42px;
+    height: 42px;
 } 
 
 .fonctionnalites-card-6 svg {
@@ -585,7 +603,8 @@ main {
     background-color: #ede9fe;
     padding: 12px;
     border-radius: 10px;
-
+    width: 42px;
+    height: 42px;
 }
 
 
@@ -1128,208 +1147,559 @@ footer .footer-content {
     text-decoration: none;
 }
 
-/* =============================================
-   RESPONSIVE - TABLETTE (max 768px)
-   ============================================= */
- 
-@media (max-width: 768px) {
- 
-    * {
-    box-sizing: border-box;
- 
+/* ============================= */
+/* RESPONSIVE DESIGN - MEDIA QUERIES */
+/* ============================= */
+
+/* --- TABLET (1024px et moins) --- */
+
+@media (max-width: 1024px) {
+    
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
     }
- 
-    /* Navbar */
+
+    .main-image img {
+        margin-left: 0;
+        margin-top: 0;
+    }
+
+    .title {
+        font-size: 2.8rem;
+    }
+
+    .description {
+        font-size: 1rem;
+    }
+
+    .hero-bottom {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .hero-bottom div {
+        flex: 1 1 calc(50% - 10px);
+        max-width: none;
+    }
+
+    .fonctionnalites-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+
+    .footer-links-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}
+
+/* --- MOBILE (768px à 480px) --- */
+
+@media (max-width: 768px) {
+    
+    /* NAVBAR */
     .navbar {
-        position: relative;
+        padding: 10px 15px;
         justify-content: space-between;
     }
- 
+
+    .navbar .logo .logo-text {
+        font-size: 18px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
     .hamburger {
         display: flex;
     }
- 
-    .nav-links,
+
+    .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-input);
+        gap: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        z-index: 100;
+        border-top: 1px solid var(--border-color);
+    }
+
     .button-connexion,
     .button-inscription {
         display: none;
     }
- 
-    .navbar.nav-open .nav-links {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        order: 3;
-        padding: 15px 0;
-        gap: 15px;
-        text-align: center;
-        justify-content: space-between;
-    }
- 
-    .navbar.nav-open .button-connexion,
-    .navbar.nav-open .button-inscription {
+
+    .button-connexion-mobile,
+    .button-inscription-mobile {
         display: block;
-        order: 4;
-        width: 80%;
-        margin: 5px auto;
-        text-align: center;
-        padding: 10px;
-    }
- 
-    .title {
-        font-size: 2.8rem; /* On réduit la taille du titre */
-    }
- 
-    .hero-container {
-        gap: 20px;
-    }
-    .hero-image-wrapper {
-        display: none;
-    }
- 
-    .hero-bottom {
-        flex-wrap: wrap; /* Permet aux stats de passer à la ligne si besoin */
-    }
- 
- 
-    /* Footer */
-    footer .footer-content {
-        flex-direction: column;
-        padding: 10px;
-    }
- 
-    .footer-about {
-        max-width: 100%;
-    }
- 
-    .footer-links-container {
-        flex-direction: column;
-        gap: 20px;
-        padding: 10px;
-    }
- 
-    .footer-bottom {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-    }
-    .search-box {
-        display: flex;
-        flex-direction: column; /* Les inputs l'un sous l'autre sur mobile */
-        border-radius: 15px;
-    }  
-   
-}
- 
-/* =============================================
-   RESPONSIVE - MOBILE (max 480px)
-   ============================================= */
- 
-@media (max-width: 500px) {
- 
-    * {
-    box-sizing: border-box;
- 
-    }
- 
-    .navbar {
-        padding: 10px;
-    }
- 
-    .navbar .logo {
-        margin-left: 5px;
-        font-size: 20px;
-    }
- 
-    main {
-       
-        min-height: 300px;
-    }
-    .hero-section {
-        padding: 40px 20px;
-        height: auto; /* On laisse le contenu dicter la hauteur */
-    }
- 
-    .hero-container {
-        grid-template-columns: 1fr; /* Une seule colonne : tout s'empile */
-        text-align: center;
-    }
- 
-    .title {
-        font-size: 2.2rem;
-    }
- 
-    /* Centrage de la barre de recherche */
-    .search-box {
-        display: flex;
-        flex-direction: column; /* Les inputs l'un sous l'autre sur mobile */
-        border-radius: 15px;
-       
-       
-    }  
- 
-    .input-group {
-        flex-direction: column;
         width: 100%;
+        padding: 10px 15px;
+        border-radius: var(--border-radius);
+        border: none;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 14px;
     }
- 
-    .search-box input, .search-box select {
-        border-bottom: 1px solid #eee; /* Petite séparation visuelle */
-       
-    }
- 
-    .btn-search {
-        width: 100%;
+
+    .button-connexion-mobile {
+        border: 1px solid var(--border-color-muted);
+        background-color: transparent;
+        color: var(--text-muted);
         margin-top: 10px;
     }
- 
-    /* Gestion des badges flottants sur l'image */
-    .top-left {
-        left: 0;
-        top: 10px;
+
+    .button-connexion-mobile:hover {
+        color: var(--text-violet);
+        border-color: var(--btn-hover);
+    }
+
+    .button-inscription-mobile {
+        border: 1px solid var(--primary-violet);
+        background-color: var(--primary-violet);
+        color: var(--text-main);
+    }
+
+    .button-inscription-mobile:hover {
+        background-color: var(--btn-hover);
+        border-color: var(--btn-hover);
+    }
+
+    /* HERO SECTION */
+    .hero-section {
+        padding: 30px 5%;
+        min-height: auto;
+    }
+
+    .hero-container {
+        gap: 20px;
+    }
+
+    .hero-container > div:first-child {
+        margin-top: 20px;
+    }
+
+    .title {
+        font-size: 2rem;
+        line-height: 1.2;
+        margin-bottom: 15px;
+    }
+
+    .description {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .button-offre,
+    .button-tarif {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    .bulle-badge {
         font-size: 0.8rem;
     }
-   
-    .hero-image-wrapper {
-        display: none; /* On masque l'image sur mobile pour plus de lisibilité */
-    }
- 
-    .bottom-right {
-        right: 0;
-        bottom: 10px;
-        font-size: 0.8rem;
-    }
- 
-    /* Les statistiques en bas */
+
     .hero-bottom {
-        flex-direction: column; /* Empilement des blocs de stats */
-        margin-top: 50px;
-    }
- 
-    .tags {
-        justify-content: center; /* Centre les tags sous la barre de recherche */
-    }
-    .footer-container {
-        padding: 10px;
-    }
- 
-    .footer-about {
-        padding: 10px;
-    }
- 
-    .footer-links-container {
-        padding: 5px;
-    }
- 
-    .legal-links {
         flex-direction: column;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .hero-bottom div {
+        flex: 1;
+        max-width: none;
+        margin-top: 0;
+        padding: 15px;
+    }
+
+    .hero-bottom h3 {
+        font-size: 20px;
+    }
+
+    /* FONCTIONNALITES */
+    .fonctionnalites {
+        padding: 40px 5%;
+    }
+
+    .fonctionnalites-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .fonctionnalites-title {
+        font-size: 1.8rem;
+    }
+
+    .fonctionnalites-card-1,
+    .fonctionnalites-card-2,
+    .fonctionnalites-card-3,
+    .fonctionnalites-card-4,
+    .fonctionnalites-card-5,
+    .fonctionnalites-card-6 {
+        padding: 15px;
+    }
+
+    /* TEMOIGNAGES */
+    .temoignages {
+        padding: 40px 5%;
+    }
+
+    .retour-title {
+        font-size: 1.8rem;
+        margin-bottom: 40px;
+    }
+
+    .temoignage-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    /* FOOTER */
+    .footer-links-container {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .footer-content {
+        gap: 30px;
+    }
+
+    .social-media-icons {
+        gap: 12px;
+    }
+
+    .social-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .social-btn svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+/* --- PETIT MOBILE (480px et moins) --- */
+
+@media (max-width: 480px) {
+    
+    /* NAVBAR */
+    .navbar {
+        padding: 8px 10px;
+    }
+
+    .navbar .logo .logo-text {
+        font-size: 14px;
+    }
+
+    .navbar .logo .logo-image svg {
+        width: 12px;
+        height: 12px;
+        padding: 3px;
+    }
+
+    /* HERO SECTION */
+    .hero-section {
+        padding: 20px 5%;
+        min-height: auto;
+    }
+
+    .title {
+        font-size: 1.4rem;
+        line-height: 1.3;
+        margin-bottom: 15px;
+    }
+
+    .description {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    .button-offre,
+    .button-tarif {
+        font-size: 12px;
+        padding: 10px 15px;
+    }
+
+    .button-offre svg,
+    .button-tarif svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    .bulle-badge {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+
+    .bulle-badge svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    .hero-bottom {
         gap: 10px;
+    }
+
+    .hero-bottom div {
+        padding: 12px;
+    }
+
+    .hero-bottom h3 {
+        font-size: 16px;
+        margin: 5px 0 3px;
+    }
+
+    .hero-bottom span {
+        font-size: 11px;
+    }
+
+    /* FONCTIONNALITES */
+    .fonctionnalites {
+        padding: 30px 5%;
+    }
+
+    .fonctionnalites-text {
+        margin-bottom: 10px;
+    }
+
+    .fonctionnalites-bulle span {
+        font-size: 0.75rem;
+        padding: 2px 8px;
+    }
+
+    .fonctionnalites-title {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+
+    .fonctionnalites-description {
+        font-size: 0.85rem;
+    }
+
+    .fonctionnalites-card-1,
+    .fonctionnalites-card-2,
+    .fonctionnalites-card-3,
+    .fonctionnalites-card-4,
+    .fonctionnalites-card-5,
+    .fonctionnalites-card-6 {
+        padding: 12px;
+    }
+
+    .fonctionnalites-card-1 svg,
+    .fonctionnalites-card-2 svg,
+    .fonctionnalites-card-3 svg,
+    .fonctionnalites-card-4 svg,
+    .fonctionnalites-card-5 svg,
+    .fonctionnalites-card-6 svg {
+        width: 30px;
+        height: 30px;
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+
+    .fonctionnalites-card-1 h3,
+    .fonctionnalites-card-2 h3,
+    .fonctionnalites-card-3 h3,
+    .fonctionnalites-card-4 h3,
+    .fonctionnalites-card-5 h3,
+    .fonctionnalites-card-6 h3 {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+    }
+
+    .fonctionnalites-card-1 p,
+    .fonctionnalites-card-2 p,
+    .fonctionnalites-card-3 p,
+    .fonctionnalites-card-4 p,
+    .fonctionnalites-card-5 p,
+    .fonctionnalites-card-6 p {
+        font-size: 0.8rem;
+    }
+
+    /* TEMOIGNAGES */
+    .temoignages {
+        padding: 30px 5%;
+    }
+
+    .retour-title {
+        font-size: 1.3rem;
+        margin-bottom: 30px;
+    }
+
+    .temoignage-grid {
+        gap: 12px;
+    }
+
+    .temoignage-card-1,
+    .temoignage-card-2,
+    .temoignage-card-3 {
+        padding: 12px;
+    }
+
+    .temoignage-card-1 p,
+    .temoignage-card-2 p,
+    .temoignage-card-3 p {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+
+    .author {
+        font-size: 0.75rem;
+    }
+
+    .temoignage-header {
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .temoignage-header h3 {
+        font-size: 0.95rem;
+    }
+
+    .company-logo,
+    .company-logo2,
+    .company-logo3 {
+        width: 40px;
+        height: 40px;
+        font-size: 12px;
+    }
+
+    /* CAROUSEL */
+    .carousel-container {
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .carousel-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* FOOTER */
+    .footer-container {
+        padding: 20px 5%;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .footer-about {
         text-align: center;
     }
 
-        .main-img{
-    display: none;
+    .logo-footer-container {
+        justify-content: center;
+    }
+
+    .description-footer {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+
+    .social-media-icons {
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .social-btn {
+        width: 28px;
+        height: 28px;
+    }
+
+    .social-btn svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    .footer-links-container {
+        gap: 20px;
+    }
+
+    .footer-links h3 {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+    }
+
+    .footer-links ul li {
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+    }
+
+    .footer-links a {
+        font-size: 0.8rem;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 0;
+    }
+
+    .copyright p {
+        font-size: 11px;
+        margin: 0;
+    }
+
+    .legal-links {
+        flex-direction: column;
+        gap: 8px;
+        font-size: 11px;
+    }
+
+    .legal-links a {
+        font-size: 11px;
     }
 }
- 
- 
+
+/* --- EXTRA SMALL (360px et moins) --- */
+
+@media (max-width: 360px) {
+    
+    .title {
+        font-size: 1.2rem;
+    }
+
+    .description {
+        font-size: 0.8rem;
+    }
+
+    .button-offre,
+    .button-tarif {
+        font-size: 11px;
+        padding: 8px 12px;
+    }
+
+    .hero-bottom div {
+        padding: 10px;
+    }
+
+    .hero-bottom h3 {
+        font-size: 14px;
+    }
+
+    .fonctionnalites-title {
+        font-size: 1.2rem;
+    }
+
+    .retour-title {
+        font-size: 1.1rem;
+    }
+}
