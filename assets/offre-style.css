@@ -795,23 +795,211 @@ footer .footer-content {
     background-color: #4338ca;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        gap: 20px;
-    }
 
-    .sidebar {
-        width: 100%;
-    }
-
-    .offers-grid {
-        grid-template-columns: 1fr;
-    }
-}
 
 .apply-btn{
 text-decoration: none;
 display: inline-block;
 }
+
+/* =============================================
+   RESPONSIVE - TABLETTE (max 768px)
+   ============================================= */
+ 
+@media (max-width: 768px) {
+ 
+    * {
+    box-sizing: border-box;
+ 
+    }
+ 
+    /* Navbar */
+    .navbar {
+        position: relative;
+        justify-content: space-between;
+    }
+ 
+    .hamburger {
+        display: flex;
+    }
+ 
+    .nav-links,
+    .button-connexion,
+    .button-inscription {
+        display: none;
+    }
+ 
+    .navbar.nav-open .nav-links {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        order: 3;
+        padding: 15px 0;
+        gap: 15px;
+        text-align: center;
+        justify-content: space-between;
+    }
+ 
+    .navbar.nav-open .button-connexion,
+    .navbar.nav-open .button-inscription {
+        display: block;
+        order: 4;
+        width: 80%;
+        margin: 5px auto;
+        text-align: center;
+        padding: 10px;
+    }
+ 
+    .title {
+        font-size: 2.8rem; /* On réduit la taille du titre */
+    }
+ 
+    .hero-container {
+        gap: 20px;
+    }
+    .hero-image-wrapper {
+        display: none;
+    }
+ 
+    .hero-bottom {
+        flex-wrap: wrap; /* Permet aux stats de passer à la ligne si besoin */
+    }
+ 
+ 
+    /* Footer */
+    footer .footer-content {
+        flex-direction: column;
+        padding: 10px;
+    }
+ 
+    .footer-about {
+        max-width: 100%;
+    }
+ 
+    .footer-links-container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 10px;
+    }
+ 
+    .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    .search-box {
+        display: flex;
+        flex-direction: column; /* Les inputs l'un sous l'autre sur mobile */
+        border-radius: 15px;
+    }  
+   
+}
+ 
+/* =============================================
+   RESPONSIVE - MOBILE (max 480px)
+   ============================================= */
+ 
+@media (max-width: 500px) {
+ 
+    * {
+    box-sizing: border-box;
+ 
+    }
+ 
+    .navbar {
+        padding: 10px;
+    }
+ 
+    .navbar .logo {
+        margin-left: 5px;
+        font-size: 20px;
+    }
+ 
+    main {
+       
+        min-height: 300px;
+    }
+    .hero-section {
+        padding: 40px 20px;
+        height: auto; /* On laisse le contenu dicter la hauteur */
+    }
+ 
+    .hero-container {
+        grid-template-columns: 1fr; /* Une seule colonne : tout s'empile */
+        text-align: center;
+    }
+ 
+    .title {
+        font-size: 2.2rem;
+    }
+ 
+    /* Centrage de la barre de recherche */
+    .search-box {
+        display: flex;
+        flex-direction: column; /* Les inputs l'un sous l'autre sur mobile */
+        border-radius: 15px;
+       
+       
+    }  
+ 
+    .input-group {
+        flex-direction: column;
+        width: 100%;
+    }
+ 
+    .search-box input, .search-box select {
+        border-bottom: 1px solid #eee; /* Petite séparation visuelle */
+       
+    }
+ 
+    .btn-search {
+        width: 100%;
+        margin-top: 10px;
+    }
+ 
+    /* Gestion des badges flottants sur l'image */
+    .top-left {
+        left: 0;
+        top: 10px;
+        font-size: 0.8rem;
+    }
+   
+    .hero-image-wrapper {
+        display: none; /* On masque l'image sur mobile pour plus de lisibilité */
+    }
+ 
+    .bottom-right {
+        right: 0;
+        bottom: 10px;
+        font-size: 0.8rem;
+    }
+ 
+    /* Les statistiques en bas */
+    .hero-bottom {
+        flex-direction: column; /* Empilement des blocs de stats */
+        margin-top: 50px;
+    }
+ 
+    .tags {
+        justify-content: center; /* Centre les tags sous la barre de recherche */
+    }
+    .footer-container {
+        padding: 10px;
+    }
+ 
+    .footer-about {
+        padding: 10px;
+    }
+ 
+    .footer-links-container {
+        padding: 5px;
+    }
+ 
+    .legal-links {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+ 
+ 
