@@ -43,9 +43,20 @@
     --bg-color: #f8faff;
     --card-bg: #ffffff;
     --primary-purple: #6366f1;
-    --text-main: #1f2937;
+    
     --text-sub: #6b7280;
     --border-color: #f3f4f6;
+
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-dark1: #1e293b;
+    --text-sub: #94a3b8;
+    --border-color: #e2e8f0;
+    --accent-blue: #4f46e5;
+    --heart-color: #ff4d6d;
+
+* {
+    box-sizing: border-box;
 
 }
 
@@ -60,12 +71,16 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--border-radius);
     padding: 10px 20px;
     background-color: var(--bg-input);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     width: auto;
-    
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
 }
 
 .navbar .logo {
@@ -185,7 +200,7 @@ main {
 .head {
     background-color: var(--bg-dark);
     color: var(--text-sub);
-    padding: 60px 20px;
+    padding: 80px 5%;
     text-align: center;
 }
 
@@ -303,8 +318,8 @@ main {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
-h2 { font-size: 1.1rem; color: var(--text-main); margin-bottom: 20px; }
-h3 { font-size: 1rem; margin: 0; color: var(--text-main); }
+h2 { font-size: 1.1rem; color: var(--text-dark1); margin-bottom: 20px; }
+h3 { font-size: 1rem; margin: 0; color: var(--text-dark1); }
 
 /* --- Liste d'activités --- */
 .activity-list { list-style: none; padding: 0; }
@@ -389,11 +404,161 @@ h3 { font-size: 1rem; margin: 0; color: var(--text-main); }
   font-size: 0.7rem;
 }
 
-.checked { color: var(--text-main); }
+.checked { color: var(--text-dark1); }
 .checked::before { border: 1.5px solid #10b981; color: #10b981; }
 
 .unchecked { color: #9ca3af; }
 .unchecked::before { border: 1.5px solid #d1d5db; color: transparent; }
+
+
+
+
+
+.candidatures.active {
+    display: block;
+
+}
+
+.container {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0px;
+}
+
+/* Style de la Carte */
+.job-card {
+  width: 800px;  
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+}
+
+.favoris h3 {
+  color: var(--text-dark1);
+  margin: 10px;
+  
+}
+
+.job-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Partie Gauche : Logo + Texte */
+.job-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo_favoris {
+  width: 35px;
+  height: 35px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.0rem;
+}
+
+.logo-sn { background-color: #d1fae5; color: #059669; }
+.logo-fg { background-color: #f3e8ff; color: #9333ea; }
+.logo-cn { background-color: #f1f5f9; color: #475569; }
+
+.details h3 {
+  margin: 0;
+  color: var(--text-dark1);
+  font-size: 1.15rem;
+}
+
+.details p {
+  margin: 5px 0 0;
+  color: var(--text-sub);
+  font-size: 0.95rem;
+}
+
+/* Partie Droite : Badges et Boutons */
+.job-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.badge {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.badge-blue { background: #eff6ff; color: #3b82f6; border: 1px solid #bfdbfe; }
+.badge-orange { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+
+.btn-postuler {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--accent-blue);
+  padding: 8px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-postuler:hover {
+  background: var(--accent-blue);
+  color: white;
+}
+
+.btn-heart {
+  background: none;
+  border: none;
+  color: var(--heart-color);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+/* --- STYLES POUR LE parametres --- */
+
+.parametres {
+    background-color: var(--bg-card);
+    color: var(--text-muted);
+    padding: 20px;
+    margin: 20px 10px;
+    border-radius: var(--border-radius);
+}
+
+.parametres h3 {
+    color: var(--text-main);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+
+.setting-cont {
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+    border: 1px solid var(--border-color-muted);
+    border-radius: var(--border-radius);
+
+}
+
+.title h3{
+    color: var(--text-violet);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
 
 /* --- STYLES POUR LE FOOTER --- */
 
@@ -635,13 +800,46 @@ footer .footer-content {
         gap: 10px;
         text-align: center;
     }
+
+    .job-card {
+        padding: 10px 15px;
+        width: 100%; /* Prend toute la largeur disponible */
+        flex-direction: column; /* On empile les éléments */
+        align-items: flex-start; /* Aligne tout à gauche */
+        gap: 20px;
+        padding: 25px;
+    }
+
+    /* Ajustement de la partie info (Logo + Texte) */
+    .job-info {
+        width: 100%;
+    }
+
+    .details h3 {
+        font-size: 1.1rem; /* Légèrement plus petit pour tenir sur une ligne */
+    }
+
+    /* Ajustement de la partie actions (Badge + Boutons) */
+    .job-actions {
+        width: 100%;
+        justify-content: space-between; /* Espace les éléments sur toute la largeur */
+        border-top: 1px solid var(--border-color); /* Optionnel : sépare visuellement le bas */
+        padding-top: 15px;
+    }
+
+    /* On peut agrandir un peu le bouton postuler pour le pouce */
+    .btn-postuler {
+        flex-grow: 1; /* Le bouton prend l'espace disponible */
+        text-align: center;
+        margin: 0 10px;
+    }
 }
 
 /* =============================================
    RESPONSIVE - MOBILE (max 480px)
    ============================================= */
 
-@media (max-width: 425px) {
+@media (max-width: 375px) {
 
     .navbar {
         padding: 10px;
@@ -744,4 +942,41 @@ footer .footer-content {
         margin-top: 10px;
     }
 
+
+    /* --- Media Query pour mobiles --- */
+    
+    .job-card {
+        padding: 10px 15px;
+        width: 100%; /* Prend toute la largeur disponible */
+        flex-direction: column; /* On empile les éléments */
+        align-items: flex-start; /* Aligne tout à gauche */
+        gap: 20px;
+        padding: 25px;
+    }
+
+    /* Ajustement de la partie info (Logo + Texte) */
+    .job-info {
+        width: 100%;
+    }
+
+    .details h3 {
+        font-size: 1.1rem; /* Légèrement plus petit pour tenir sur une ligne */
+    }
+
+    /* Ajustement de la partie actions (Badge + Boutons) */
+    .job-actions {
+        width: 100%;
+        justify-content: space-between; /* Espace les éléments sur toute la largeur */
+        border-top: 1px solid var(--border-color); /* Optionnel : sépare visuellement le bas */
+        padding-top: 15px;
+    }
+
+    /* On peut agrandir un peu le bouton postuler pour le pouce */
+    .btn-postuler {
+        flex-grow: 1; /* Le bouton prend l'espace disponible */
+        text-align: center;
+        margin: 0 10px;
+    }
+  
+  }
 }

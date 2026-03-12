@@ -38,6 +38,11 @@
 
 }
 
+* {
+    box-sizing: border-box;
+
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -49,12 +54,16 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--border-radius);
     padding: 10px 20px;
     background-color: var(--bg-input);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     width: auto;
-    
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
 }
 
 .navbar .logo {
@@ -776,6 +785,11 @@ footer .footer-content {
 
 @media (max-width: 768px) {
 
+    * {
+    box-sizing: border-box;
+
+    }
+
     /* Navbar */
     .navbar {
         position: relative;
@@ -850,13 +864,24 @@ footer .footer-content {
         gap: 10px;
         text-align: center;
     }
+    .search-box {
+        display: flex;
+        flex-direction: column; /* Les inputs l'un sous l'autre sur mobile */
+        border-radius: 15px; 
+    }  
+    
 }
 
 /* =============================================
    RESPONSIVE - MOBILE (max 480px)
    ============================================= */
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
+
+    * {
+    box-sizing: border-box;
+
+    }
 
     .navbar {
         padding: 10px;
