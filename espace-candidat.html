@@ -217,7 +217,7 @@
             </div>
         </section>
         <section id="favoris" class="favoris">
-            <h3>Mes favoris</h3>
+            
             <div class="container">
                 <article class="job-card">
                     <div class="job-info">
@@ -267,23 +267,81 @@
         </section>
 
         <section id="parametres" class="parametres">
-            <h3>Paramètres du compte</h3>
-                <div class="setting-cont">
-                    <div class="compétences">
-                        <div class="title"><h3>Compétences</h3></div>
-                        <div class="plus-mark">+</div>
-                        <div class="bulles-comp">
-                            <div class="bul">React</div>
+            
+                <div class="param-container">
+                    <header class="param-card-profile-header">
+                        <div class="param-profile-top">
+                            <div class="param-user-info">
+                                <img src="/assets/images/candidat.jpg" alt="Avatar" class="param-avatar">
+                                <div class="param-name-title">
+                                    <h1>Alex Dupont</h1>
+                                    <p class="param-subtitle">Étudiant M1 Informatique · Paris</p>
+                                </div>
+                            </div>
+                            <button class="param-btn-edit">Modifier</button>
                         </div>
-                    </div>
-                    <div class="langues">
+                        <p class="param-description">
+                            Étudiant passionné par le développement web et les nouvelles technologies. À la recherche d'une alternance en développement Full-Stack pour septembre 2026.
+                        </p>
+                    </header>
 
-                    </div>
-                    <div class="documents">
-
-                    </div>
-                    
+                <section class="param-card">
+                <div class="param-section-header">
+                    <h3>Compétences</h3>
+                    <span class="param-plus-icon">+</span>
                 </div>
+                <div class="param-tags">
+                    <span class="param-tag">React</span>
+                    <span class="param-tag">TypeScript</span>
+                    <span class="param-tag">Node.js</span>
+                    <span class="param-tag">Figma</span>
+                    <span class="param-tag">SQL</span>
+                    <span class="param-tag">Python</span>
+                    <span class="param-tag">Git</span>
+                    <span class="param-tag">Agile</span>
+                </div>
+            </section>
+
+            <section class="param-card">
+                <div class="param-section-header">
+                    <h3>Langues</h3>
+                </div>
+                <ul class="param-list-items">
+                    <li><span class="param-check">✓</span> Français (natif)</li>
+                    <li><span class="param-check">✓</span> Anglais (C1)</li>
+                    <li><span class="param-check">✓</span> Espagnol (B2)</li>
+                </ul>
+            </section>
+
+            <section class="param-card">
+                <div class="param-section-header">
+                    <h3>Documents</h3>
+                </div>
+                <div class="param-document-list">
+                    <div class="param-doc-item">
+                        <div class="param-doc-info">
+                            <div class="param-doc-icon blue-doc">📄</div>
+                            <div>
+                                <p class="param-doc-name">CV_Alex_Dupont_2026.pdf</p>
+                                <p class="param-doc-size">345 Ko</p>
+                            </div>
+                        </div>
+                        <button class="param-btn-replace">Remplacer</button>
+                    </div>
+                    <div class="param-doc-item">
+                        <div class="param-doc-info">
+                            <div class="param-doc-icon orange-doc">📄</div>
+                            <div>
+                                <p class="param-doc-name">Lettre_Motivation_Dev.pdf</p>
+                                <p class="param-doc-size">128 Ko</p>
+                            </div>
+                        </div>
+                        <button class="param-btn-replace">Remplacer</button>
+                    </div>
+                </div>
+                <button class="param-btn-add-doc">+ Ajouter un document</button>
+              </section>
+            </div>
         </section>
 
     </main>

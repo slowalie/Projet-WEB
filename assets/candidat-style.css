@@ -45,15 +45,20 @@
     --primary-purple: #6366f1;
     
     --text-sub: #6b7280;
-    --border-color: #f3f4f6;
+    
 
     --bg-color: #f8fafc;
     --card-bg: #ffffff;
     --text-dark1: #1e293b;
     --text-sub: #94a3b8;
-    --border-color: #e2e8f0;
+    --border-color-white: #e2e8f0;
     --accent-blue: #4f46e5;
     --heart-color: #ff4d6d;
+    --tag-bg: #eef2ff;
+    --primary-color: #5a4fcf;
+    --text-light1: #666;
+    --bd-color: #edf0f7;
+    
 
 * {
     box-sizing: border-box;
@@ -221,7 +226,7 @@ main {
 .nav-candidat {
     display: flex;
     justify-content: center;
-    
+        
     border-radius: var(--border-radius);
     padding: 10px 0;
     margin-top: 30px;
@@ -328,7 +333,7 @@ h3 { font-size: 1rem; margin: 0; color: var(--text-dark1); }
   display: flex;
   align-items: center;
   padding: 16px 0;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color-white);
 }
 
 .icon-circle {
@@ -440,6 +445,7 @@ h3 { font-size: 1rem; margin: 0; color: var(--text-dark1); }
   align-items: center;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s;
+  border: 1px solid var(--border-color-white);
 }
 
 .favoris h3 {
@@ -450,6 +456,7 @@ h3 { font-size: 1rem; margin: 0; color: var(--text-dark1); }
 
 .job-card:hover {
   transform: translateY(-2px);
+  box-shadow: 0 6px 12px -1px rgba(0, 0, 0, 0.288);
 }
 
 /* Partie Gauche : Logo + Texte */
@@ -530,30 +537,180 @@ h3 { font-size: 1rem; margin: 0; color: var(--text-dark1); }
 /* --- STYLES POUR LE parametres --- */
 
 .parametres {
-    background-color: var(--bg-card);
-    color: var(--text-muted);
-    padding: 20px;
-    margin: 20px 10px;
-    border-radius: var(--border-radius);
-}
-
-.parametres h3 {
-    color: var(--text-main);
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-}
-
-
-.setting-cont {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
     display: flex;
-    gap: 40px;
-    padding: 20px;
-    border: 1px solid var(--border-color-muted);
-    border-radius: var(--border-radius);
-
+    justify-content: center;
+    padding: 40px 20px;
+    margin: 0;
 }
 
-.title h3{
+.param-container {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Styles des Cartes */
+    
+.param-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid var(--bd-color);
+}
+
+/* Header */
+.param-profile-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.param-user-info {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.param-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.param-name-title h1 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.param-subtitle {
+    margin: 4px 0 0;
+    color: var(--text-light1);
+    font-size: 0.9rem;
+}
+
+.param-description {
+    font-size: 0.95rem;
+    color: var(--text-light1);
+    line-height: 1.5;
+}
+
+/* Boutons */
+.param-btn-edit {
+    border: 1px solid var(--primary-color);
+    background: transparent;
+    color: var(--primary-color);
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* Compétences */
+.param-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.param-section-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+.param-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.param-tag {
+    background: var(--tag-bg);
+    color: var(--primary-color);
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Langues */
+.param-list-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.param-list-items li {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.param-check {
+    color: #4cd964;
+    font-weight: bold;
+}
+
+/* Documents */
+.param-doc-item {
+    background: #fcfdfe;
+    border: 1px solid var(--bd-color);
+    border-radius: 8px;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.param-doc-info {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.param-doc-name {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.param-doc-size {
+    margin: 2px 0 0;
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.param-btn-replace {
+    border: none;
+    background: none;
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.param-btn-add-doc {
+    width: 100%;
+    background: transparent;
+    border: 1px dashed var(--primary-color);
+    color: var(--primary-color);
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.param-title h3{
     color: var(--text-violet);
     font-size: 1.1rem;
     margin-bottom: 10px;
