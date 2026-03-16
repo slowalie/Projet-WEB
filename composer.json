@@ -1,0 +1,21 @@
+{
+    "name": "aefs/projet-web",
+    "description": "School project for a site-web",
+    "autoload": {
+        "psr-4": {
+            "Aefs\\ProjetWeb\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "aefs",
+            "email": "acachaelie@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.23"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.5"
+    }
+}

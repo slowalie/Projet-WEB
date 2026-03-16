@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/assets/candidat-style.css">
+    <title>IdeaStage</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <div class="logo-image">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
+                        <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5m1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0M1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5"/>
+                    </svg>
+                </div>
+                <div class="logo-text">Idea<span>Stage</span></div>
+            </div>
+            <div class="nav-links">
+                <a href="/templates/index.html">Accueil</a>
+                <a href="/templates/offres.html">Offres</a>
+                <a href="/templates/espace-entreprises.html">Espace Entreprises</a>
+                <a href="/templates/espace-candidat.html">Espace Candidats</a>
+                <a href="/templates/ressources.html">Ressources</a>
+            </div>
+            <button class="button-connexion">Connexion</button>
+            <button class="button-inscription">S'inscrire</button>
+            <button class="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+    <main>
+        <header class="head">
+            <div class="espace-candidat-header">
+                <h3>Bienvenue</h3>
+                <div class="photo-candidat">
+                    <img src="/static/assets/images/candidat.jpg" alt="Photo du candidat">
+                </div>
+                <h1>[Nom du candidat]</h1>
+            </div>
+            <div class="nav-candidat">
+                <nav>
+                    <a id="toggle-link" href="#apercu" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M0 0h1v15h15v1H0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5"/>
+                    </svg>Aperçu</a>
+                    <a id="toggle-link-candidatures" href="#candidatures" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+                    </svg>Mes Candidatures</a>
+                    <a id="toggle-link-favoris" href="#favoris" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                    </svg>Favoris</a>
+                    <a id="toggle-link-parametres" href="#parametres" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z"/>
+                    </svg>Paramètres</a>
+                </nav>
+            </div>
+        </header>
+        <section id="apercu" class="apercu">
+            <div class="stat">
+                    <div class=apercu-grid>
+                        <div class="apercu-card">
+                            <div class="logo-card1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+                                </svg>                            
+                            </div>
+                            <div class="apercu-stat"><h2>25</h2></div>
+                            <div class="stat-name">Candidatures</div>
+                        </div>
+                        <div class="apercu-card">
+                            <div class="logo-card2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                </svg>
+                            </div>
+                            <div class="apercu-stat"><h2>120</h2></div>
+                            <div class="stat-name">Favoris</div>
+                        </div>
+                        <div class="apercu-card">
+                            <div class="logo-card3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                </svg>
+                            </div>
+                            <div class="apercu-stat"><h2>120</h2></div>
+                            <div class="stat-name">Vues</div>
+                        </div>
+                        <div class="apercu-card">
+                            <div class="logo-card4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                    <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                                    <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                                </svg>
+                            </div>   
+                            <div class="apercu-stat"><h2>55</h2></div> 
+                            <div class="stat-name">Entretiens</div>
+                        </div>
+
+                    </div>
+                </div>
+            <div class="card">
+                <div class="card-header">
+                <h2>Activité récente</h2>
+                </div>
+                <ul class="activity-list">
+                <li class="activity-item">
+                    <div class="icon-circle tv">TV</div>
+                    <div class="activity-info">
+                    <h3>Développeur Full-Stack React/Node</h3>
+                    <p>TechVision • il y a 2 j</p>
+                    </div>
+                    <span class="badge yellow">En cours</span>
+                </li>
+                <li class="activity-item">
+                    <div class="icon-circle ds">DS</div>
+                    <div class="activity-info">
+                    <h3>Stage UX/UI Designer</h3>
+                    <p>DesignStudio • il y a 5 j</p>
+                    </div>
+                    <span class="badge blue">Entretien</span>
+                </li>
+                <li class="activity-item">
+                    <div class="icon-circle dc">DC</div>
+                    <div class="activity-info">
+                    <h3>Alternance Data Analyst</h3>
+                    <p>DataCorp • il y a 12 j</p>
+                    </div>
+                    <span class="badge red">Refusée</span>
+                </li>
+                </ul>
+                <a href="#" class="view-all">Voir toutes les candidatures ></a>
+            </div>
+
+            <div class="card">
+                <div class="card-header space-between">
+                <h2>Complétude du profil</h2>
+                <span class="percentage">75%</span>
+                </div>
+                
+                <div class="progress-bar-container">
+                <div class="progress-fill" style="width: 75%;"></div>
+                </div>
+
+                <ul class="checklist">
+                <li class="checked">Photo de profil</li>
+                <li class="checked">CV téléchargé</li>
+                <li class="checked">Compétences ajoutées</li>
+                <li class="unchecked">Lettre type rédigée</li>
+                <li class="unchecked">Présentation vidéo</li>
+                </ul>
+            </div>
+        </section>
+        
+
+        <section id="candidatures" class="candidatures">
+            <div class="card">
+                <div class="card-header">
+                <h2>Mes candidatures <span>(3)</span></h2>
+                </div>
+                <ul class="activity-list">
+                <li class="activity-item">
+                    <div class="icon-circle tv">TV</div>
+                    <div class="activity-info">
+                    <h3>Développeur Full-Stack React/Node</h3>
+                    <p>TechVision • <span><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                        </svg>
+                                </span>Nantes</p>
+                    </div>
+                    <span class="badge yellow">En cours</span>
+                </li>
+                <li class="activity-item">
+                    <div class="icon-circle ds">DS</div>
+                    <div class="activity-info">
+                    <h3>Stage UX/UI Designer</h3>
+                    <p>DesignStudio • <span><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                        </svg>
+                                </span>Paris</p>
+                    </div>
+                    <span class="badge blue">Entretien</span>
+                </li>
+                <li class="activity-item">
+                    <div class="icon-circle dc">DC</div>
+                    <div class="activity-info">
+                    <h3>Alternance Data Analyst</h3>
+                    <p>DataCorp • <span><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                        </svg>
+                                </span> Lyon </p>
+                    </div>
+                    <span class="badge red">Refusée</span>
+                </li>
+                </ul>
+                <li class="activity-item">
+                    <div class="icon-circle dc">DC</div>
+                    <div class="activity-info">
+                    <h3>Stage Marketing Digital</h3>
+                    <p>DataCorp • <span><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                        </svg>
+                                </span>Bordeaux</p>
+                    </div>
+                    <span class="badge red">Refusée</span>
+                </li>
+                
+                
+            </div>
+        </section>
+        <section id="favoris" class="favoris">
+            
+            <div class="container">
+                <article class="job-card">
+                    <div class="job-info">
+                    <div class="logo_favoris logo-sn">SN</div>
+                    <div class="details">
+                        <h3>Alternance Cybersécurité</h3>
+                        <p>SecureNet <span>• Toulouse</span></p>
+                    </div>
+                    </div>
+                    <div class="job-actions">
+                    <span class="badge badge-blue">Alternance</span>
+                    <button class="btn-postuler">Postuler</button>
+                    <button class="btn-heart">❤</button>
+                    </div>
+                </article>
+
+                <article class="job-card">
+                    <div class="job-info">
+                    <div class="logo_favoris logo-fg">FG</div>
+                    <div class="details">
+                        <h3>Stage Finance</h3>
+                        <p>FinGroup <span>• Paris</span></p>
+                    </div>
+                    </div>
+                    <div class="job-actions">
+                    <span class="badge badge-orange">Stage</span>
+                    <button class="btn-postuler">Postuler</button>
+                    <button class="btn-heart">❤</button>
+                    </div>
+                </article>
+
+                <article class="job-card">
+                    <div class="job-info">
+                    <div class="logo_favoris logo-cn">CN</div>
+                    <div class="details">
+                        <h3>Alternance Cloud Engineer</h3>
+                        <p>CloudNine <span>• Sophia</span></p>
+                    </div>
+                    </div>
+                    <div class="job-actions">
+                    <span class="badge badge-blue">Alternance</span>
+                    <button class="btn-postuler">Postuler</button>
+                    <button class="btn-heart">❤</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="parametres" class="parametres">
+            
+                <div class="param-container">
+                    <header class="param-card-profile-header">
+                        <div class="param-profile-top">
+                            <div class="param-user-info">
+                                <img src="/assets/images/candidat.jpg" alt="Avatar" class="param-avatar">
+                                <div class="param-name-title">
+                                    <h1>Alex Dupont</h1>
+                                    <p class="param-subtitle">Étudiant M1 Informatique · Paris</p>
+                                </div>
+                            </div>
+                            <button class="param-btn-edit">Modifier</button>
+                        </div>
+                        <p class="param-description">
+                            Étudiant passionné par le développement web et les nouvelles technologies. À la recherche d'une alternance en développement Full-Stack pour septembre 2026.
+                        </p>
+                    </header>
+
+                <section class="param-card">
+                <div class="param-section-header">
+                    <h3>Compétences</h3>
+                    <span class="param-plus-icon">+</span>
+                </div>
+                <div class="param-tags">
+                    <span class="param-tag">React</span>
+                    <span class="param-tag">TypeScript</span>
+                    <span class="param-tag">Node.js</span>
+                    <span class="param-tag">Figma</span>
+                    <span class="param-tag">SQL</span>
+                    <span class="param-tag">Python</span>
+                    <span class="param-tag">Git</span>
+                    <span class="param-tag">Agile</span>
+                </div>
+            </section>
+
+            <section class="param-card">
+                <div class="param-section-header">
+                    <h3>Langues</h3>
+                </div>
+                <ul class="param-list-items">
+                    <li><span class="param-check">✓</span> Français (natif)</li>
+                    <li><span class="param-check">✓</span> Anglais (C1)</li>
+                    <li><span class="param-check">✓</span> Espagnol (B2)</li>
+                </ul>
+            </section>
+
+            <section class="param-card">
+                <div class="param-section-header">
+                    <h3>Documents</h3>
+                </div>
+                <div class="param-document-list">
+                    <div class="param-doc-item">
+                        <div class="param-doc-info">
+                            <div class="param-doc-icon blue-doc">📄</div>
+                            <div>
+                                <p class="param-doc-name">CV_Alex_Dupont_2026.pdf</p>
+                                <p class="param-doc-size">345 Ko</p>
+                            </div>
+                        </div>
+                        <button class="param-btn-replace">Remplacer</button>
+                    </div>
+                    <div class="param-doc-item">
+                        <div class="param-doc-info">
+                            <div class="param-doc-icon orange-doc">📄</div>
+                            <div>
+                                <p class="param-doc-name">Lettre_Motivation_Dev.pdf</p>
+                                <p class="param-doc-size">128 Ko</p>
+                            </div>
+                        </div>
+                        <button class="param-btn-replace">Remplacer</button>
+                    </div>
+                </div>
+                <button class="param-btn-add-doc">+ Ajouter un document</button>
+              </section>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="logo-footer-container">
+                        <div class="logo-footer">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
+                                <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5m1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0M1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5"/>
+                            </svg>
+                        </div>
+                        <div class="logo-text-footer"><h2>Idea<span>Stage</span></h2></div>
+                    </div>
+                    <div class="description-footer">
+                        <p>La plateforme #1 pour trouver ton stage ou ton alternance en France. Gratuit pour les étudiants, toujours.</p>
+                    </div>
+                    <div class="social-media-icons">
+                        <a href="#" class="social-btn" aria-label="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+                            </svg>
+                        </a>
+
+                        <a href="#" class="social-btn" aria-label="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+                                <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+                            </svg>
+                        </a>
+
+                        <a href="#" class="social-btn" aria-label="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+                                <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+                            </svg>
+                        </a>
+
+                        <a href="#" class="social-btn" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links-container">
+                    <div class="footer-links">
+                        <h3>Pour les étudiants</h3>
+                        <ul>
+                            <li><a href="#">Découvrir les offres de stage</a></li>
+                            <li><a href="#">Créer un profil</a></li>
+                            <li><a href="#">Conseils pour la recherche de stage</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links">
+                        <h3>Pour les entreprises</h3>
+                        <ul>
+                            <li><a href="#">Publier une offre de stage</a></li>
+                            <li><a href="#">Gérer les candidatures</a></li>
+                            <li><a href="#">Conseils pour recruter des stagiaires</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links">
+                        <h3>IdeaStage</h3>
+                        <ul>
+                            <li><a href="/templates/ressources.html">À propos de nous</a></li>
+                            <li><a href="/templates/contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-spacer"></div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2024 IdeaStage. Tous droits réservés.</p>
+                </div>
+                <div class="legal-links">
+                    <a href="/templates/politique-confidentialite.html">Politique de confidentialité</a>
+                    <a href="/templates/conditions-utilisation.html">Conditions d'utilisation</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/assets/script-espace-candidat.js"></script>
+</body>
+</html>

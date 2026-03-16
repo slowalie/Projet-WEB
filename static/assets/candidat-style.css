@@ -1,0 +1,1139 @@
+
+:root {
+    /* --- COULEURS DE FOND (SURFACES) --- */
+    --bg-dark: #0f172a;        /* Le bleu nuit profond du fond principal */
+    --bg-card: #1e293b;        /* Bleu légèrement plus clair pour les éléments de liste/tags */
+    --bg-input: #ffffff;      /* Fond blanc de la barre de recherche */
+    --bg-muted:  #192433da;     /* Bleu-gris pour les éléments de liste moins importants (ex: tags) */
+    --back-ground-violet-muted: #5850ec23; /* Violet très clair pour les éléments de fond liés à la marque (ex: tags "stage") */    
+    --bg-yellow-muted: #facc1536; /* Jaune très clair pour les éléments de fond liés à la marque (ex: tags "alternance") */ 
+
+    /* --- COULEURS DE MARQUE (ACCENTS) --- */
+    --primary-violet: #5850ec; /* Le violet du bouton "S'inscrire" et du mot "stage" */
+    --primary-yellow: #facc15; /* Le jaune moutarde du mot "alternance" */
+    --primary-blue: #3b82f6;   /* Bleu vif pour les éléments d'accentuation (ex: survol des liens) */
+    --primary-green: #22c55e;  /* Vert vif pour les éléments d'accentuation (ex: boutons) */
+
+    /* --- TEXTE --- */
+    --text-main: #ffffff;      /* Blanc pour les titres et textes principaux */
+    --text-muted: #94a3b8;     /* Gris bleuté pour les textes secondaires (nav, descriptions) */
+    --text-light: #cbd5e18e;     /* Gris clair pour les textes sur fond sombre (footer) */
+    --text-dark: #1e293b;      /* Pour le texte sur fond blanc (barre de recherche) */
+    --text-violet: #5850ec;    /* Violet pour les éléments de texte liés à la marque (ex: "stage") */
+
+
+    /* --- ÉLÉMENTS D'INTERFACE --- */
+    --tag-bg: rgba(255, 255, 255, 0.1); /* Fond transparent des tags "Tendances" */
+    --border-color: #334155;            /* Ligne de séparation fine en bas de page */
+    --border-color-muted: #8c8d8f;     /* Ligne de séparation plus sombre pour les éléments de liste */
+
+    /* --- BOUTONS --- */
+    --btn-hover: #4338ca;      /* Couleur de survol pour les boutons */
+
+    --border-radius: 8px;         /* Rayon de bordure pour les éléments arrondis */
+
+    --bg-dark: #0a0b1e;
+    --purple: #6366f1;
+    --yellow: #f59e0b;
+    --orange: #f97316;
+    --pink: #ec4899;
+    --shadow--purple: rgba(99, 102, 241, 0.5);
+    --shadow-yellow: rgba(245, 158, 11, 0.5);
+
+    --bg-color: #f8faff;
+    --card-bg: #ffffff;
+    --primary-purple: #6366f1;
+    
+    --text-sub: #6b7280;
+    
+
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-dark1: #1e293b;
+    --text-sub: #94a3b8;
+    --border-color-white: #e2e8f0;
+    --accent-blue: #4f46e5;
+    --heart-color: #ff4d6d;
+    --tag-bg: #eef2ff;
+    --primary-color: #5a4fcf;
+    --text-light1: #666;
+    --bd-color: #edf0f7;
+    
+
+* {
+    box-sizing: border-box;
+
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* --- NAVBAR --- */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background-color: var(--bg-input);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
+}
+
+.navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo .logo-image svg{
+    padding: 5px;
+    background-color: var(--primary-violet);
+    border-radius: 25%;
+    color: var(--primary-violet);
+}
+
+.navbar .logo .logo-image svg path{
+    color: var(--primary-yellow);
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    margin: 0 auto;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.navbar .logo .logo-text {
+    color: var(--text-dark);
+}
+
+.navbar .logo .logo-text span {
+    color: var(--primary-violet);
+}
+
+.nav-links a:hover {
+    color: var(--text-violet);
+    font-weight: bold;
+}
+
+.nav-links a.active {
+    color: var(--primary-violet);
+    font-weight: bold;
+}
+
+.button-connexion {
+    border: 1px solid var(--border-color-muted);
+    border-radius: var(--border-radius);
+    padding: 5px 10px;
+    background-color: transparent;
+    color: var(--text-muted);
+    margin-right: 10px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.button-connexion:hover {
+    color: var(--text-violet);
+    border-color: var(--btn-hover);
+    font-weight: 500;
+}
+
+.button-inscription {
+    border: 1px solid var(--primary-violet);
+    border-radius: var(--border-radius);
+    padding: 5px 10px;
+    background-color: var(--primary-violet);
+    color: var(--text-main);
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.button-inscription:hover {
+    background-color: var(--btn-hover);
+    border-color: var(--btn-hover);
+}
+
+/* --- HAMBURGER --- */
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-dark);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+/* --- STYLES POUR LE MAIN --- */
+
+main {
+    min-height: 500px;
+    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- STYLES POUR LE header --- */
+
+.head {
+    background-color: var(--bg-dark);
+    color: var(--text-sub);
+    padding: 80px 5%;
+    text-align: center;
+}
+
+.espace-candidat-header h3 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    
+}
+
+.photo-candidat img{
+    width: 150px;
+    height: 150px;
+    background-color: var(--bg-card);
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+.nav-candidat {
+    display: flex;
+    justify-content: center;
+        
+    border-radius: var(--border-radius);
+    padding: 10px 0;
+    margin-top: 30px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--bg-card);
+    
+}
+
+.nav-candidat a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 15px;
+    padding: 10px 20px;
+    
+}
+.nav-candidat a:hover {
+    color: var(--purple);
+    font-weight: bold;
+}
+
+.nav-candidat a.active {
+    color: var(--primary-violet);
+    font-weight: bold;
+    border-radius: var(--border-radius);
+}
+
+.nav-candidat svg {
+    margin-right: 8px;
+    color: var(--primary-yellow);
+}
+
+.apercu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.apercu-card {
+    background-color: var(--bg-input);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.apercu-card h2 {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--text-dark);
+}
+
+.apercu-card:hover {
+    box-shadow: 0 4px 8px var(--shadow--purple);
+    transition: 0.3s ease-in-out;
+}
+
+.logo-card svg {
+    background-color: var(--primary-violet);
+    border-radius: 25%;
+    color: var(--primary-violet);
+    padding: 5px;
+}
+
+.logo-card1 svg  {
+    color: var(--primary-violet);
+}
+
+.logo-card2 svg {
+    color: var(--pink);
+}
+
+.logo-card3 svg {
+    color: var(--orange);
+}
+
+.logo-card4 svg {
+    color: var(--primary-green);
+}
+
+/* --- STYLES POUR LE activite --- */
+
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+h2 { font-size: 1.1rem; color: var(--text-dark1); margin-bottom: 20px; }
+h3 { font-size: 1rem; margin: 0; color: var(--text-dark1); }
+
+/* --- Liste d'activités --- */
+.activity-list { list-style: none; padding: 0; }
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-color-white);
+}
+
+.icon-circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+/* Couleurs des icônes */
+.tv { background: #eef2ff; color: #6366f1; }
+.ds { background: #fff1f2; color: #f43f5e; }
+.dc { background: #e0f2fe; color: #0ea5e9; }
+
+.activity-info { flex-grow: 1; }
+.activity-info p { margin: 4px 0 0; color: var(--text-sub); font-size: 0.9rem; }
+
+/* Badges */
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+.yellow { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+.blue { background: #eff6ff; color: #2563eb; border: 1px solid #dbeafe; }
+.red { background: #fef2f2; color: #dc2626; border: 1px solid #fee2e2; }
+
+.view-all { 
+  display: block; margin-top: 15px; color: var(--primary-purple); 
+  text-decoration: none; font-size: 0.9rem; font-weight: 500; 
+}
+
+/* --- Barre de progression --- */
+.space-between { display: flex; justify-content: space-between; align-items: center; }
+.percentage { color: var(--primary-purple); font-weight: bold; }
+
+.progress-bar-container {
+  background: #f3f4f6;
+  height: 10px;
+  border-radius: 5px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: var(--primary-purple);
+  height: 100%;
+  border-radius: 5px;
+}
+
+/* Checklist */
+.checklist { list-style: none; padding: 0; }
+.checklist li {
+  padding: 8px 0;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+}
+
+.checklist li::before {
+  content: '✓';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 12px;
+  font-size: 0.7rem;
+}
+
+.checked { color: var(--text-dark1); }
+.checked::before { border: 1.5px solid #10b981; color: #10b981; }
+
+.unchecked { color: #9ca3af; }
+.unchecked::before { border: 1.5px solid #d1d5db; color: transparent; }
+
+
+
+
+
+.candidatures.active {
+    display: block;
+
+}
+
+.container {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0px;
+}
+
+/* Style de la Carte */
+.job-card {
+  width: 800px;  
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+  border: 1px solid var(--border-color-white);
+}
+
+.favoris h3 {
+  color: var(--text-dark1);
+  margin: 10px;
+  
+}
+
+.job-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px -1px rgba(0, 0, 0, 0.288);
+}
+
+/* Partie Gauche : Logo + Texte */
+.job-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo_favoris {
+  width: 35px;
+  height: 35px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.0rem;
+}
+
+.logo-sn { background-color: #d1fae5; color: #059669; }
+.logo-fg { background-color: #f3e8ff; color: #9333ea; }
+.logo-cn { background-color: #f1f5f9; color: #475569; }
+
+.details h3 {
+  margin: 0;
+  color: var(--text-dark1);
+  font-size: 1.15rem;
+}
+
+.details p {
+  margin: 5px 0 0;
+  color: var(--text-sub);
+  font-size: 0.95rem;
+}
+
+/* Partie Droite : Badges et Boutons */
+.job-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.badge {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.badge-blue { background: #eff6ff; color: #3b82f6; border: 1px solid #bfdbfe; }
+.badge-orange { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+
+.btn-postuler {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--accent-blue);
+  padding: 8px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-postuler:hover {
+  background: var(--accent-blue);
+  color: white;
+}
+
+.btn-heart {
+  background: none;
+  border: none;
+  color: var(--heart-color);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+/* --- STYLES POUR LE parametres --- */
+
+.parametres {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    margin: 0;
+}
+
+.param-container {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Styles des Cartes */
+    
+.param-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid var(--bd-color);
+}
+
+/* Header */
+.param-profile-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.param-user-info {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.param-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.param-name-title h1 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.param-subtitle {
+    margin: 4px 0 0;
+    color: var(--text-light1);
+    font-size: 0.9rem;
+}
+
+.param-description {
+    font-size: 0.95rem;
+    color: var(--text-light1);
+    line-height: 1.5;
+}
+
+/* Boutons */
+.param-btn-edit {
+    border: 1px solid var(--primary-color);
+    background: transparent;
+    color: var(--primary-color);
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* Compétences */
+.param-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.param-section-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+.param-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.param-tag {
+    background: var(--tag-bg);
+    color: var(--primary-color);
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Langues */
+.param-list-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.param-list-items li {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.param-check {
+    color: #4cd964;
+    font-weight: bold;
+}
+
+/* Documents */
+.param-doc-item {
+    background: #fcfdfe;
+    border: 1px solid var(--bd-color);
+    border-radius: 8px;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.param-doc-info {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.param-doc-name {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.param-doc-size {
+    margin: 2px 0 0;
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.param-btn-replace {
+    border: none;
+    background: none;
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.param-btn-add-doc {
+    width: 100%;
+    background: transparent;
+    border: 1px dashed var(--primary-color);
+    color: var(--primary-color);
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.param-title h3{
+    color: var(--text-violet);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+
+/* --- STYLES POUR LE FOOTER --- */
+
+footer {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer-container{
+    padding: 20px;
+    background-color: var(--bg-card);
+}
+
+footer .footer-content {
+    display: flex;
+    background-color: var(--bg-card);
+    color: var(--text-muted);
+    font-size: 14px;
+    border-top: 1px solid var(--border-color);
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.footer-about {
+    padding: 20px;
+    max-width: 350px;
+}
+
+.logo-footer-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-footer svg{
+    background-color: var(--primary-violet);
+    border-radius: 25%;
+    color: var(--primary-violet);
+    padding: 5px;
+}
+
+.logo-footer svg path {
+    color: var(--primary-yellow);
+}
+
+.logo-text-footer {
+    font-weight: bold;
+    color: var(--text-main);
+}
+
+.logo-text-footer span {
+    color: var(--primary-yellow);
+}
+
+.description-footer {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.description-footer p{
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.social-media-icons {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.social-media-icons .social-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 8px;
+    color: var(--text-muted);
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.social-media-icons .social-btn:hover {
+    background-color: var(--primary-violet);
+    border-color: var(--primary-violet);
+    color: var(--text-main);
+}
+
+.footer-links-container {
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+}
+
+.footer-links {
+    padding: 5px;
+}
+
+.footer-links h3 {
+    margin-bottom: 10px;
+    color: var(--text-main);
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin-bottom: 5px;
+}
+
+.footer-links ul li a {
+    color: var(--text-muted);
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.footer-links ul li a:hover {
+    color: var(--text-violet);
+    font-weight: bold;
+}
+
+.footer-spacer {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 0;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: var(--bg-card);
+}
+
+.copyright {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.legal-links {
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+}
+
+.legal-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.legal-links a:hover {
+    color: var(--text-violet);
+    font-weight: bold;
+}
+
+/* =============================================
+   RESPONSIVE - TABLETTE (max 768px)
+   ============================================= */
+
+@media (max-width: 768px) {
+
+    /* Navbar */
+    .navbar {
+        position: relative;
+        justify-content: space-between;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links,
+    .button-connexion,
+    .button-inscription {
+        display: none;
+    }
+
+    .navbar.nav-open .nav-links {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        order: 3;
+        padding: 15px 0;
+        gap: 15px;
+        text-align: center;
+        justify-content: space-between;
+    }
+
+    .navbar.nav-open .button-connexion,
+    .navbar.nav-open .button-inscription {
+        display: block;
+        order: 4;
+        width: 80%;
+        margin: 5px auto;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .title {
+        font-size: 2.8rem; /* On réduit la taille du titre */
+    }
+
+    .hero-container {
+        gap: 20px;
+    }
+    .hero-image-wrapper {
+        display: none;
+    }
+
+    .hero-bottom {
+        flex-wrap: wrap; /* Permet aux stats de passer à la ligne si besoin */
+    }
+
+
+    /* Footer */
+    footer .footer-content {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .footer-about {
+        max-width: 100%;
+    }
+
+    .footer-links-container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 10px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .job-card {
+        padding: 10px 15px;
+        width: 100%; /* Prend toute la largeur disponible */
+        flex-direction: column; /* On empile les éléments */
+        align-items: flex-start; /* Aligne tout à gauche */
+        gap: 20px;
+        padding: 25px;
+    }
+
+    /* Ajustement de la partie info (Logo + Texte) */
+    .job-info {
+        width: 100%;
+    }
+
+    .details h3 {
+        font-size: 1.1rem; /* Légèrement plus petit pour tenir sur une ligne */
+    }
+
+    /* Ajustement de la partie actions (Badge + Boutons) */
+    .job-actions {
+        width: 100%;
+        justify-content: space-between; /* Espace les éléments sur toute la largeur */
+        border-top: 1px solid var(--border-color); /* Optionnel : sépare visuellement le bas */
+        padding-top: 15px;
+    }
+
+    /* On peut agrandir un peu le bouton postuler pour le pouce */
+    .btn-postuler {
+        flex-grow: 1; /* Le bouton prend l'espace disponible */
+        text-align: center;
+        margin: 0 10px;
+    }
+}
+
+/* =============================================
+   RESPONSIVE - MOBILE (max 480px)
+   ============================================= */
+
+@media (max-width: 375px) {
+
+    .navbar {
+        padding: 10px;
+    }
+
+    .navbar .logo {
+        margin-left: 5px;
+        font-size: 20px;
+    }
+
+    main {
+        
+        min-height: 300px;
+    }
+    .hero-section {
+        padding: 40px 20px;
+        height: auto; /* On laisse le contenu dicter la hauteur */
+    }
+
+    .hero-container {
+        grid-template-columns: 1fr; /* Une seule colonne : tout s'empile */
+        text-align: center;
+    }
+
+    .title {
+        font-size: 2.2rem;
+    }
+
+    /* Centrage de la barre de recherche */
+    .search-box {
+        display: flex;
+        flex-direction: column; /* Les inputs l'un sous l'autre sur mobile */
+        border-radius: 15px;
+        
+        
+    }   
+
+    .input-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .search-box input, .search-box select {
+        border-bottom: 1px solid #eee; /* Petite séparation visuelle */
+        
+    }
+
+    .btn-search {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    /* Gestion des badges flottants sur l'image */
+    .top-left {
+        left: 0;
+        top: 10px;
+        font-size: 0.8rem;
+    }
+    
+    .hero-image-wrapper {
+        display: none; /* On masque l'image sur mobile pour plus de lisibilité */
+    }
+
+    .bottom-right {
+        right: 0;
+        bottom: 10px;
+        font-size: 0.8rem;
+    }
+
+    /* Les statistiques en bas */
+    .hero-bottom {
+        flex-direction: column; /* Empilement des blocs de stats */
+        margin-top: 50px;
+    }
+
+    .tags {
+        justify-content: center; /* Centre les tags sous la barre de recherche */
+    }
+    .footer-container {
+        padding: 10px;
+    }
+
+    .footer-about {
+        padding: 10px;
+    }
+
+    .footer-links-container {
+        padding: 5px;
+    }
+
+    .legal-links {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .nav-candidat a{
+        flex-direction: column;
+        padding: 5px 10px;
+        margin-top: 10px;
+    }
+
+
+    /* --- Media Query pour mobiles --- */
+    
+    .job-card {
+        padding: 10px 15px;
+        width: 100%; /* Prend toute la largeur disponible */
+        flex-direction: column; /* On empile les éléments */
+        align-items: flex-start; /* Aligne tout à gauche */
+        gap: 20px;
+        padding: 25px;
+    }
+
+    /* Ajustement de la partie info (Logo + Texte) */
+    .job-info {
+        width: 100%;
+    }
+
+    .details h3 {
+        font-size: 1.1rem; /* Légèrement plus petit pour tenir sur une ligne */
+    }
+
+    /* Ajustement de la partie actions (Badge + Boutons) */
+    .job-actions {
+        width: 100%;
+        justify-content: space-between; /* Espace les éléments sur toute la largeur */
+        border-top: 1px solid var(--border-color); /* Optionnel : sépare visuellement le bas */
+        padding-top: 15px;
+    }
+
+    /* On peut agrandir un peu le bouton postuler pour le pouce */
+    .btn-postuler {
+        flex-grow: 1; /* Le bouton prend l'espace disponible */
+        text-align: center;
+        margin: 0 10px;
+    }
+  
+  }
+}
