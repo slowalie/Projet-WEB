@@ -1,34 +1,47 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+declare(strict_types=1);
+
+require_once __DIR__ . '/../src/controllers/controller.php';
 require_once __DIR__ . '/../src/controllers/HomeController.php';
 require_once __DIR__ . '/../src/controllers/EspaceCandidatController.php';
+require_once __DIR__ . '/../src/controllers/TaskController.php';
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
-// Configurer Twig
-$loader = new FilesystemLoader(__DIR__ . '/../templates');
-$twig = new Environment($loader);
+function createTwigEnvironment(): Environment
+{
+    $loader = new FilesystemLoader(__DIR__ . '/../templates');
+    return new Environment($loader);
+}
 
-// Parser l'URL pour déterminer la page
-$requestUri = $_SERVER['REQUEST_URI'];
-$basePath = '/';
+function normalizeRoute(string $requestUri): string
+{
+    $path = parse_url($requestUri, PHP_URL_PATH) ?? '/';
+    $route = trim($path, '/');
+    return $route === '' ? '/' : '/' . $route;
+}
 
-// Enlever le basePath pour obtenir la route relative
-$route = str_replace($basePath, '', $requestUri);
+function dispatchRoute(string $requestUri, Environment $twig): string
+{
+    $route = normalizeRoute($requestUri);
 
-$route = trim($route, '/');
+    if ($route === '/' || $route === '/home') {
+        $controller = new HomeController($twig);
+        return $controller->index();
+    }
 
-// Router simple avec contrôleurs
-if ($route == '' || $route == 'home') {
-    $controller = new HomeController($twig);
-    echo $controller->index();
-} elseif ($route == 'espace-candidat') {
-    $controller = new EspaceCandidatController($twig);
-    echo $controller->index();
-} else {
-    // 404
+    if ($route === '/espace-candidat') {
+        $controller = new EspaceCandidatController($twig);
+        return $controller->index();
+    }
+
+    if ($route === '/tasks') {
+        $controller = new TaskController($twig);
+        return $controller->index();
+    }
+
     http_response_code(404);
-    echo "Page non trouvée";
+    return '<h1>404 - Page non trouvee</h1>';
 }
 

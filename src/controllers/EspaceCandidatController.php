@@ -1,17 +1,14 @@
 <?php
 
-class EspaceCandidatController
+declare(strict_types=1);
+
+require_once __DIR__ . '/controller.php';
+
+class EspaceCandidatController extends Controller
 {
-    private $twig;
-
-    public function __construct($twig)
+    public function index(): string
     {
-        $this->twig = $twig;
-    }
-
-    public function index()
-    {
-        return $this->twig->render('espace-candidat.twig.html', [
+        return $this->render('espace-candidat.twig.html', [
             'page' => 'espace-candidat'
         ]);
     }
