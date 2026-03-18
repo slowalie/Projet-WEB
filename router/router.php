@@ -5,6 +5,9 @@ require_once __DIR__ . '/../src/controllers/controller.php';
 require_once __DIR__ . '/../src/controllers/HomeController.php';
 require_once __DIR__ . '/../src/controllers/EspaceCandidatController.php';
 require_once __DIR__ . '/../src/controllers/TaskController.php';
+require_once __DIR__ . '/../src/controllers/OffresController.php';
+require_once __DIR__ . '/../src/controllers/EspaceEntrepriseController.php';
+
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -38,6 +41,16 @@ function dispatchRoute(string $requestUri, Environment $twig): string
 
     if ($route === '/tasks') {
         $controller = new TaskController($twig);
+        return $controller->index();
+    }
+
+    if ($route === '/offres') {
+        $controller = new OffresController($twig);
+        return $controller->index();
+    }
+
+    if ($route === '/Entreprise') {
+        $controller = new EspaceEntrepriseController($twig);
         return $controller->index();
     }
 
