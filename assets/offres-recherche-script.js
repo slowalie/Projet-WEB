@@ -18,7 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			const entreprise = card.querySelector('.company-name')?.textContent || '';
 			const skills = Array.from(card.querySelectorAll('.skills .skill')).map(s => s.textContent).join(' ');
 			const ville = card.querySelector('.location')?.textContent || '';
-			const contenu = normalize(titre + ' ' + entreprise + ' ' + skills + ' ' + ville);
+			const type = card.querySelector('.tag-type')?.textContent || '';
+			const badge = card.querySelector('.offer-badge .badge')?.textContent || '';
+			const contenu = normalize(titre + ' ' + entreprise + ' ' + skills + ' ' + ville + ' ' + type + ' ' + badge);
 			// Filtrage par texte et ville
 			let show = (query === '' || contenu.includes(query));
 			if (villeFiltre !== 'Toutes') {
