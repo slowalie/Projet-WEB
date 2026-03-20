@@ -316,6 +316,12 @@ main {
     border-radius: var(--border-radius);
     cursor: pointer;
 }
+
+.offer-page a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .offer-page:hover {
     box-shadow: 0 5px 15px var(--shadow--purple);
     border: 2px solid var(--text-light);

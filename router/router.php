@@ -6,7 +6,7 @@ require_once __DIR__ . '/../src/controllers/HomeController.php';
 require_once __DIR__ . '/../src/controllers/EspaceCandidatController.php';
 require_once __DIR__ . '/../src/controllers/TaskController.php';
 require_once __DIR__ . '/../src/controllers/OffresController.php';
-require_once __DIR__ . '/../src/controllers/EspaceEntrepriseController.php';
+require_once __DIR__ . '/../src/controllers/EspacePiloteController.php';
 
 
 use Twig\Environment;
@@ -49,8 +49,8 @@ function dispatchRoute(string $requestUri, Environment $twig): string
         return $controller->index();
     }
 
-    if ($route === '/Entreprise') {
-        $controller = new EspaceEntrepriseController($twig);
+    if ($route === '/espace-pilote') {
+        $controller = new EspacePiloteController($twig);
         return $controller->index();
     }
 

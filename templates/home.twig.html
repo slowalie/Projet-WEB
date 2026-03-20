@@ -4,6 +4,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/offer-card-shared.css">
 {% endblock %}
 
 {% block content %}
@@ -148,8 +149,8 @@
             <h2>Offres en vedette</h2>
             <p>Découvre une sélection d'offres de stage et d'alternance triées sur le volet pour t'inspirer et te motiver dans ta recherche.</p>
         </div>
-        <button class="offer-page">
-            Voir toutes les offres
+        <button class="offer-page" aria-label="Voir toutes les offres">
+            <a href="/offres">Voir toutes les offres</a>
             <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
@@ -158,34 +159,136 @@
         </button>
         <div class="offer-preview-grid">
             <div class="offer-card">
-                <h3>Stage en développement web</h3>
-                <p>Rejoins une startup innovante pour développer tes compétences en React et Node.js.</p>
-                <span class="offer-company">Tech Innovators</span>
+                <div class="offer-badge">
+                    <span class="badge badge-priority">★ A la une</span>
+                </div>
+                <div class="offer-header">
+                    <div class="company-logo">TV</div>
+                    <div class="offer-title">
+                        <h3>Stage Developpement Web</h3>
+                        <p class="company-name">Tech Innovators</p>
+                    </div>
+                    <button class="heart-btn" aria-label="Ajouter aux favoris">♡</button>
+                </div>
+                <div class="offer-tags">
+                    <span class="tag-type">Stage</span>
+                    <span class="location">📍 Paris</span>
+                    <span class="duration">⏱ 6 mois</span>
+                </div>
+                <div class="skills">
+                    <span class="skill">React</span>
+                    <span class="skill">Node.js</span>
+                    <span class="skill">JavaScript</span>
+                </div>
+                <div class="offer-footer">
+                    <div class="salary">
+                        <span class="amount">€ 950/mois</span>
+                        <span class="candidates">👥 42 candidatures</span>
+                    </div>
+                    <div class="rating">
+                        <span class="stars">⭐ 4.8</span>
+                    </div>
+                    <a href="/offres" class="apply-btn">Postuler</a>
+                </div>
             </div>
             <div class="offer-card">
                 <div class="offer-badge">
-                    <span class="badge badge-priority">à la une</span>
+                    <span class="badge badge-new">♦ Nouveau</span>
                 </div>
                 <div class="offer-header">
-                    <div class = company-logo>
-                        <img src="" alt="">
+                    <div class="company-logo logo-ds">GB</div>
+                    <div class="offer-title">
+                        <h3>Alternance Marketing Digital</h3>
+                        <p class="company-name">Global Brands</p>
                     </div>
-                    <h3>Alternance en marketing digital</h3>
-                    <p class="company-name">Global Brands</p>
+                    <button class="heart-btn" aria-label="Ajouter aux favoris">♡</button>
                 </div>
-
-                <p>Participe à la stratégie de communication d'une marque internationale.</p>
-                <span class="offer-company">Global Brands</span>
+                <div class="offer-tags">
+                    <span class="tag-type">Alternance</span>
+                    <span class="location">📍 Lyon</span>
+                    <span class="duration">⏱ 12 mois</span>
+                </div>
+                <div class="skills">
+                    <span class="skill">SEO</span>
+                    <span class="skill">SEA</span>
+                    <span class="skill">Content</span>
+                </div>
+                <div class="offer-footer">
+                    <div class="salary">
+                        <span class="amount">€ 1 150/mois</span>
+                        <span class="candidates">👥 35 candidatures</span>
+                    </div>
+                    <div class="rating">
+                        <span class="stars">⭐ 4.6</span>
+                    </div>
+                    <a href="/offres" class="apply-btn">Postuler</a>
+                </div>
             </div>
             <div class="offer-card">
-                <h3>Stage en finance d'entreprise</h3>
-                <p>Analyse financière et modélisation pour une grande banque d'investissement.</p>
-                <span class="offer-company">Finance Experts</span>
+                <div class="offer-badge">
+                    <span class="badge badge-priority">★ A la une</span>
+                </div>
+                <div class="offer-header">
+                    <div class="company-logo logo-dc">FE</div>
+                    <div class="offer-title">
+                        <h3>Stage Finance d'entreprise</h3>
+                        <p class="company-name">Finance Experts</p>
+                    </div>
+                    <button class="heart-btn" aria-label="Ajouter aux favoris">♡</button>
+                </div>
+                <div class="offer-tags">
+                    <span class="tag-type">Stage</span>
+                    <span class="location">📍 Bordeaux</span>
+                    <span class="duration">⏱ 6 mois</span>
+                </div>
+                <div class="skills">
+                    <span class="skill">Excel</span>
+                    <span class="skill">Analyse</span>
+                    <span class="skill">Reporting</span>
+                </div>
+                <div class="offer-footer">
+                    <div class="salary">
+                        <span class="amount">€ 1 000/mois</span>
+                        <span class="candidates">👥 27 candidatures</span>
+                    </div>
+                    <div class="rating">
+                        <span class="stars">⭐ 4.7</span>
+                    </div>
+                    <a href="/offres" class="apply-btn">Postuler</a>
+                </div>
             </div>
             <div class="offer-card">
-                <h3>Alternance en design UX/UI</h3>
-                <p>Conçois des interfaces utilisateur intuitives pour une application mobile populaire.</p>
-                <span class="offer-company">Creative Minds</span>
+                <div class="offer-badge">
+                    <span class="badge badge-new">♦ Nouveau</span>
+                </div>
+                <div class="offer-header">
+                    <div class="company-logo logo-gh">CM</div>
+                    <div class="offer-title">
+                        <h3>Alternance Design UX/UI</h3>
+                        <p class="company-name">Creative Minds</p>
+                    </div>
+                    <button class="heart-btn" aria-label="Ajouter aux favoris">♡</button>
+                </div>
+                <div class="offer-tags">
+                    <span class="tag-type">Alternance</span>
+                    <span class="location">📍 Nantes</span>
+                    <span class="duration">⏱ 24 mois</span>
+                </div>
+                <div class="skills">
+                    <span class="skill">Figma</span>
+                    <span class="skill">UI</span>
+                    <span class="skill">Prototypage</span>
+                </div>
+                <div class="offer-footer">
+                    <div class="salary">
+                        <span class="amount">€ 1 200/mois</span>
+                        <span class="candidates">👥 31 candidatures</span>
+                    </div>
+                    <div class="rating">
+                        <span class="stars">⭐ 4.5</span>
+                    </div>
+                    <a href="/offres" class="apply-btn">Postuler</a>
+                </div>
             </div>
         </div>
     </div>
