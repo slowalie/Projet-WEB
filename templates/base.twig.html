@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/base.css">{% block stylesheets %}{% endblock %}
+    <link rel="stylesheet" href="/assets/base.css">
+    <link rel="stylesheet" href="/assets/connexion_inscription.css">
+    {% block stylesheets %}{% endblock %}
     <title>{% block title %}IdeaStage{% endblock %}</title>
 </head>
 <body>
@@ -36,6 +38,9 @@
     <main>
         {% block content %}{% endblock %}
     </main>
+
+    {% include 'connexion_inscription.twig.html' %}
+
     <footer>
         <div class="footer-container">
             <div class="footer-content">
@@ -117,5 +122,6 @@
     </footer>
 
     <script src="/assets/script.js"></script>
+    <script src="/assets/connexion_inscription.js"></script>
 </body>
 </html>
