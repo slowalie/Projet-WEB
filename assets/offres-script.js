@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (selectedSecteur !== 'Tous' && secteur !== selectedSecteur) show = false;
 
 			card.style.display = show ? '' : 'none';
-		}); 
+		});
+		if (window.updateOfferCount) window.updateOfferCount();
 	}
 
 	// Listeners type
