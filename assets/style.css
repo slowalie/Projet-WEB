@@ -1,0 +1,494 @@
+
+:root {
+    /* --- COULEURS DE FOND (SURFACES) --- */
+    --bg-dark: #0f172a;        /* Le bleu nuit profond du fond principal */
+    --bg-card: #1e293b;        /* Bleu légèrement plus clair pour les éléments de liste/tags */
+    --bg-input: #ffffff;      /* Fond blanc de la barre de recherche */
+
+    /* --- COULEURS DE MARQUE (ACCENTS) --- */
+    --primary-violet: #5850ec; /* Le violet du bouton "S'inscrire" et du mot "stage" */
+    --primary-yellow: #facc15; /* Le jaune moutarde du mot "alternance" */
+    
+    /* --- TEXTE --- */
+    --text-main: #ffffff;      /* Blanc pour les titres et textes principaux */
+    --text-muted: #94a3b8;     /* Gris bleuté pour les textes secondaires (nav, descriptions) */
+    --text-dark: #1e293b;      /* Pour le texte sur fond blanc (barre de recherche) */
+    --text-violet: #5850ec;    /* Violet pour les éléments de texte liés à la marque (ex: "stage") */
+
+
+    /* --- ÉLÉMENTS D'INTERFACE --- */
+    --tag-bg: rgba(255, 255, 255, 0.1); /* Fond transparent des tags "Tendances" */
+    --border-color: #334155;            /* Ligne de séparation fine en bas de page */
+    --border-color-muted: #8c8d8f;     /* Ligne de séparation plus sombre pour les éléments de liste */
+    
+    /* --- BOUTONS --- */
+    --btn-hover: #4338ca;      /* Couleur de survol pour les boutons */
+
+    --border-radius: 8px;         /* Rayon de bordure pour les éléments arrondis */ 
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-items: center;
+    border-radius: var(--border-radius);
+    padding: 10px 20px;
+    background-color: var(--bg-input);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: auto;
+    
+}
+
+.navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin: auto;
+    margin-left: 20px;
+    display: flex;
+
+}
+
+.navbar .logo .logo-image svg{
+    padding: 5px;
+    background-color: var(--primary-violet);  
+    border-radius: 25%;
+    justify-content: center;
+    color: var(--primary-violet);
+}
+
+.navbar .logo .logo-image svg path{
+    color: var(--primary-yellow);
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    margin:auto;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+
+.navbar .logo .logo-text {
+    color: var(--text-dark);
+}
+
+.navbar .logo .logo-text span {
+    color: var(--primary-violet);
+}
+
+.nav-links a:hover {
+    color: var(--text-violet);
+    font-weight: bold;
+}
+
+
+.button-connexion {
+    border: 1px solid var(--border-color-muted);
+    border-radius: var(--border-radius);
+    padding: 5px 10px;
+    background-color: transparent;
+    color: var(--text-muted);
+    margin: auto;
+    margin-right: 20px;
+    font-weight: 400;
+}
+
+.button-connexion:hover {
+    color: var(--text-violet);
+    border-color: var(--btn-hover);
+    font-weight: 500;
+}
+
+.button-inscription {
+    border: 1px solid var(--primary-violet);
+    border-radius: var(--border-radius);
+    padding: 5px 10px;
+    background-color: var(--primary-violet);
+    color: var(--text-main);
+    margin-left: 0px;
+    margin-right: 20px;
+    
+}
+.button-inscription:hover {
+    background-color: var(--btn-hover);
+    border-color: var(--btn-hover);
+}
+
+/* --- STYLES POUR LE MAIN --- */
+
+main {
+    height: auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-dark);
+    z-index: 1;
+}
+
+/* --- style pour les placeholder /!\ a retirer --- */
+
+.placeHolderWebSite{
+    width: 100%
+}
+
+/* --- STYLE POUR LA FENETTRE DE COMPTE --*/
+
+.popUpLoginPage{
+    display: none; /* la valeur à mettre lors de l'affichage est dans le script.js */
+    background: linear-gradient(12deg, var(--bg-dark), var(--bg-card));
+    flex-direction: column;
+    align-items: flex-end;
+    position: fixed;
+    height: 70%;
+    width: 48%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid var(--primary-violet);
+    z-index: 4;
+    border-radius: 30px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    color: var(--text-main);
+    gap: 3%;
+}
+
+.fermerLoginPage{
+    width: 2%;
+    height: 3%;
+    margin-right: 4%;
+    padding: 1%;
+    border: 2px solid var(--bg-input);
+    border-radius: 15px;
+}
+
+.fermerLoginPage:hover{
+    border-color: var(--btn-hover);
+}
+
+.SignUpAndLoginSpace{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    height: 84%;
+    width: 100%;
+}
+
+.loginPart{
+    background-color: var(--bg-card);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 38%;
+    gap: 4%;
+    border: 2px solid var(--bg-input);
+    height: 100%;
+    padding: 3%;
+    padding-top: 0;
+    border-radius: 30px;
+}
+
+.loginPart:hover{
+    filter:drop-shadow(10px 10px 5px #000);
+}
+
+.emailLin{
+    border: none;
+    background-color: var(--bg-input);
+    border-radius: 3px;
+    height: 21px;
+    padding: 1%;
+}
+
+.containerMdpLin{
+    display: flex;
+    justify-content: space-between;
+    padding: 1%;
+    background-color: var(--bg-input);
+    border-radius: 3px;
+}
+
+.mdpLin{
+    width: 90%;
+    background-color: var(--bg-input);
+    border: none;
+}
+
+.showLoginPswd{
+    width: 5%;
+    color: var(--text-dark);
+}
+
+.closedLoginPart{
+    background-color: var(--bg-card);
+    border: 2px solid var(--bg-input);
+    width: 60px;
+    height: 100%;
+    border-radius: 30px;
+    padding-bottom: 3%;
+}
+
+.closedLoginPart:hover{
+    filter:drop-shadow(10px 10px 5px #000);
+}
+
+.signUpPart{
+    background-color: var(--bg-card);
+    display: flex;
+    flex-direction: column;
+    width: 38%;
+    gap: 4%;
+    border: 2px solid var(--bg-input);
+    height: 100%;
+    padding: 3%;
+    padding-top: 0;
+    border-radius: 30px;
+}
+
+.signUpPart:hover{
+    filter:drop-shadow(10px 10px 5px #000);
+}
+
+.emailSup{
+    border: none;
+    background-color: var(--bg-input);
+    border-radius: 3px;
+    height: 21px;
+    padding: 1%;
+}
+
+.containerMdpSup{
+    display: flex;
+    justify-content: space-between;
+    padding: 1%;
+    background-color: var(--bg-input);
+    border-radius: 3px;
+}
+
+.mdpSup{
+    width: 90%;
+    background-color: var(--bg-input);
+    border: none;
+}
+
+.showSignUpPswd{
+    width: 5%;
+    color: var(--text-dark);
+}
+
+.containerMdpConfSup{
+    display: flex;
+    justify-content: space-between;
+    padding: 1%;
+    background-color: var(--bg-input);
+    border-radius: 3px;
+}
+
+.confirmMdpSup{
+    width: 90%;
+    background-color: var(--bg-input);
+    border: none;
+}
+
+.showSignUpConfPswd{
+    width: 5%;
+    color: var(--text-dark);
+}
+
+.closedSignUpPart{
+    background-color: var(--bg-card);
+    border: 2px solid var(--bg-input);
+    width: 60px;
+    height: 100%;
+    border-radius: 30px;
+    padding-bottom: 3%;
+}
+
+.closedSignUpPart:hover{
+    filter:drop-shadow(10px 10px 5px #000);
+}
+
+/* --- STYLES POUR LE FOOTER --- */
+
+footer {
+    
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+}
+
+.footer-container{
+    justify-content: space-between;
+    padding: 20px;
+    background-color: var(--bg-card);
+    
+}
+
+footer .footer-content {
+    display: flex;
+    background-color: var(--bg-card);
+    color: var(--text-muted);
+    font-size: 14px;
+    border-top: 1px solid var(--border-color);
+    justify-content: space-between;
+    padding: 20px;
+    
+}
+
+.footer-about {
+    
+    padding: 20px;
+}
+
+.logo-footer-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-footer svg{
+    background-color: var(--primary-violet);  
+    border-radius: 25%;
+    justify-content: center;
+    color: var(--primary-violet);
+    padding: 5px;
+}
+
+.logo-footer svg path {
+    color: var(--primary-yellow);
+}
+
+.logo-text-footer {
+    font-weight: bold;
+    color: var(--text-main);
+}
+
+.logo-text-footer span {
+    color: var(--primary-yellow);
+}
+
+.description-footer {
+    
+    color: var(--text-muted);
+    font-size: 14px;
+}
+.description-footer p{
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.social-media-icons {
+    margin-top: 10px;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.social-media-icons button{
+    
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 5px;
+    color: var(--text-muted);
+    font-size: 14px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.social-media-icons button:hover{
+    background-color: var(--primary-violet);
+    border-color: var(--primary-violet);
+    color: var(--text-main);
+
+}
+
+.description-footer {
+    justify-content: center;
+    
+}
+
+.footer-links-container {
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+}
+
+.description-footer a {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.footer-links {
+    padding: 5px;
+}
+
+.footer-links h3 {
+    margin-bottom: 10px;
+    color: var(--text-main);
+
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+
+.footer-links ul li a {
+    color: var(--text-muted);
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.footer-links ul li a:hover {
+    color: var(--text-violet);
+    font-weight: bold;
+}
+
+.footer-spacer {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 0;
+}
+.footer-bottom {
+    
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--bg-card);
+}
+
+.copyright {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.legal-links {
+    display: flex;
+    gap: 20px;
+    font-size: 12px; 
+}
+
+.legal-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+}
