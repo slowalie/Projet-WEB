@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (selectedSecteur !== 'Tous' && secteur !== selectedSecteur) show = false;
 
 			card.style.display = show ? '' : 'none';
-		});
+		}); 
 	}
 
 	// Listeners type
