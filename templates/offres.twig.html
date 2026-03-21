@@ -129,28 +129,31 @@
         <!-- MAIN CONTENT -->
         <main class="main-content">
             <div class="header">
-                <h2>12 offres trouvées</h2>
+                <h2> {{ total_offres }} offres trouvées</h2>
             </div>
-
+            
+                
+            
             <!-- GRID D'OFFRES -->
             <div class="offers-grid">
+                {% for offres in offres %}
                 <!-- OFFRE 1 -->
                 <div class="offer-card">
                     <div class="offer-badge">
                         <span class="badge badge-priority">★ À la une</span>
                     </div>
                     <div class="offer-header">
-                        <div class="company-logo">TV</div>
+                        <div class="company-logo">{{ offres.logo_entreprise }}</div>
                         <div class="offer-title">
-                            <h3>Développeur Full-Stack React/Node</h3>
-                            <p class="company-name">TechVision</p>
+                            <h3>{{ offres.nom_offres }}</h3>
+                            <p class="company-name">{{ offres.nom_entreprise }}</p>
                         </div>
                         <button class="heart-btn">♡</button>
                     </div>
                     <div class="offer-tags">
-                        <span class="tag-type">Alternance</span>
-                        <span class="location">📍 Paris</span>
-                        <span class="duration">⏱ 24 mois</span>
+                        <span class="tag-type">{{ offres.type_offres }}</span>
+                        <span class="location">📍 {{ offres.ville }}</span>
+                        <span class="duration">⏱ {{ offres.duree_offres }}</span>
                     </div>
                     <div class="skills">
                         <span class="skill">React</span>
@@ -159,16 +162,16 @@
                     </div>
                     <div class="offer-footer">
                         <div class="salary">
-                            <span class="amount">€ 1 200€/mois</span>
+                            <span class="amount">€ {{ offres.salaire_offres }} /mois</span>
                             <span class="candidates">👥 42 candidatures</span>
                         </div>
                         <div class="rating">
-                            <span class="stars">⭐ 4.8</span>
+                            <span class="stars">⭐ {{ offres.note }}</span>
                         </div>
                         <a href="detail-offre.html" class="apply-btn">Postuler</a>
                     </div>
                 </div>
-
+                {% endfor %}
                 <!-- OFFRE 2 -->
                 <div class="offer-card">
                     <div class="offer-badge">

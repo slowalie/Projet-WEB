@@ -72,6 +72,7 @@ function dispatchRoute(string $requestUri, Environment $twig): string
     if ($route === '/offres') {
         $controller = new OffresController($twig);
         return $controller->index();
+
     }
 
     if ($route === '/espace-pilote') {

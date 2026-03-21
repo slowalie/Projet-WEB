@@ -6,7 +6,7 @@ require_once __DIR__ . '/controller.php';
 
 class EspacePiloteController extends Controller
 {
-    public function index(): string
+    public function index()
     {
         return $this->render('espace-pilote.twig.html', [
             'page' => 'espace-pilote'

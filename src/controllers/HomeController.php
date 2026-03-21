@@ -7,7 +7,7 @@ require_once __DIR__ . '/controller.php';
 
 class HomeController extends Controller
 {
-    public function index(): string
+    public function index()
     {
         return $this->render('home.twig.html', [
             'page' => 'home',

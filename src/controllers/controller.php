@@ -13,7 +13,7 @@ abstract class Controller
 		$this->twig = $twig;
 	}
 
-	protected function render(string $template, array $context = []): string
+	protected function render(string $template, array $context = [])
 	{
 		return $this->twig->render($template, $context);
 	}
