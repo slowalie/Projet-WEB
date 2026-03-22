@@ -29,16 +29,9 @@
       </svg>
       <select>
         <option>Toutes</option>
-        <option>Paris</option>
-        <option>Lyon</option>
-        <option>Marseille</option>
-        <option>Toulouse</option>
-        <option>Bordeaux</option>
-        <option>Nantes</option>
-        <option>Strasbourg</option>
-        <option>Lille</option>
-        <option>Rennes</option>
-        
+        {% for offres in offres %}
+          <option>{{ offres.ville }}</option>
+        {% endfor %}
       </select>
     </div>
 
@@ -88,13 +81,9 @@
                 <h4>SECTEUR</h4>
                 <div class="tag-buttons">
                     <button class="tag active">Tous</button>
-                    <button class="tag">Tech</button>
-                    <button class="tag">Design</button>
-                    <button class="tag">Data</button>
-                    <button class="tag">Marketing</button>
-                    <button class="tag">Finance</button>
-                    <button class="tag">RH</button>
-                    <button class="tag">Commerce</button>
+                    {% for offres in offres %}
+                        <button class="tag">{{ offres.secteur_offres }}</button>
+                    {% endfor %}
                 </div>
             </div>
 
@@ -105,6 +94,10 @@
                     <label>
                         <input type="radio" name="duree" value="toutes" checked>
                         <span>Toutes</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="duree" value="2mois">
+                        <span>2 mois</span>
                     </label>
                     <label>
                         <input type="radio" name="duree" value="4mois">
@@ -139,9 +132,17 @@
                 {% for offres in offres %}
                 <!-- OFFRE 1 -->
                 <div class="offer-card">
+                    {% if offres.tag == "une" %}
                     <div class="offer-badge">
                         <span class="badge badge-priority">★ À la une</span>
                     </div>
+                    {% elseif offres.tag == "new" %}
+                    <div class="offer-badge">
+                        <span class="badge badge-new">♦ Nouveau</span>
+                    </div>
+                    {% elseif offres.tag == "" %}
+                    
+                    {% endif %}
                     <div class="offer-header">
                         <div class="company-logo">{{ offres.logo_entreprise }}</div>
                         <div class="offer-title">
@@ -156,10 +157,10 @@
                         <span class="duration">⏱ {{ offres.duree_offres }}</span>
                     </div>
                     <div class="skills">
-                        <span class="skill">React</span>
-                        <span class="skill">Node.js</span>
-                        <span class="skill">TypeScript</span>
-                    </div>
+                    {% for skill in offres.profil_recherche|split(',') %}
+                    <span class="skill">{{ skill|trim }}</span>
+                    {% endfor %}
+                </div>
                     <div class="offer-footer">
                         <div class="salary">
                             <span class="amount">€ {{ offres.salaire_offres }} /mois</span>
@@ -172,177 +173,7 @@
                     </div>
                 </div>
                 {% endfor %}
-                <!-- OFFRE 2 -->
-                <div class="offer-card">
-                    <div class="offer-badge">
-                        <span class="badge badge-new">♦ Nouveau</span>
-                    </div>
-                    <div class="offer-header">
-                        <div class="company-logo logo-ds">DS</div>
-                        <div class="offer-title">
-                            <h3>Stage UX/UI Designer</h3>
-                            <p class="company-name">DesignStudio</p>
-                        </div>
-                        <button class="heart-btn">♡</button>
-                    </div>
-                    <div class="offer-tags">
-                        <span class="tag-type">Stage</span>
-                        <span class="location">📍 Lyon</span>
-                        <span class="duration">⏱ 6 mois</span>
-                    </div>
-                    <div class="skills">
-                        <span class="skill">Figma</span>
-                        <span class="skill">Sketch</span>
-                        <span class="skill">Prototypage</span>
-                    </div>
-                    <div class="offer-footer">
-                        <div class="salary">
-                            <span class="amount">€ 900€/mois</span>
-                            <span class="candidates">👥 67 candidatures</span>
-                        </div>
-                        <div class="rating">
-                            <span class="stars">⭐ 4.5</span>
-                        </div>
-                        <a href="detail-offre.html" class="apply-btn">Postuler</a>
-                    </div>
-                </div>
-
-                <!-- OFFRE 3 -->
-                <div class="offer-card">
-                    <div class="offer-badge">
-                        <span class="badge badge-priority">★ À la une</span>
-                    </div>
-                    <div class="offer-header">
-                        <div class="company-logo logo-dc">DC</div>
-                        <div class="offer-title">
-                            <h3>Alternance Data Analyst</h3>
-                            <p class="company-name">DataCorp</p>
-                        </div>
-                        <button class="heart-btn">♡</button>
-                    </div>
-                    <div class="offer-tags">
-                        <span class="tag-type">Alternance</span>
-                        <span class="location">📍 Bordeaux</span>
-                        <span class="duration">⏱ 12 mois</span>
-                    </div>
-                    <div class="skills">
-                        <span class="skill">Python</span>
-                        <span class="skill">SQL</span>
-                        <span class="skill">Power BI</span>
-                    </div>
-                    <div class="offer-footer">
-                        <div class="salary">
-                            <span class="amount">€ 1 100€/mois</span>
-                            <span class="candidates">👥 31 candidatures</span>
-                        </div>
-                        <div class="rating">
-                            <span class="stars">⭐ 4.7</span>
-                        </div>
-                        <a href="detail-offre.html" class="apply-btn">Postuler</a>
-                    </div>
-                </div>
-
-                <!-- OFFRE 4 -->
-                <div class="offer-card">
-                    <div class="offer-badge">
-                        <span class="badge badge-new">♦ Nouveau</span>
-                    </div>
-                    <div class="offer-header">
-                        <div class="company-logo logo-gh">GH</div>
-                        <div class="offer-title">
-                            <h3>Stage Marketing Digital</h3>
-                            <p class="company-name">GrowthHive</p>
-                        </div>
-                        <button class="heart-btn">♡</button>
-                    </div>
-                    <div class="offer-tags">
-                        <span class="tag-type">Stage</span>
-                        <span class="location">📍 Nantes</span>
-                        <span class="duration">⏱ 4 mois</span>
-                    </div>
-                    <div class="skills">
-                        <span class="skill">SEO</span>
-                        <span class="skill">Google Ads</span>
-                        <span class="skill">Analytics</span>
-                    </div>
-                    <div class="offer-footer">
-                        <div class="salary">
-                            <span class="amount">€ 700€/mois</span>
-                            <span class="candidates">👥 89 candidatures</span>
-                        </div>
-                        <div class="rating">
-                            <span class="stars">⭐ 4.3</span>
-                        </div>
-                        <a href="detail-offre.html" class="apply-btn">Postuler</a>
-                    </div>
-                </div>
-
-                <!-- OFFRE 5 -->
-                <div class="offer-card">
-                    <div class="offer-badge">
-                        <span class="badge badge-priority">★ À la une</span>
-                    </div>
-                    <div class="offer-header">
-                        <div class="company-logo logo-sn">SN</div>
-                        <div class="offer-title">
-                            <h3>Alternance Cybersécurité</h3>
-                            <p class="company-name">SecureNet</p>
-                        </div>
-                        <button class="heart-btn">♡</button>
-                    </div>
-                    <div class="offer-tags">
-                        <span class="tag-type">Alternance</span>
-                        <span class="location">📍 Toulouse</span>
-                        <span class="duration">⏱ 24 mois</span>
-                    </div>
-                    <div class="skills">
-                        <span class="skill">Réseau</span>
-                        <span class="skill">Pentest</span>
-                        <span class="skill">SIEM</span>
-                    </div>
-                    <div class="offer-footer">
-                        <div class="salary">
-                            <span class="amount">€ 1 300€/mois</span>
-                            <span class="candidates">👥 18 candidatures</span>
-                        </div>
-                        <div class="rating">
-                            <span class="stars">⭐ 4.9</span>
-                        </div>
-                        <a href="detail-offre.html" class="apply-btn">Postuler</a>
-                    </div>
-                </div>
-
-                <!-- OFFRE 6 -->
-                <div class="offer-card">
-                    <div class="offer-header">
-                        <div class="company-logo logo-fg">FG</div>
-                        <div class="offer-title">
-                            <h3>Stage Finance d'Entreprise</h3>
-                            <p class="company-name">FinGroup</p>
-                        </div>
-                        <button class="heart-btn">♡</button>
-                    </div>
-                    <div class="offer-tags">
-                        <span class="tag-type">Stage</span>
-                        <span class="location">📍 Paris</span>
-                        <span class="duration">⏱ 6 mois</span>
-                    </div>
-                    <div class="skills">
-                        <span class="skill">Excel</span>
-                        <span class="skill">Comptabilité</span>
-                        <span class="skill">Audit</span>
-                    </div>
-                    <div class="offer-footer">
-                        <div class="salary">
-                            <span class="amount">€ 1 000€/mois</span>
-                            <span class="candidates">👥 55 candidatures</span>
-                        </div>
-                        <div class="rating">
-                            <span class="stars">⭐ 4.4</span>
-                        </div>
-                        <a href="detail-offre.html" class="apply-btn">Postuler</a>
-                    </div>
-                </div>
+                
             </div>
         </main>
     </div>
