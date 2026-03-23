@@ -85,6 +85,10 @@ function dispatchRoute(string $requestUri, Environment $twig): string
         return $controller->publish();
     }
 
+    if ($route === '/detail-offre') {
+        
+    }
+
     http_response_code(404);
     return '<h1>404 - Page non trouvee</h1>';
 }
