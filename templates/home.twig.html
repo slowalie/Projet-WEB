@@ -3,8 +3,8 @@
 {% block title %}Accueil - IdeaStage{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="/assets/style.css">
-    <link rel="stylesheet" href="/assets/offer-card-shared.css">
+    <link rel="stylesheet" href="http://ideaStageassets.local/style.css">
+    <link rel="stylesheet" href="http://ideaStageassets.local/offer-card-shared.css">
 {% endblock %}
 
 {% block content %}
@@ -158,7 +158,7 @@
             </span>
         </button>
         <div class="offer-preview-grid">
-            {% for offre in offres|slice(0, 7) %}
+            {% for offre in offres|slice(0, 6) %}
             {% if offre.tag == "une" or offre.tag == "new" %}
             <div class="offer-card">
                 {% if offre.tag == "une" %}
