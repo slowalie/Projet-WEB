@@ -61,6 +61,7 @@
 
 .publish-form {
     width: 90%;
+    height: 800px;
     border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 20px;
     background: rgba(15, 23, 42, 0.55);
@@ -74,6 +75,7 @@
 .publish-form h2 {
     margin: 0 0 8px;
     font-size: 1.5rem;
+    color: #facc15;
 }
 
 .publish-form label {
@@ -95,6 +97,7 @@
 
 .publish-input {
     width: 100%;
+    height: auto;
     border: 1px solid #475569;
     border-radius: 10px;
     background: #ffffff;
@@ -136,10 +139,18 @@ textarea.publish-input {
 }
 
 .publish-submit {
+    background-color: #5850ec;
+    border: none;
     margin-top: 8px;
     width: 100%;
     padding: 10px 14px;
     border-radius: 10px;
+    color: #ffffff;
+}
+
+.publish-submit:hover {
+    background-color: #4436d8;
+    
 }
 
 .publish-side-switch {
