@@ -121,20 +121,7 @@ body {
     font-weight: 500;
 }
 
-.button-inscription {
-    border: 1px solid var(--primary-violet);
-    border-radius: var(--border-radius);
-    padding: 5px 10px;
-    background-color: var(--primary-violet);
-    color: var(--text-main);
-    margin-right: 20px;
-    cursor: pointer;
-}
 
-.button-inscription:hover {
-    background-color: var(--btn-hover);
-    border-color: var(--btn-hover);
-}
 
 /* --- HAMBURGER --- */
 

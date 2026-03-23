@@ -158,7 +158,7 @@
             </span>
         </button>
         <div class="offer-preview-grid">
-            {% for offre in offres %}
+            {% for offre in offres|slice(0, 7) %}
             {% if offre.tag == "une" or offre.tag == "new" %}
             <div class="offer-card">
                 {% if offre.tag == "une" %}
@@ -180,7 +180,7 @@
                     <button class="heart-btn" aria-label="Ajouter aux favoris">♡</button>
                 </div>
                 <div class="offer-tags">
-                    <span class="tag-type">{{ offre.type_offre }}</span>
+                    <span class="tag-type">{{ offre.type_offres }}</span>
                     <span class="location">📍 {{ offre.ville }}</span>
                     <span class="duration">⏱ {{ offre.duree_offres }}</span>
                 </div>
@@ -193,7 +193,7 @@
                 
                 <div class="offer-footer">
                     <div class="salary">
-                        <span class="amount">€ {{ offre.salaire }} /mois</span>
+                        <span class="amount">€ {{ offre.salaire_offres }} /mois</span>
                         <span class="candidates">👥 {{ offre.candidatures }} candidatures</span>
                     </div>
                     <div class="rating">

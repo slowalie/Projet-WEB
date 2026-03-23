@@ -80,6 +80,11 @@ function dispatchRoute(string $requestUri, Environment $twig): string
         return $controller->index();
     }
 
+    if ($route === '/publish/offre') {
+        $controller = new OffresController($twig);
+        return $controller->publish();
+    }
+
     http_response_code(404);
     return '<h1>404 - Page non trouvee</h1>';
 }

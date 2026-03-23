@@ -1,0 +1,40 @@
+<?php
+
+declare(strict_types=1);
+namespace App\Models;
+require_once __DIR__ . '/Database.php';
+
+
+use App\models\Database;
+
+class EntreprisesModel
+{
+    private \pdo $pdo;
+
+    public function __construct(Database $db)
+    {
+        $this->pdo = $db->getConnection();
+    }
+
+    public function getEntreprises(): array
+    {
+        $sql = 'SELECT * FROM Entreprises';
+        $stmt = $this->pdo->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function addEntreprises($nom, $logo, $description, $note )
+    {
+        $sql = 'INSERT INTO Entreprises (nom_entreprise, logo_entreprise, description_entreprise, note_entreprise) 
+                VALUES (:nom, :logo, :description, :note)';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':nom' => $nom,
+            ':logo' => $logo,
+            ':description' => $description,
+            ':note' => $note
+        ]);
+    }
+
+}
+

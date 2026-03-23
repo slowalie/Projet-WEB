@@ -8,6 +8,7 @@ require_once __DIR__ . '/../models/offresModel.php';
 use App\Models\OffresModel;
 use App\Models\Database;
 
+
 class OffresController extends Controller
 {
     private OffresModel $offresModel;
@@ -27,6 +28,31 @@ class OffresController extends Controller
             'offres' => $offres,
             'total_offres' => count($offres)
         ]);
+    }
+    public function publish()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->offresModel->addOffre(
+                $_POST['nomoffrein'],
+                $_POST['descriptionoffrein'],
+                $_POST['typeoffrein'],
+                $_POST['salaireoffrein'],
+                $_POST['datedebutoffrein'],
+                $_POST['dureeoffrein'],
+                $_POST['entreprisoffrein'],
+                $_POST['missionsoffrein'],
+                $_POST['noteoffrein'],
+                $_POST['secteuroffrein'],
+                $_POST['profiloffrein'],
+                $_POST['adresseoffrein'],
+                $_POST['villeoffrein'],
+                $_POST['tagoffrein'],
+                $_POST['departementoffrein']
+            );
+            header('Location: /espace-pilote');
+            exit();
+        }
+        
     }
 
     

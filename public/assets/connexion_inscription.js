@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const backdrop = modal.querySelector("[data-auth-close='true']");
 
     const loginOpeners = document.querySelectorAll(".navbar .button-connexion");
-    const signUpOpeners = document.querySelectorAll(".navbar .button-inscription");
+    const signUpOpeners = document.querySelectorAll(".button-inscription");
 
     function setMode(mode) {
         const isLogin = mode === "login";
