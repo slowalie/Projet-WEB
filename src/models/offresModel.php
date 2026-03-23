@@ -3,15 +3,17 @@
 declare(strict_types=1);
 namespace App\Models;
 require_once __DIR__ . '/Database.php';
+require_once __DIR__ . '/entreprisesModel.php';
+require_once __DIR__ . '/localisationModel.php';
 
 
-use App\models\Database;
+use App\Models\Database;
 use App\Models\EntreprisesModel;
-use App\Models\localisationModel;
+use App\Models\LocalisationModel;
 
 class OffresModel
 {
-    private \pdo $pdo;
+    private \PDO $pdo;
 
     public function __construct(Database $db)
     {
@@ -41,7 +43,7 @@ class OffresModel
 
     if (!$localisationId) {
         // Note: Évitez de réinstancier des modèles/DB ici si possible, utilisez des méthodes existantes
-        $localisationModel = new localisationModel(new Database('localhost', 'root', 'A2#DevWeb!', 'ideastage_BDD'));
+        $localisationModel = new LocalisationModel(new Database('localhost', 'root', 'A2#DevWeb!', 'ideastage_BDD'));
         $localisationId = $localisationModel->addLocalisation($adresse, $ville, $departement);
     }
 

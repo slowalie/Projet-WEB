@@ -5,11 +5,11 @@ namespace App\Models;
 require_once __DIR__ . '/Database.php';
 
 
-use App\models\Database;
+use App\Models\Database;
 
 class EntreprisesModel
 {
-    private \pdo $pdo;
+    private \PDO $pdo;
 
     public function __construct(Database $db)
     {
@@ -23,7 +23,7 @@ class EntreprisesModel
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function addEntreprises($nom, $logo, $description, $note )
+    public function addEntreprises($nom, $logo, $description, $note): int
     {
         $sql = 'INSERT INTO Entreprises (nom_entreprise, logo_entreprise, description_entreprise, note_entreprise) 
                 VALUES (:nom, :logo, :description, :note)';
@@ -34,6 +34,8 @@ class EntreprisesModel
             ':description' => $description,
             ':note' => $note
         ]);
+
+        return (int) $this->pdo->lastInsertId();
     }
 
 }

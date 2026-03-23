@@ -5,11 +5,11 @@ namespace App\Models;
 require_once __DIR__ . '/Database.php';
 
 
-use App\models\Database;
+use App\Models\Database;
 
-class localisationModel
+class LocalisationModel
 {
-    private \pdo $pdo;
+    private \PDO $pdo;
 
     public function __construct(Database $db)
     {
@@ -23,7 +23,7 @@ class localisationModel
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function addlocalisation( $adresse, $ville, $departement)
+    public function addLocalisation($adresse, $ville, $departement): int
     {
         $sql = 'INSERT INTO Localisation (adresse, ville, departement) 
                 VALUES (:adresse, :ville, :departement)';
@@ -33,6 +33,8 @@ class localisationModel
             ':ville' => $ville,
             ':departement' => $departement
         ]);
+
+        return (int) $this->pdo->lastInsertId();
     }
 
     

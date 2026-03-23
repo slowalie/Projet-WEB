@@ -211,7 +211,7 @@ main {
 }
 
 .button-inscription {
-    background-color: var(--bg-input);
+    background-color: var(--primary-violet);
     border: 2px solid var(--primary-violet);
     color: var(--text-main);
     font-size: 15px;
