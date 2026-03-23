@@ -18,7 +18,9 @@ class EntreprisesModel
 
     public function getEntreprises(): array
     {
-        $sql = 'SELECT * FROM Entreprises';
+        $sql = 'SELECT * FROM Entreprises
+                INNER JOIN Offres ON Entreprises.id_entreprise = Offres.id_entreprise
+                INNER JOIN Localisation ON Offres.id_localisation = Localisation.id_localisation';
         $stmt = $this->pdo->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
