@@ -467,6 +467,18 @@ main {
     transition: all 0.2s ease;
 }
 
+.btn-page:hover, .btn-nav-page:hover {
+    background-color: #e2e8f0;
+    border-color: #94a3b8;
+    color: #1e293b;
+}
+
+.btn-page.active {
+    background-color: var(--primary-violet);
+    border-color: var(--primary-violet);
+    color: white;
+}
+
 /* OFFER FOOTER */
 .offer-footer {
     display: flex;

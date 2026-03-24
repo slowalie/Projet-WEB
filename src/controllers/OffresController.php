@@ -22,11 +22,13 @@ class OffresController extends Controller
 
     public function index()
     {
+        $currentPage = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
         $offres = $this->offresModel->getOffres();
         return $this->render('offres.twig.html', [
             'page' => 'offres',
             'offres' => $offres,
-            'total_offres' => count($offres)
+            'total_offres' => count($offres),
+            'currentPage' => $currentPage
         ]);
     }
     public function publish()

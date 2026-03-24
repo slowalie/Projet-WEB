@@ -89,8 +89,8 @@
                 <h4>SECTEUR</h4>
                 <div class="tag-buttons">
                     <button class="tag active">Tous</button>
-                    {% for offres in offres %}
-                    <button class="tag">{{ offres.secteur_offres }}</button>
+                    {% for item in offres %}
+                    <button class="tag">{{ item.secteur_offres }}</button>
                     {% endfor %}
                 </div>
             </div>
@@ -135,52 +135,52 @@
 
             {% set limit = 9 %}
 
-            {% set currentPage = app.request.query.get('page', 1)|round(0, 'floor') %}
-            {% set totalOffres = Offres|length %}
+            {% set totalOffres = offres|length %}
             {% set totalPages = (totalOffres / limit)|round(0, 'ceil') %}
             {% set offset = (currentPage - 1) * limit %}
 
+            
             <!-- GRID D'OFFRES -->
             <div class="offers-grid">
-                {% for offres in offres %}
+                {% for offre in offres|slice(offset, limit) %}
                 <!-- OFFRE 1 -->
                 <div class="offer-card">
-                    {% if offres.tag == "une" %}
+                    {% if offre.tag == "une" %}
                     <div class="offer-badge">
                         <span class="badge badge-priority">★ À la une</span>
                     </div>
-                    {% elseif offres.tag == "new" %}
+                    {% elseif offre.tag == "new" %}
                     <div class="offer-badge">
                         <span class="badge badge-new">♦ Nouveau</span>
                     </div>
-                    {% elseif offres.tag == "" %}
+                    {% elseif offre.tag == "" %}
 
                     {% endif %}
                     <div class="offer-header">
-                        <div class="company-logo">{{ offres.logo_entreprise }}</div>
+                        <div class="company-logo">{{ offre.logo_entreprise }}</div>
                         <div class="offer-title">
-                            <h3>{{ offres.nom_offres }}</h3>
-                            <p class="company-name">{{ offres.nom_entreprise }}</p>
+                            <h3>{{ offre.nom_offres }}</h3>
+                            <p class="company-name">{{ offre.nom_entreprise }}</p>
                         </div>
                         <button class="heart-btn">♡</button>
                     </div>
                     <div class="offer-tags">
-                        <span class="tag-type">{{ offres.type_offres }}</span>
-                        <span class="location">📍 {{ offres.ville }}</span>
-                        <span class="duration">⏱ {{ offres.duree_offres }}</span>
+                        <span class="tag-type">{{ offre.type_offres }}</span>
+                        <span class="location">📍 {{ offre.ville }}</span>
+                        <span class="duration">⏱ {{ offre.duree_offres }}</span>
                     </div>
                     <div class="skills">
-                        {% for profil_recherche in offres.Profil_recherche|split(',') %}
+                        {% for profil_recherche in offre.Profil_recherche|split(',') %}
                         <span class="skill">{{ profil_recherche|trim }}</span>
                         {% endfor %}
                     </div>
                     <div class="offer-footer">
                         <div class="salary">
-                            <span class="amount">€ {{ offres.salaire_offres }} /mois</span>
+                            <span class="amount">€ {{ offre.salaire_offres }} /mois</span>
                             <span class="candidates">👥 42 candidatures</span>
                         </div>
                         <div class="rating">
-                            <span class="stars">⭐ {{ offres.note }}</span>
+                            <span class="stars">⭐ {{ offre.note }}</span>
                         </div>
                         <a href="detail-offre.html" class="apply-btn">Postuler</a>
                     </div>
@@ -194,8 +194,8 @@
                 <a href="?page={{ currentPage - 1}}" class="btn-nav-page">Précédent</a>
                 {% endif %}
 
-                {% for i in 1..totalPages %}
-                <a href="?page={{ i }}" class="btn-page" {% if i==currentPage %}active-page{% endif %}>{{ i }}</a>
+                {% for page in 1..totalPages %}
+                <a href="?page={{ page }}" class="btn-page" {{ page==currentPage ? 'active-page' : '' }}>{{ page }}</a>
                 {% endfor %}
 
                 {%if currentPage < totalPages %} 
