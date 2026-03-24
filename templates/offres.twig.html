@@ -159,8 +159,8 @@
                     <div class="offer-header">
                         <div class="company-logo">{{ offre.logo_entreprise }}</div>
                         <div class="offer-title">
-                            <h3>{{ offre.nom_offres }}</h3>
-                            <p class="company-name">{{ offre.nom_entreprise }}</p>
+                            <h3><a href="/detail-offre/{{ offre.id_offres }}">{{ offre.nom_offres }}</a></h3>
+                            <p class="company-name" >{{ offre.nom_entreprise }}</p>
                         </div>
                         <button class="heart-btn">♡</button>
                     </div>
@@ -182,7 +182,7 @@
                         <div class="rating">
                             <span class="stars">⭐ {{ offre.note }}</span>
                         </div>
-                        <a href="detail-offre.html" class="apply-btn">Postuler</a>
+                        <a href="/detail-offre/{{ offre.id_offres }}" class="apply-btn">Postuler</a>
                     </div>
                 </div>
                 {% endfor %}

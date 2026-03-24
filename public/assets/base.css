@@ -99,7 +99,7 @@ body {
     font-weight: bold;
 }
 
-.nav-links a.active {
+.nav-links a .active {
     color: var(--primary-violet);
     font-weight: bold;
 }

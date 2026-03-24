@@ -28,86 +28,10 @@
             min-height: 100vh;
             font-size: 15px;
             line-height: 1.6;
+            
         }
  
-        /* NAVBAR */
-        .navbar {
-            background: var(--white);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .navbar-inner {
-            max-width: 1280px;
-            margin: auto;
-            padding: 0 32px;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            flex-shrink: 0;
-        }
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--primary);
-            border-radius: 10px;
-            display: grid;
-            place-items: center;
-            color: white;
-        }
-        .logo-text { font-weight: 700; font-size: 17px; color: var(--text); letter-spacing: -0.3px; }
-        .logo-text span { color: var(--primary); }
- 
-        .nav-links { display: flex; gap: 4px; flex: 1; }
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-3);
-            font-weight: 500;
-            font-size: 14px;
-            padding: 6px 14px;
-            border-radius: 8px;
-            transition: all .15s;
-        }
-        .nav-links a:hover { color: var(--text); background: var(--bg); }
-        .nav-links a.active { color: var(--primary); background: var(--primary-light); }
- 
-        .nav-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
-        .btn-alert {
-            display: flex; align-items: center; gap: 6px;
-            color: var(--text-3); font-size: 14px; font-weight: 500;
-            background: none; border: none; cursor: pointer;
-            padding: 6px 10px; border-radius: 8px; transition: .15s;
-        }
-        .btn-alert:hover { background: var(--bg); color: var(--text); }
-        .btn-login {
-            border: 1.5px solid var(--border); background: white; color: var(--text);
-            font-weight: 600; font-size: 14px; padding: 7px 18px;
-            border-radius: 9px; cursor: pointer; transition: .15s; font-family: inherit;
-        }
-        .btn-login:hover { border-color: var(--primary); color: var(--primary); }
-        .btn-signup {
-            background: var(--primary); color: white; font-weight: 600;
-            font-size: 14px; padding: 8px 20px; border-radius: 9px;
-            border: none; cursor: pointer; transition: .15s; font-family: inherit;
-        }
-        .btn-signup:hover { background: var(--primary-dark); }
- 
-        /* BACK */
-        .back-bar { max-width: 1280px; margin: auto; padding: 18px 32px 0; }
-        .back-link {
-            display: inline-flex; align-items: center; gap: 6px;
-            color: var(--text-3); text-decoration: none;
-            font-size: 14px; font-weight: 500; transition: color .15s;
-        }
-        .back-link:hover { color: var(--primary); }
+        
  
         /* PAGE */
         .page {
@@ -117,6 +41,7 @@
             grid-template-columns: 1fr 320px;
             gap: 24px;
             align-items: start;
+            margin-top: 80px;
         }
  
         /* CARDS */

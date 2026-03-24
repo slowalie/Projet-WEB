@@ -29,6 +29,18 @@ class OffresModel
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function getOffreById(int $id): ?array
+    {
+        $sql = 'SELECT * FROM Offres
+                INNER JOIN Entreprises ON Offres.id_entreprise = Entreprises.id_entreprise
+                INNER JOIN Localisation ON Offres.id_localisation = Localisation.id_localisation
+                WHERE Offres.id_offres = :id';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        $offre = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $offre ?: null;
+    }
+
     public function addOffre($nom, $description, $type_contrat, $salaire, $date_debut, $duree, $entreprise, $mission, $note, $secteur, $profil_recherche, $adresse, $ville, $tag, $departement)
 {
     // 1. Gérer la Localisation

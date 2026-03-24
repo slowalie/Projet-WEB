@@ -9,6 +9,7 @@ require_once __DIR__ . '/../src/controllers/OffresController.php';
 require_once __DIR__ . '/../src/controllers/EspacePiloteController.php';
 require_once __DIR__ . '/../src/controllers/AuthController.php';
 require_once __DIR__ . '/../src/controllers/EntreprisesController.php';
+require_once __DIR__ . '/../src/controllers/detailoffreController.php';
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -86,8 +87,9 @@ function dispatchRoute(string $requestUri, Environment $twig): string
         return $controller->publish();
     }
 
-    if ($route === '/detail-offre') {
-        
+    if (preg_match('/^\/detail-offre\/(\d+)$/', $route, $matches)) {
+        $controller = new detailOffresController($twig);
+        return $controller->index((int) $matches[1]);
     }
 
     if ($route === '/entreprises') {

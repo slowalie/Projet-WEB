@@ -9,7 +9,7 @@ use App\Models\OffresModel;
 use App\Models\Database;
 
 
-class OffresController extends Controller
+class detailOffresController extends Controller
 {
     private OffresModel $offresModel;
 
@@ -20,13 +20,14 @@ class OffresController extends Controller
         $this->offresModel = new OffresModel($database);
     }
 
-    public function index()
+    public function index(int $id_offres): string
     {
-        $offres = $this->offresModel->getOffres();
-        return $this->render('offres.twig.html', [
+        $offre = $this->offresModel->getOffreById($id_offres);
+        
+        return $this->render('detail-offre.twig.html', [
             'page' => 'offres',
-            'offres' => $offres,
-            'total_offres' => count($offres)
+            'offre' => $offre,
+            
         ]);
     }
 }
