@@ -89,8 +89,8 @@
                 <h4>SECTEUR</h4>
                 <div class="tag-buttons">
                     <button class="tag active">Tous</button>
-                    {% for item in offres %}
-                    <button class="tag">{{ item.secteur_offres }}</button>
+                    {% for secteur in secteurs %}
+                    <button class="tag">{{ secteur }}</button>
                     {% endfor %}
                 </div>
             </div>
