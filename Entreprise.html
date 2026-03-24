@@ -313,6 +313,207 @@
         </div>
     </footer>
 
+    <!-- MODALE CONNEXION/INSCRIPTION -->
+    <div id="auth-modal" class="auth-modal" style="display:none;">
+        <div class="auth-modal-content">
+            <button class="auth-modal-close" aria-label="Fermer">&times;</button>
+            <!-- Sélecteur de rôle -->
+            <div class="auth-role-selector" id="auth-role-selector">
+                <h2>Sélectionner votre rôle</h2>
+                <div class="auth-role-grid">
+                    <button class="auth-role-card" data-role="admin">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-shield-lock" viewBox="0 0 16 16">
+                            <path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56z"/>
+                            <path d="M9.5 6.5a1.5 1.5 0 0 1-1 1.415l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99a1.5 1.5 0 1 1 2-1.415z"/>
+                        </svg>
+                        <h3>Admin</h3>
+                        <p>Gérer le système</p>
+                    </button>
+                    <button class="auth-role-card" data-role="pilot">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-airplane" viewBox="0 0 16 16">
+                            <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.591 1.572 1.151C9.861 1.554 10 2.019 10 2.5V3h4a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V4h-4v6h4v-1.5a.5.5 0 0 1 1 0v2a.5.5 0 0 1-.5.5H10v.5c0 .481-.139.946-.428 1.349-.28.56-.789 1.151-1.572 1.151s-1.292-.591-1.572-1.151C6.139 13.054 6 12.589 6 12.5V12H2a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 1 0V11h4V5H2v1.5a.5.5 0 0 1-1 0v-2a.5.5 0 0 1 .5-.5h4V2.5c0-.481.139-.946.428-1.349z"/>
+                        </svg>
+                        <h3>Pilot</h3>
+                        <p>Superviser les offres</p>
+                    </button>
+                    <button class="auth-role-card" data-role="etudiant">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+                            <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 12.5A1.5 1.5 0 0 1 2.5 11h3A1.5 1.5 0 0 1 7 12.5v3A1.5 1.5 0 0 1 5.5 17h-3A1.5 1.5 0 0 1 1 15.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 11h3A1.5 1.5 0 0 1 15 12.5v3A1.5 1.5 0 0 1 13.5 17h-3A1.5 1.5 0 0 1 9 15.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+                        </svg>
+                        <h3>Étudiant</h3>
+                        <p>Trouver des offres</p>
+                    </button>
+                </div>
+                <button class="auth-back-btn">&larr; Retour</button>
+            </div>
+            
+            <!-- Formulaires de connexion -->
+            <div class="auth-form-container" id="auth-form-container" style="display:none;">
+                <div class="auth-form-header">
+                    <button class="auth-back-to-role" aria-label="Retour à la sélection">&larr;</button>
+                    <h2 id="auth-role-title">Connexion Admin</h2>
+                    <button class="auth-modal-close" aria-label="Fermer">&times;</button>
+                </div>
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="connexion">Connexion</button>
+                    <button class="auth-tab" data-tab="inscription">Inscription</button>
+                </div>
+                <div class="auth-modal-body">
+                    <form class="auth-form auth-form-connexion" style="display:block;">
+                    <label>Adresse email</label>
+                    <input type="email" placeholder="alex@exemple.fr" required>
+                    <label>Mot de passe</label>
+                    <input type="password" placeholder="••••••••" required>
+                    <button type="submit" class="auth-submit">Se connecter</button>
+                    <div class="auth-links">
+                        <a href="#">Mot de passe oublié ?</a>
+                    </div>
+                    <div class="auth-divider">
+                        <span>ou continuer avec</span>
+                    </div>
+                    <div class="auth-social">
+                        <button type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+                                <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.68-2.339 6.395.642-.355 1.236-.832 1.697-1.388a.678.678 0 0 0-.262-1.155 2.873 2.873 0 0 1-.16-.083.690.690 0 0 0-.577.192 1.173 1.173 0 0 1-.466.182.693.693 0 0 0-.589.883c.031.694.405 1.289.736 1.785.07.106.142.204.215.295a2.782 2.782 0 0 1-2.493.949.678.678 0 0 0-.505.204 2.954 2.954 0 0 1-.533 1.659.69.69 0 0 0 .005.643 3.335 3.335 0 0 1-.635 1.646.693.693 0 0 0 .142.847c2.159 1.003 4.26 1.522 6.3 1.522.566 0 1.11-.05 1.638-.122l-.738-1.768a.693.693 0 0 0-.923-.159c-1.24.823-2.587 1.327-4.072 1.482a.693.693 0 0 0 .003-1.386c.022-.041.089-.12.249-.173.78-.246 1.555-.645 2.268-1.199a.673.673 0 0 0 .144-.954 2.99 2.99 0 0 1-.844-2.693.069.069 0 0 1 .003-.066.694.694 0 0 0-.622-.967 2.76 2.76 0 0 1 .04-3.308 2.763 2.763 0 0 1 1.12-1.123 2.755 2.755 0 0 1 1.466-.184 2.765 2.765 0 0 1 1.015.429c.153.1.29.235.41.4a2.745 2.745 0 0 1 .24.494c.04.095.08.188.134.285a.693.693 0 0 0 .13.13zm-1.268-3.158c-.016-.024-.028-.052-.04-.078a.693.693 0 0 0-.966.194 2.762 2.762 0 0 0 .288 2.696.693.693 0 0 0 .868.084c1.01-.72 1.69-1.736 1.936-2.924a2.742 2.742 0 0 0 .248-1.032.69.69 0 0 0-1.334-.172zm3.476 1.68a9.42 9.42 0 0 0-.63-1.562.693.693 0 0 0-.92.114 2.77 2.77 0 0 0 .234 2.726.692.692 0 0 0 .872.08c.826-.597 1.44-1.386 1.694-2.358z"/>
+                            </svg>
+                            Google
+                        </button>
+                        <button type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                            </svg>
+                            GitHub
+                        </button>
+                    </div>
+                    <div class="auth-signup-link">
+                        Pas encore de compte ? <a href="#">S'inscrire gratuitement</a>
+                    </div>
+                    </form>
+                    <form class="auth-form auth-form-inscription" style="display:none;">
+                    <label>Adresse email</label>
+                    <input type="email" placeholder="alex@exemple.fr" required>
+                    <label>Mot de passe</label>
+                    <input type="password" placeholder="Créer un mot de passe" required>
+                    <button type="submit" class="auth-submit">S'inscrire</button>
+                    <div class="auth-divider">
+                        <span>ou continuer avec</span>
+                    </div>
+                    <div class="auth-social">
+                        <button type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+                                <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.68-2.339 6.395.642-.355 1.236-.832 1.697-1.388a.678.678 0 0 0-.262-1.155 2.873 2.873 0 0 1-.16-.083.690.690 0 0 0-.577.192 1.173 1.173 0 0 1-.466.182.693.693 0 0 0-.589.883c.031.694.405 1.289.736 1.785.07.106.142.204.215.295a2.782 2.782 0 0 1-2.493.949.678.678 0 0 0-.505.204 2.954 2.954 0 0 1-.533 1.659.69.69 0 0 0 .005.643 3.335 3.335 0 0 1-.635 1.646.693.693 0 0 0 .142.847c2.159 1.003 4.26 1.522 6.3 1.522.566 0 1.11-.05 1.638-.122l-.738-1.768a.693.693 0 0 0-.923-.159c-1.24.823-2.587 1.327-4.072 1.482a.693.693 0 0 0 .003-1.386c.022-.041.089-.12.249-.173.78-.246 1.555-.645 2.268-1.199a.673.673 0 0 0 .144-.954 2.99 2.99 0 0 1-.844-2.693.069.069 0 0 1 .003-.066.694.694 0 0 0-.622-.967 2.76 2.76 0 0 1 .04-3.308 2.763 2.763 0 0 1 1.12-1.123 2.755 2.755 0 0 1 1.466-.184 2.765 2.765 0 0 1 1.015.429c.153.1.29.235.41.4a2.745 2.745 0 0 1 .24.494c.04.095.08.188.134.285a.693.693 0 0 0 .13.13zm-1.268-3.158c-.016-.024-.028-.052-.04-.078a.693.693 0 0 0-.966.194 2.762 2.762 0 0 0 .288 2.696.693.693 0 0 0 .868.084c1.01-.72 1.69-1.736 1.936-2.924a2.742 2.742 0 0 0 .248-1.032.69.69 0 0 0-1.334-.172zm3.476 1.68a9.42 9.42 0 0 0-.63-1.562.693.693 0 0 0-.92.114 2.77 2.77 0 0 0 .234 2.726.692.692 0 0 0 .872.08c.826-.597 1.44-1.386 1.694-2.358z"/>
+                            </svg>
+                            Google
+                        </button>
+                        <button type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                            </svg>
+                            GitHub
+                        </button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="./assets/script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const authModal = document.getElementById('auth-modal');
+        const roleSelector = document.getElementById('auth-role-selector');
+        const formContainer = document.getElementById('auth-form-container');
+        const roleTitle = document.getElementById('auth-role-title');
+        let currentRole = null;
+
+        // Ouvre la modale au clic sur les boutons
+        document.querySelectorAll('.button-connexion, .button-connexion-mobile').forEach(btn => {
+            btn.addEventListener('click', function() {
+                authModal.style.display = 'flex';
+                roleSelector.style.display = 'block';
+                formContainer.style.display = 'none';
+                currentRole = null;
+            });
+        });
+
+        document.querySelectorAll('.button-inscription, .button-inscription-mobile').forEach(btn => {
+            btn.addEventListener('click', function() {
+                authModal.style.display = 'flex';
+                roleSelector.style.display = 'block';
+                formContainer.style.display = 'none';
+                currentRole = null;
+            });
+        });
+
+        // Sélection du rôle
+        document.querySelectorAll('.auth-role-card').forEach(card => {
+            card.addEventListener('click', function() {
+                currentRole = this.dataset.role;
+                const roleNames = {
+                    'admin': 'Admin',
+                    'pilot': 'Pilot',
+                    'etudiant': 'Étudiant'
+                };
+                roleTitle.textContent = 'Connexion ' + roleNames[currentRole];
+                roleSelector.style.display = 'none';
+                formContainer.style.display = 'flex';
+                
+                // Réinitialiser les onglets
+                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                document.querySelector('.auth-tab[data-tab="connexion"]').classList.add('active');
+                document.querySelector('.auth-form-connexion').style.display = 'block';
+                document.querySelector('.auth-form-inscription').style.display = 'none';
+            });
+        });
+
+        // Retour au sélecteur de rôle
+        document.querySelectorAll('.auth-back-btn, .auth-back-to-role').forEach(btn => {
+            btn.addEventListener('click', function() {
+                roleSelector.style.display = 'block';
+                formContainer.style.display = 'none';
+                currentRole = null;
+            });
+        });
+
+        // Fermer la modale (croix)
+        document.querySelectorAll('.auth-modal-close').forEach(btn => {
+            btn.addEventListener('click', function() {
+                authModal.style.display = 'none';
+            });
+        });
+
+        // Switch tabs
+        document.querySelectorAll('.auth-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                const roleNames = {
+                    'admin': 'Admin',
+                    'pilot': 'Pilot',
+                    'etudiant': 'Étudiant'
+                };
+                if(this.dataset.tab === 'connexion') {
+                    roleTitle.textContent = 'Connexion ' + roleNames[currentRole];
+                    document.querySelector('.auth-form-connexion').style.display = 'block';
+                    document.querySelector('.auth-form-inscription').style.display = 'none';
+                } else {
+                    roleTitle.textContent = 'Inscription ' + roleNames[currentRole];
+                    document.querySelector('.auth-form-connexion').style.display = 'none';
+                    document.querySelector('.auth-form-inscription').style.display = 'block';
+                }
+            });
+        });
+
+        // Empêche soumission réelle
+        document.querySelectorAll('.auth-form').forEach(form => {
+            form.onsubmit = e => e.preventDefault();
+        });
+
+        // Fermer la modale si clic en dehors du contenu
+        authModal.addEventListener('click', function(e) {
+            if(e.target === this) this.style.display = 'none';
+        });
+    });
+    </script>
 </body>
 </html>
