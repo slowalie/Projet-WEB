@@ -1,0 +1,110 @@
+<div class="publish-modal" id="popUpPublishOffer" aria-hidden="true">
+    <div class="publish-modal-backdrop" data-publish-close="true"></div>
+
+    <div class="publish-modal-panel" role="dialog" aria-modal="true" aria-label="publication offre">
+        <button class="publish-close" type="button" id="publishCloseButton" aria-label="Fermer">×</button>
+        
+        <div class="publish-forms-space">
+            <form class="publish-form" id="publishForm" action="/publish/offre" method="post">
+                <h2>Publier une offre</h2>
+
+                <div class="publish-form-grid">
+                    <div class="publish-field">
+                        <label for="nomoffrein">nom de l'offre</label>
+                        <input type="text" id="nomoffrein" name="nomoffrein" class="publish-input" required>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="typeoffrein">Type d'offre</label>
+                        <input type="text" id="typeoffrein" name="typeoffrein" class="publish-input" required>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="dureeoffrein">Durée de l'offre</label>
+                        <input type="text" id="dureeoffrein" name="dureeoffrein" class="publish-input" required>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="salaireoffrein">Salaire de l'offre</label>
+                        <input type="text" id="salaireoffrein" name="salaireoffrein" class="publish-input" required>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="descriptionoffrein">Description de l'offre</label>
+                        <textarea id="descriptionoffrein" name="descriptionoffrein" class="publish-input" required></textarea>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="missionsoffrein">Missions de l'offre</label>
+                        <textarea id="missionsoffrein" name="missionsoffrein" class="publish-input" required></textarea>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="datedebutoffrein">Date de début de l'offre</label>
+                        <input type="date" id="datedebutoffrein" name="datedebutoffrein" class="publish-input" required>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="noteoffrein">Note de l'offre</label>
+                        <input type="text" id="noteoffrein" name="noteoffrein" class="publish-input" required>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="secteuroffrein">Secteur d'activité</label>
+                        <input type="text" id="secteuroffrein" name="secteuroffrein" class="publish-input" required>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="profiloffrein">Profil recherché</label>
+                        <input type="text" id="profiloffrein" name="profiloffrein" class="publish-input" required>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="adresseoffrein">Adresse de l'offre</label>
+                        <input type="text" id="adresseoffrein" name="adresseoffrein" class="publish-input" required>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="departementoffrein">Département de l'offre</label>
+                        <input type="text" id="departementoffrein" name="departementoffrein" class="publish-input" required>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="villeoffrein">Ville de l'offre</label>
+                        <input type="text" id="villeoffrein" name="villeoffrein" class="publish-input" required>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="entreprisoffrein">Entreprise</label>
+                        <input type="text" id="entreprisoffrein" name="entreprisoffrein" class="publish-input" required>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="noteentreprisoffrein">Note de l'entreprise</label>
+                        <input type="text" id="noteentreprisoffrein" name="noteentreprisoffrein" class="publish-input" required>
+                    </div>
+
+                    
+                    <div class="publish-field">
+                        <label for="logoentreprisoffrein">Initial de l'entreprise</label>
+                        <input type="text" id="logoentreprisoffrein" name="logoentreprisoffrein" class="publish-input" required>
+                    </div>
+
+                
+                    <div class="publish-field">
+                        <label for="tagoffrein">Tag de l'offre</label>
+                        <input type="text" id="tagoffrein" name="tagoffrein" class="publish-input" required>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="descentreprisoffrein">Description de l'entreprise</label>
+                        <textarea id="descentreprisoffrein" name="descentreprisoffrein" class="publish-input" required></textarea>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="publish-submit">Publier l'offre</button>
+            </form>
+        </div>
+    </div>
+</div>

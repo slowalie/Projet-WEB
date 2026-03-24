@@ -1,0 +1,229 @@
+/* Shared offer card styles for Home preview to match Offres page */
+.offer-preview .offer-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.offer-preview .offer-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+    transition: box-shadow 0.2s ease;
+    text-align: left;
+}
+
+.offer-preview .offer-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+    border: 1px solid #5850ec;
+}
+
+.offer-preview .offer-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.offer-preview .badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+.offer-preview .badge-priority {
+    background-color: #5850ec;
+}
+
+.offer-preview .badge-new {
+    background-color: #ff9800;
+}
+
+.offer-preview .offer-header {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding-top: 5px;
+}
+
+.offer-preview .company-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.offer-preview .company-logo.logo-ds {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.offer-preview .company-logo.logo-dc {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.offer-preview .company-logo.logo-gh {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.offer-preview .company-logo.logo-sn {
+    background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+}
+
+.offer-preview .company-logo.logo-fg {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.offer-preview .offer-title {
+    flex: 1;
+}
+
+.offer-preview .offer-title h3 {
+    color: #1e293b;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.offer-preview .company-name {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.offer-preview .heart-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #cbd5e1;
+    transition: color 0.2s ease;
+}
+
+.offer-preview .heart-btn:hover {
+    color: #ef4444;
+}
+
+.offer-preview .offer-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.offer-preview .tag-type {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background-color: rgba(88, 80, 236, 0.15);
+    color: #5850ec;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.offer-preview .location,
+.offer-preview .duration {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.offer-preview .skills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.offer-preview .skill {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background-color: #f1f5f9;
+    color: #1e293b;
+    font-size: 12px;
+}
+
+.offer-preview .offer-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+    gap: 10px;
+}
+
+.offer-preview .salary {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.offer-preview .amount {
+    color: #1e293b;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.offer-preview .candidates {
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+.offer-preview .rating {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.offer-preview .stars {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.offer-preview .apply-btn {
+    background-color: #5850ec;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.offer-preview .apply-btn:hover {
+    background-color: #4338ca;
+}
+
+@media (max-width: 768px) {
+    .offer-preview .offer-preview-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .offer-preview .offer-footer {
+        flex-wrap: wrap;
+    }
+
+    .offer-preview .apply-btn {
+        width: 100%;
+        text-align: center;
+    }
+}

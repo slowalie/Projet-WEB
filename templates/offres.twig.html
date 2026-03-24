@@ -1,0 +1,213 @@
+{% extends "base.twig.html" %}
+
+{% block title %}Offres - IdeaStage{% endblock %}
+
+{% block stylesheets %}
+
+<link rel="stylesheet" href="http://ideaStageassets.local/offre-style.css">
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="recherche-offres">
+    <div1>Recherche d'offres</div1>
+    <div2>
+        Toutes les offres de stage & alternance
+    </div2>
+    <div class="search-bar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+            viewBox="0 0 16 16">
+            <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+        </svg>
+
+        <input type="text" placeholder="Poste, compétence, entreprise..." />
+
+        <div class="select-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt"
+                viewBox="0 0 16 16">
+                <path
+                    d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+            </svg>
+            <select>
+                <option>Toutes</option>
+                {% for offres in offres %}
+                <option>{{ offres.ville }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                viewBox="0 0 16 16">
+                <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+            </svg>Rechercher</button>
+
+
+    </div>
+
+</div>
+
+
+</header>
+<main>
+    <div class="container">
+        <!-- SIDEBAR FILTRES -->
+        <aside class="sidebar">
+            <div class="filters-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path
+                        d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+                </svg>
+                <h3>Filtres</h3>
+            </div>
+
+            <!-- TYPE -->
+            <div class="filter-group">
+                <h4>TYPE</h4>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="type" value="tous" checked>
+                        <span>Tous</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="type" value="stage">
+                        <span>Stage</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="type" value="alternance">
+                        <span>Alternance</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- SECTEUR -->
+            <div class="filter-group">
+                <h4>SECTEUR</h4>
+                <div class="tag-buttons">
+                    <button class="tag active">Tous</button>
+                    {% for item in offres %}
+                    <button class="tag">{{ item.secteur_offres }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- DURÉE -->
+            <div class="filter-group">
+                <h4>DURÉE</h4>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="duree" value="toutes" checked>
+                        <span>Toutes</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="duree" value="2mois">
+                        <span>2 mois</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="duree" value="4mois">
+                        <span>4 mois</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="duree" value="6mois">
+                        <span>6 mois</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="duree" value="12mois">
+                        <span>12 mois</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="duree" value="24mois">
+                        <span>24 mois</span>
+                    </label>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <div class="header">
+                <h2> {{ total_offres }} offres trouvées</h2>
+            </div>
+
+            {% set limit = 9 %}
+
+            {% set totalOffres = offres|length %}
+            {% set totalPages = (totalOffres / limit)|round(0, 'ceil') %}
+            {% set offset = (currentPage - 1) * limit %}
+
+            
+            <!-- GRID D'OFFRES -->
+            <div class="offers-grid">
+                {% for offre in offres|slice(offset, limit) %}
+                <!-- OFFRE 1 -->
+                <div class="offer-card">
+                    {% if offre.tag == "une" %}
+                    <div class="offer-badge">
+                        <span class="badge badge-priority">★ À la une</span>
+                    </div>
+                    {% elseif offre.tag == "new" %}
+                    <div class="offer-badge">
+                        <span class="badge badge-new">♦ Nouveau</span>
+                    </div>
+                    {% elseif offre.tag == "" %}
+
+                    {% endif %}
+                    <div class="offer-header">
+                        <div class="company-logo">{{ offre.logo_entreprise }}</div>
+                        <div class="offer-title">
+                            <h3>{{ offre.nom_offres }}</h3>
+                            <p class="company-name">{{ offre.nom_entreprise }}</p>
+                        </div>
+                        <button class="heart-btn">♡</button>
+                    </div>
+                    <div class="offer-tags">
+                        <span class="tag-type">{{ offre.type_offres }}</span>
+                        <span class="location">📍 {{ offre.ville }}</span>
+                        <span class="duration">⏱ {{ offre.duree_offres }}</span>
+                    </div>
+                    <div class="skills">
+                        {% for profil_recherche in offre.Profil_recherche|split(',') %}
+                        <span class="skill">{{ profil_recherche|trim }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="offer-footer">
+                        <div class="salary">
+                            <span class="amount">€ {{ offre.salaire_offres }} /mois</span>
+                            <span class="candidates">👥 42 candidatures</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">⭐ {{ offre.note }}</span>
+                        </div>
+                        <a href="detail-offre.html" class="apply-btn">Postuler</a>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            {%if totalPages > 1 %}
+            <div class="pagination-container">
+                {%if currentPage > 1 %}
+                <a href="?page={{ currentPage - 1}}" class="btn-nav-page">Précédent</a>
+                {% endif %}
+
+                {% for page in 1..totalPages %}
+                <a href="?page={{ page }}" class= "{{ page==currentPage ? 'active-page' : 'btn-page' }}">{{ page }}</a>
+                {% endfor %}
+
+                {%if currentPage < totalPages %} 
+                <a href="?page={{ currentPage + 1}}" class="btn-nav-page">Suivant</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </main>
+    </div>
+
+
+</main>
+<script src="http://ideaStageassets.local/offres.js"></script>
+
+{% endblock %}
