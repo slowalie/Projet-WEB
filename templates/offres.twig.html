@@ -195,7 +195,7 @@
                 {% endif %}
 
                 {% for page in 1..totalPages %}
-                <a href="?page={{ page }}" class="btn-page" {{ page==currentPage ? 'active-page' : '' }}>{{ page }}</a>
+                <a href="?page={{ page }}" class= "{{ page==currentPage ? 'active-page' : 'btn-page' }}">{{ page }}</a>
                 {% endfor %}
 
                 {%if currentPage < totalPages %} 

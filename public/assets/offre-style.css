@@ -26,6 +26,7 @@
     --btn-hover: #4338ca;      /* Couleur de survol pour les boutons */
 
     --border-radius: 8px;         /* Rayon de bordure pour les éléments arrondis */ 
+    
 }
 
 body {
@@ -473,10 +474,16 @@ main {
     color: #1e293b;
 }
 
-.btn-page.active {
+.active-page {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    color: var(--primary-yellow);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
     background-color: var(--primary-violet);
-    border-color: var(--primary-violet);
-    color: white;
 }
 
 /* OFFER FOOTER */
