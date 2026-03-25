@@ -629,7 +629,8 @@ h3 { font-size: 1rem; margin: 0; color: var(--text-dark1); }
 
     .nav-links,
     .button-connexion,
-    .button-inscription {
+    .button-inscription,
+    .button-logout {
         display: none;
     }
 
@@ -645,7 +646,8 @@ h3 { font-size: 1rem; margin: 0; color: var(--text-dark1); }
     }
 
     .navbar.nav-open .button-connexion,
-    .navbar.nav-open .button-inscription {
+    .navbar.nav-open .button-inscription,
+    .navbar.nav-open .button-logout {
         display: block;
         order: 4;
         width: 80%;

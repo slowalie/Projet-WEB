@@ -1,59 +1,110 @@
 <div class="auth-modal" id="popUpLoginPage" aria-hidden="true">
     <div class="auth-modal-backdrop" data-auth-close="true"></div>
 
-    <div class="auth-modal-panel" role="dialog" aria-modal="true" aria-label="Connexion et inscription">
-        <button class="auth-close" type="button" id="authCloseButton" aria-label="Fermer">×</button>
-
-        <div class="auth-forms-space">
-            <form class="auth-form loginPart" id="loginPart" action="/auth/login" method="post">
-                <h2>Se connecter</h2>
-
-                <label for="emailLin">E-mail</label>
-                <input type="email" id="emailLin" name="emailLin" class="auth-input" required>
-
-                <label for="mdpLin">Mot de passe</label>
-                <div class="auth-password-wrap">
-                    <input type="password" id="mdpLin" name="mdpLin" class="auth-input" required>
-                    <button class="auth-show-password" type="button" id="showLoginPswd" aria-label="Afficher le mot de passe">👁</button>
+                <!-- Sélecteur de rôle -->
+            <div class="auth-role-selector" id="auth-role-selector">
+                <h2>Sélectionner votre rôle</h2>
+                <div class="auth-role-grid">
+                    <button type="button" class="auth-role-card" data-role="admin">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-shield-lock" viewBox="0 0 16 16">
+                            <path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56z"/>
+                            <path d="M9.5 6.5a1.5 1.5 0 0 1-1 1.415l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99a1.5 1.5 0 1 1 2-1.415z"/>
+                        </svg>
+                        <h3>Admin</h3>
+                        <p>Gérer le système</p>
+                    </button>
+                    <button type="button" class="auth-role-card" data-role="pilot">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-airplane" viewBox="0 0 16 16">
+                            <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.591 1.572 1.151C9.861 1.554 10 2.019 10 2.5V3h4a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V4h-4v6h4v-1.5a.5.5 0 0 1 1 0v2a.5.5 0 0 1-.5.5H10v.5c0 .481-.139.946-.428 1.349-.28.56-.789 1.151-1.572 1.151s-1.292-.591-1.572-1.151C6.139 13.054 6 12.589 6 12.5V12H2a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 1 0V11h4V5H2v1.5a.5.5 0 0 1-1 0v-2a.5.5 0 0 1 .5-.5h4V2.5c0-.481.139-.946.428-1.349z"/>
+                        </svg>
+                        <h3>Pilot</h3>
+                        <p>Superviser les offres</p>
+                    </button>
+                    <button type="button" class="auth-role-card" data-role="etudiant">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                        </svg>
+                        <h3>Étudiant</h3>
+                        <p>Trouver des offres</p>
+                    </button>
                 </div>
+                <button type="button" class="auth-back-btn">&larr; Retour</button>
+            </div>
 
-                <label class="auth-remember" for="remenberMeLin">
-                    <input type="checkbox" id="remenberMeLin" name="remenberMeLin">
-                    <span>Se souvenir de moi</span>
-                </label>
-
-                <button type="submit" class="button-inscription auth-submit">Se connecter</button>
-            </form>
-
-            <button class="auth-side-switch" type="button" id="closedLoginPart" aria-label="Basculer vers connexion"></button>
-
-            <form class="auth-form signUpPart" id="signUpPart" action="/auth/register" method="post">
-                <h2>Creer son compte</h2>
-
-                <label for="emailSup">E-mail</label>
-                <input type="email" id="emailSup" name="emailSup" class="auth-input" required>
-
-                <label for="mdpSup">Mot de passe</label>
-                <div class="auth-password-wrap">
-                    <input type="password" id="mdpSup" name="mdpSup" class="auth-input" required>
-                    <button class="auth-show-password" type="button" id="showSignUpPswd" aria-label="Afficher le mot de passe">👁</button>
+                        <!-- Formulaires de connexion -->
+            <div class="auth-form-container" id="auth-form-container" style="display:none;">
+                <div class="auth-form-header">
+                    <button type="button" class="auth-back-to-role" aria-label="Retour à la sélection">&larr;</button>
+                    <h2 id="auth-role-title">Connexion Admin</h2>
+                    <button type="button" class="auth-modal-close" aria-label="Fermer">&times;</button>
                 </div>
-
-                <label for="confirmMdpSup">Confirmer votre mot de passe</label>
-                <div class="auth-password-wrap">
-                    <input type="password" id="confirmMdpSup" name="confirmMdpSup" class="auth-input" required>
-                    <button class="auth-show-password" type="button" id="showSignUpConfPswd" aria-label="Afficher le mot de passe">👁</button>
+                <div class="auth-tabs">
+                    <button class="auth-tab active" type="button" data-tab="connexion">Connexion</button>
+                    <button class="auth-tab" type="button" data-tab="inscription">Inscription</button>
                 </div>
-
-                <label class="auth-remember" for="remenberMeSup">
-                    <input type="checkbox" id="remenberMeSup" name="remenberMeSup">
-                    <span>Se souvenir de moi</span>
-                </label>
-
-                <button type="submit" class="button-inscription auth-submit">Creer mon compte</button>
-            </form>
-
-            <button class="auth-side-switch" type="button" id="closedSignUpPart" aria-label="Basculer vers inscription"></button>
+                <div class="auth-modal-body">
+                    <form class="auth-form auth-form-connexion" style="display:block;" action="/auth/login" method="post">
+                    <input type="hidden" name="role" id="roleInput" value="">
+                    <label class="auth-label">Adresse email</label>
+                    <input type="email" name="emailLin" class="auth-input" placeholder="alex@exemple.fr" required>
+                    <label class="auth-label">Mot de passe</label>
+                    <input type="password" name="mdpLin" class="auth-input" placeholder="••••••••" required>
+                    <button type="submit" class="auth-submit">Se connecter</button>
+                    <div class="auth-links">
+                        <a href="#">Mot de passe oublié ?</a>
+                    </div>
+                    <div class="auth-divider">
+                        <span>ou continuer avec</span>
+                    </div>
+                    <div class="auth-social">
+                        <button type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-browser-chrome" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M16 8a8 8 0 0 1-7.022 7.94l1.902-7.098a3 3 0 0 0 .05-1.492A3 3 0 0 0 10.237 6h5.511A8 8 0 0 1 16 8M0 8a8 8 0 0 0 7.927 8l1.426-5.321a3 3 0 0 1-.723.255 3 3 0 0 1-1.743-.147 3 3 0 0 1-1.043-.7L.633 4.876A8 8 0 0 0 0 8m5.004-.167L1.108 3.936A8.003 8.003 0 0 1 15.418 5H8.066a3 3 0 0 0-1.252.243 2.99 2.99 0 0 0-1.81 2.59M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                            </svg>
+                            Google
+                        </button>
+                        <button type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                            </svg>
+                            GitHub
+                        </button>
+                    </div>
+                    <div class="auth-signup-link">
+                        Pas encore de compte ? <a href="#">S'inscrire gratuitement</a>
+                    </div>
+                    </form>
+                    <form class="auth-form auth-form-inscription" style="display:none;" action="/auth/register" method="post">
+                    <input type="hidden" name="role" id="roleInputInscription" value="">
+                    <label class="auth-label">Nom</label>
+                    <input type="text" name="nomSup" class="auth-input" placeholder="Dupont" required>
+                    <label class="auth-label">Prénom</label>
+                    <input type="text" name="prenomSup" class="auth-input" placeholder="Jean" required>
+                    <label class="auth-label">Adresse email</label>
+                    <input type="email" name="emailSup" class="auth-input" placeholder="alex@exemple.fr" required>
+                    <label class="auth-label">Mot de passe</label>
+                    <input type="password" name="mdpSup" class="auth-input" placeholder="Créer un mot de passe" required>
+                    <button type="submit" class="auth-submit">S'inscrire</button>
+                    <div class="auth-divider">
+                        <span>ou continuer avec</span>
+                    </div>
+                    <div class="auth-social">
+                        <button type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-browser-chrome" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M16 8a8 8 0 0 1-7.022 7.94l1.902-7.098a3 3 0 0 0 .05-1.492A3 3 0 0 0 10.237 6h5.511A8 8 0 0 1 16 8M0 8a8 8 0 0 0 7.927 8l1.426-5.321a3 3 0 0 1-.723.255 3 3 0 0 1-1.743-.147 3 3 0 0 1-1.043-.7L.633 4.876A8 8 0 0 0 0 8m5.004-.167L1.108 3.936A8.003 8.003 0 0 1 15.418 5H8.066a3 3 0 0 0-1.252.243 2.99 2.99 0 0 0-1.81 2.59M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                            </svg>
+                            Google
+                        </button>
+                        <button type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                            </svg>
+                            GitHub
+                        </button>
+                    </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

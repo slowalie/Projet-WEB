@@ -877,7 +877,8 @@ footer .footer-content {
     }
 
     .button-connexion,
-    .button-inscription {
+    .button-inscription,
+    .button-logout {
         display: none;
     }
 

@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../src/controllers/controller.php';
 require_once __DIR__ . '/../src/controllers/HomeController.php';
 require_once __DIR__ . '/../src/controllers/EspaceCandidatController.php';
@@ -23,6 +24,19 @@ function normalizeRoute(string $requestUri): string
     $path = parse_url($requestUri, PHP_URL_PATH) ?? '/';
     $route = trim($path, '/');
     return $route === '' ? '/' : '/' . $route;
+}
+
+function isUserLoggedIn(): bool
+{
+    return isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
+}
+
+function checkAuthentication(): void
+{
+    if (!isUserLoggedIn()) {
+        header('Location: /home?alert=please_login');
+        exit;
+    }
 }
 
 function dispatchRoute(string $requestUri, Environment $twig): string
@@ -54,33 +68,44 @@ function dispatchRoute(string $requestUri, Environment $twig): string
         return '';
     }
 
+    if ($route === '/auth/logout') {
+        $controller = new AuthController();
+        $controller->logout();
+        return '';
+    }
+
     if ($route === '/' || $route === '/home') {
         $controller = new HomeController($twig);
         return $controller->index();
     }
 
     if ($route === '/espace-candidat') {
+        checkAuthentication();
         $controller = new EspaceCandidatController($twig);
         return $controller->index();
     }
 
     if ($route === '/tasks') {
+        checkAuthentication();
         $controller = new TaskController($twig);
         return $controller->index();
     }
 
     if ($route === '/offres') {
+        checkAuthentication();
         $controller = new OffresController($twig);
         return $controller->index();
 
     }
 
     if ($route === '/espace-pilote') {
+        checkAuthentication();
         $controller = new EspacePiloteController($twig);
         return $controller->index();
     }
 
     if ($route === '/publish/offre') {
+        checkAuthentication();
         $controller = new OffresController($twig);
         return $controller->publish();
     }
