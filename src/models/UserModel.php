@@ -47,4 +47,11 @@ class UserModel
 
         return $user;
     }
+
+    public function getuserbyrole(string $role): array
+    {
+        $stmt = $this->pdo->prepare('SELECT id_user, nom_user, prenom_user, mail_user FROM Utilisateurs WHERE role_user = :role_user');
+        $stmt->execute(['role_user' => $role]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

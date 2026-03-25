@@ -29,7 +29,21 @@
 
             <form class="auth-form signUpPart" id="signUpPart" action="/auth/register" method="post">
                 <h2>Creer son compte</h2>
-
+                <div class="select-role">
+                    <label>
+                        <input type="radio" name="role" value="candidat" checked>
+                        <span>Candidat</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="role" value="entreprise">
+                        <span>Entreprise</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="role" value="superadmin">
+                        <span>Super Admin</span>
+                    </label>
+                </div>
+                
                 <label for="emailSup">E-mail</label>
                 <input type="email" id="emailSup" name="emailSup" class="auth-input" required>
 
