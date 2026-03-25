@@ -170,8 +170,8 @@
                         <span class="duration">⏱ {{ offre.duree_offres }}</span>
                     </div>
                     <div class="skills">
-                        {% for profil_recherche in offre.Profil_recherche|split(',') %}
-                        <span class="skill">{{ profil_recherche|trim }}</span>
+                        {% for skill in offre.skils|split(',') %}
+                        <span class="skill">{{ skill|trim }}</span>
                         {% endfor %}
                     </div>
                     <div class="offer-footer">
