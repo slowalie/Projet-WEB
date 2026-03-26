@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr">  
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -460,7 +460,16 @@
                 
                 // Réinitialiser les onglets
                 document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-                document.querySelector('.auth-tab[data-tab="connexion"]').classList.add('active');
+                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('visible'));
+                
+                // Rendre UNIQUEMENT l'onglet "Connexion" visible pour Admin/Pilot
+                const connexionTab = document.querySelector('.auth-tab[data-tab="connexion"]');
+                if (connexionTab) {
+                    connexionTab.classList.add('visible');
+                    connexionTab.classList.add('active');
+                }
+                
+                // L'onglet "Inscription" ne devient visible qu'après connexion
                 document.querySelector('.auth-form-connexion').style.display = 'block';
                 document.querySelector('.auth-form-inscription').style.display = 'none';
             });
@@ -485,6 +494,12 @@
         // Switch tabs
         document.querySelectorAll('.auth-tab').forEach(tab => {
             tab.addEventListener('click', function() {
+                // Vérifier si on essaie d'accéder à l'onglet d'inscription sans être connecté
+                if(this.dataset.tab === 'inscription' && !this.classList.contains('visible')) {
+                    alert('Veuillez vous connecter d\'abord pour accéder au formulaire d\'inscription.');
+                    return;
+                }
+                
                 document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
                 const roleNames = {

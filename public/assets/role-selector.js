@@ -41,6 +41,20 @@ document.addEventListener("DOMContentLoaded", function () {
             formContainer.style.display = "block";
             formConnexion.style.display = "block";
             formInscription.style.display = "none";
+            
+            // Masquer complètement l'onglet d'inscription pour admin/pilot
+            // Il ne devient visible qu'après connexion
+            tabButtons.forEach(tab => {
+                tab.classList.remove('visible');
+                tab.classList.remove('active');
+            });
+            
+            // Rendre uniquement l'onglet "Connexion" visible
+            const connexionTab = document.querySelector('.auth-tab[data-tab="connexion"]');
+            if (connexionTab) {
+                connexionTab.classList.add('visible');
+                connexionTab.classList.add('active');
+            }
         });
     });
 
@@ -59,8 +73,18 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             const targetTab = this.dataset.tab;
             
-            // Retire la classe active de tous les onglets
-            tabButtons.forEach(t => t.classList.remove("active"));
+            // Vérifier si on essaie d'accéder à l'onglet inscription sans autorisation
+            if (targetTab === "inscription" && !this.classList.contains("visible")) {
+                alert("Veuillez vous connecter d'abord pour accéder au formulaire d'inscription.");
+                return;
+            }
+            
+            // Retire la classe active de tous les onglets visibles
+            tabButtons.forEach(t => {
+                if (t.classList.contains("visible")) {
+                    t.classList.remove("active");
+                }
+            });
             this.classList.add("active");
             
             // Affiche/masque les formulaires

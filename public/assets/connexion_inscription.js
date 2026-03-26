@@ -78,13 +78,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         
         if (inscriptionTab) {
-            // Afficher inscription SEULEMENT pour admin et pilot
-            if (role === "admin" || role === "pilot") {
-                inscriptionTab.classList.add("visible");
-            } else {
-                // Masquer complètement pour étudiant
-                inscriptionTab.classList.remove("visible");
-            }
+            // Masquer inscription pour tout le monde initialement
+            // Elle ne devient visible qu'après connexion
+            inscriptionTab.classList.remove("visible");
         }
 
         // Reset tabs
@@ -193,7 +189,43 @@ document.addEventListener("DOMContentLoaded", function () {
     signUpOpeners.forEach(function (button) {
         button.addEventListener("click", function (event) {
             event.preventDefault();
-            openModal("signup");
+            
+            // Vérifier si l'utilisateur est connecté (en cherchant le bouton de déconnexion)
+            const logoutButton = document.querySelector(".button-logout");
+            const isAuthenticated = logoutButton !== null;
+            
+            if (isAuthenticated) {
+                // L'utilisateur est connecté, montrer directement le formulaire d'inscription
+                // Afficher le conteneur de formulaire et cacher le sélecteur de rôle
+                if (roleSelector) roleSelector.style.display = "none";
+                if (formContainer) formContainer.style.display = "flex";
+                
+                // Afficher l'onglet inscription
+                const inscriptionTab = modal.querySelector(".auth-tab[data-tab='inscription']");
+                const connexionTab = modal.querySelector(".auth-tab[data-tab='connexion']");
+                
+                if (inscriptionTab) {
+                    inscriptionTab.classList.add("visible");
+                    inscriptionTab.classList.add("active");
+                }
+                if (connexionTab) {
+                    connexionTab.classList.remove("visible");
+                    connexionTab.classList.remove("active");
+                }
+                
+                // Afficher le formulaire d'inscription
+                if (signupForm) signupForm.style.display = "block";
+                if (loginForm) loginForm.style.display = "none";
+                
+                // Ouvrir la modal
+                modal.classList.add("is-open");
+                modal.setAttribute("aria-hidden", "false");
+                document.body.style.overflow = "hidden";
+            } else {
+                // L'utilisateur n'est pas connecté, afficher le formulaire de connexion
+                window.alert("Veuillez vous connecter d'abord pour accéder au formulaire d'inscription.");
+                openModal("login");
+            }
         });
     });
 
