@@ -34,8 +34,8 @@
             </svg>
             <select>
                 <option>Toutes</option>
-                {% for offres in offres %}
-                <option>{{ offres.ville }}</option>
+                {% for ville in villes %}
+                <option>{{ ville }}</option>
                 {% endfor %}
             </select>
         </div>

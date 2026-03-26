@@ -25,12 +25,14 @@ class OffresController extends Controller
         $currentPage = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
         $offres = $this->offresModel->getOffres();
         $secteurs = array_unique(array_column($offres, 'secteur_offres'));
+        $villes = array_unique(array_column($offres, 'ville'));
         return $this->render('offres.twig.html', [
             'page' => 'offres',
             'offres' => $offres,
             'total_offres' => count($offres),
             'currentPage' => $currentPage,
-            'secteurs' => $secteurs
+            'secteurs' => $secteurs,
+            'villes' => $villes
         ]);
     }
     public function publish()
