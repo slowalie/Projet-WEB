@@ -26,7 +26,11 @@
                 <a href="/espace-candidat">Espace Candidats</a>
                 <a href="/entreprises">Entreprises</a>
             </div>
+            {% if is_authenticated %}
+                <a href="/auth/logout" class="button-connexion" aria-label="Déconnexion">Déconnexion</a>
+            {% else %}
             <button class="button-connexion">Connexion</button>
+            {% endif %}
             
             <button class="hamburger" aria-label="Menu">
                 <span></span>
@@ -123,5 +127,6 @@
 
     <script src="http://ideaStageassets.local/script.js"></script>
     <script src="http://ideaStageassets.local/connexion_inscription.js"></script>
+    
 </body>
 </html>

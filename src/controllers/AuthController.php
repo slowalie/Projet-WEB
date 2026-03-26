@@ -107,4 +107,12 @@ class AuthController
         $allowed = ['/', '/home', '/offres', '/espace-candidat', '/espace-pilote', '/tasks'];
         return in_array($path, $allowed, true) ? $path : '/home';
     }
+
+    public function logout(): void
+    {
+        session_unset();
+        session_destroy();
+        header('Location: /home');
+        exit;
+    }
 }
