@@ -19,6 +19,11 @@ class AuthController
 
     public function register(array $postData): void
     {
+        // Only pilots and admins can create accounts
+        if (empty($_SESSION['is_authenticated']) || !in_array($_SESSION['user_role'] ?? '', ['pilote', 'superadmin'], true)) {
+            $this->redirectWithStatus('login', 'unauthorized');
+        }
+
         $email = trim((string)($postData['emailSup'] ?? ''));
         $password = (string)($postData['mdpSup'] ?? '');
         $confirmPassword = (string)($postData['confirmMdpSup'] ?? '');
@@ -59,11 +64,7 @@ class AuthController
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $this->userModel->createUser($nom, $prenom, $email, $passwordHash, 'etudiant');
 
-        // Store session
-        $_SESSION['user_email'] = $email;
-        $_SESSION['is_authenticated'] = true;
-
-        $this->redirectWithStatus('login', 'register_success');
+        $this->redirectWithStatus('signup', 'register_success');
     }
 
     public function login(array $postData): void
@@ -86,6 +87,7 @@ class AuthController
         // Store session
         $_SESSION['user_id'] = (int)$user['id_user'];
         $_SESSION['user_email'] = (string)$user['mail_user'];
+        $_SESSION['user_role'] = (string)$user['role_user'];
         $_SESSION['is_authenticated'] = true;
 
         $this->redirectWithStatus('login', 'login_success');

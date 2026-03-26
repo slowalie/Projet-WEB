@@ -62,6 +62,10 @@ function dispatchRoute(string $requestUri, Environment $twig): string
     }
 
     if ($route === '/espace-candidat') {
+        if (empty($_SESSION['is_authenticated'])) {
+            header('Location: /home?auth_mode=login&auth_status=unauthorized');
+            exit;
+        }
         $controller = new EspaceCandidatController($twig);
         return $controller->index();
     }
@@ -78,6 +82,10 @@ function dispatchRoute(string $requestUri, Environment $twig): string
     }
 
     if ($route === '/espace-pilote') {
+        if (empty($_SESSION['is_authenticated']) || !in_array($_SESSION['user_role'] ?? '', ['pilote', 'superadmin'], true)) {
+            header('Location: /home?auth_mode=login&auth_status=unauthorized');
+            exit;
+        }
         $controller = new EspacePiloteController($twig);
         return $controller->index();
     }

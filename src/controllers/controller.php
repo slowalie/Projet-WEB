@@ -15,6 +15,8 @@ abstract class Controller
 
 	protected function render(string $template, array $context = [])
 	{
+		$context['is_authenticated'] = !empty($_SESSION['is_authenticated']);
+		$context['user_role'] = $_SESSION['user_role'] ?? null;
 		return $this->twig->render($template, $context);
 	}
 }

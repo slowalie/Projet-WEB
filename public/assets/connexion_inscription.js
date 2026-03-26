@@ -18,11 +18,18 @@ document.addEventListener("DOMContentLoaded", function () {
     function setMode(mode) {
         const isLogin = mode === "login";
 
-        loginPart.style.display = isLogin ? "flex" : "none";
-        signUpPart.style.display = isLogin ? "none" : "flex";
-
-        closedLoginPart.classList.toggle("is-hidden", isLogin);
-        closedSignUpPart.classList.toggle("is-hidden", !isLogin);
+        if (loginPart) {
+            loginPart.style.display = isLogin ? "flex" : "none";
+        }
+        if (signUpPart) {
+            signUpPart.style.display = isLogin ? "none" : "flex";
+        }
+        if (closedLoginPart) {
+            closedLoginPart.classList.toggle("is-hidden", isLogin);
+        }
+        if (closedSignUpPart) {
+            closedSignUpPart.classList.toggle("is-hidden", !isLogin);
+        }
     }
 
     function getAuthMessage(status) {
@@ -35,12 +42,16 @@ document.addEventListener("DOMContentLoaded", function () {
             invalid_email: "Adresse email invalide.",
             password_mismatch: "Les mots de passe ne correspondent pas.",
             weak_password: "Le mot de passe doit contenir au moins 8 caracteres.",
+            unauthorized: "Accès refusé. Seuls les pilotes et administrateurs peuvent créer un compte.",
         };
 
         return messages[status] || "";
     }
 
     function openModal(mode) {
+        if (mode === "signup" && !signUpPart) {
+            mode = "login";
+        }
         setMode(mode);
         modal.classList.add("is-open");
         modal.setAttribute("aria-hidden", "false");
@@ -83,13 +94,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    closedLoginPart.addEventListener("click", function () {
-        setMode("login");
-    });
+    if (closedLoginPart) {
+        closedLoginPart.addEventListener("click", function () {
+            setMode("login");
+        });
+    }
 
-    closedSignUpPart.addEventListener("click", function () {
-        setMode("signup");
-    });
+    if (closedSignUpPart) {
+        closedSignUpPart.addEventListener("click", function () {
+            setMode("signup");
+        });
+    }
 
     closeButton.addEventListener("click", closeModal);
     backdrop.addEventListener("click", closeModal);
@@ -100,17 +115,26 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    document.getElementById("showLoginPswd").addEventListener("click", function () {
-        togglePassword("mdpLin", "showLoginPswd");
-    });
+    const showLoginPswd = document.getElementById("showLoginPswd");
+    if (showLoginPswd) {
+        showLoginPswd.addEventListener("click", function () {
+            togglePassword("mdpLin", "showLoginPswd");
+        });
+    }
 
-    document.getElementById("showSignUpPswd").addEventListener("click", function () {
-        togglePassword("mdpSup", "showSignUpPswd");
-    });
+    const showSignUpPswd = document.getElementById("showSignUpPswd");
+    if (showSignUpPswd) {
+        showSignUpPswd.addEventListener("click", function () {
+            togglePassword("mdpSup", "showSignUpPswd");
+        });
+    }
 
-    document.getElementById("showSignUpConfPswd").addEventListener("click", function () {
-        togglePassword("confirmMdpSup", "showSignUpConfPswd");
-    });
+    const showSignUpConfPswd = document.getElementById("showSignUpConfPswd");
+    if (showSignUpConfPswd) {
+        showSignUpConfPswd.addEventListener("click", function () {
+            togglePassword("confirmMdpSup", "showSignUpConfPswd");
+        });
+    }
 
     const params = new URLSearchParams(window.location.search);
     const authStatus = params.get("auth_status");
