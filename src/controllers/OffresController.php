@@ -35,6 +35,8 @@ class OffresController extends Controller
     }
     public function publish()
     {
+        $this->requireRole(['pilote', 'admin']);
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->offresModel->addOffre(
                 $_POST['nomoffrein'],

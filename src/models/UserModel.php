@@ -37,7 +37,7 @@ class UserModel
 
     public function findByEmail(string $email): ?array
     {
-        $stmt = $this->pdo->prepare('SELECT id_user, mail_user, mdp_user FROM Utilisateurs WHERE mail_user = :mail_user LIMIT 1');
+        $stmt = $this->pdo->prepare('SELECT id_user, mail_user, mdp_user, role_user FROM Utilisateurs WHERE mail_user = :mail_user LIMIT 1');
         $stmt->execute(['mail_user' => $email]);
         $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 

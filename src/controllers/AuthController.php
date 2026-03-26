@@ -19,14 +19,24 @@ class AuthController
 
     public function register(array $postData): void
     {
+        if (!$this->isAuthenticated()) {
+            $this->redirectWithStatus('login', 'unauthorized_registration');
+        }
+
+        $creatorRole = (string) ($_SESSION['user_role'] ?? '');
+        if (!in_array($creatorRole, ['pilote', 'admin'], true)) {
+            $this->redirectWithStatus('login', 'unauthorized_registration');
+        }
+
         $email = trim((string)($postData['emailSup'] ?? ''));
         $password = (string)($postData['mdpSup'] ?? '');
-        $confirmPassword = (string)($postData['confirmMdpSup'] ?? '');
+        $role = (string)($postData['role'] ?? '');
         $nom = trim((string)($postData['nomSup'] ?? ''));
         $prenom = trim((string)($postData['prenomSup'] ?? ''));
+        $normalizedRole = $this->normalizeUiRoleToDbRole($role);
 
         // Validation
-        if (empty($email) || empty($password) || empty($confirmPassword)) {
+        if (empty($email) || empty($password)) {
             $this->redirectWithStatus('signup', 'missing_fields');
         }
 
@@ -34,12 +44,24 @@ class AuthController
             $this->redirectWithStatus('signup', 'invalid_email');
         }
 
-        if ($password !== $confirmPassword) {
-            $this->redirectWithStatus('signup', 'password_mismatch');
-        }
-
         if (strlen($password) < 8) {
             $this->redirectWithStatus('signup', 'weak_password');
+        }
+
+        if (empty($role)) {
+            $this->redirectWithStatus('signup', 'missing_role');
+        }
+
+        if ($normalizedRole === 'admin') {
+            $this->redirectWithStatus('signup', 'forbidden_role_creation');
+        }
+
+        if ($normalizedRole === 'pilote' && $creatorRole !== 'admin') {
+            $this->redirectWithStatus('signup', 'forbidden_role_creation');
+        }
+
+        if ($normalizedRole !== 'etudiant' && $normalizedRole !== 'pilote') {
+            $this->redirectWithStatus('signup', 'invalid_role');
         }
 
         if ($nom === '') {
@@ -57,11 +79,7 @@ class AuthController
 
         // Register user
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-        $this->userModel->createUser($nom, $prenom, $email, $passwordHash, 'etudiant');
-
-        // Store session
-        $_SESSION['user_email'] = $email;
-        $_SESSION['is_authenticated'] = true;
+        $this->userModel->createUser($nom, $prenom, $email, $passwordHash, $normalizedRole);
 
         $this->redirectWithStatus('login', 'register_success');
     }
@@ -70,9 +88,11 @@ class AuthController
     {
         $email = trim((string)($postData['emailLin'] ?? ''));
         $password = (string)($postData['mdpLin'] ?? '');
+        $role = (string)($postData['role'] ?? '');
+        $normalizedRole = $this->normalizeUiRoleToDbRole($role);
 
         // Validation
-        if (empty($email) || empty($password)) {
+        if (empty($email) || empty($password) || empty($role)) {
             $this->redirectWithStatus('login', 'missing_fields');
         }
 
@@ -83,9 +103,14 @@ class AuthController
             $this->redirectWithStatus('login', 'invalid_credentials');
         }
 
+        if ((string) $user['role_user'] !== $normalizedRole) {
+            $this->redirectWithStatus('login', 'invalid_role');
+        }
+
         // Store session
         $_SESSION['user_id'] = (int)$user['id_user'];
         $_SESSION['user_email'] = (string)$user['mail_user'];
+        $_SESSION['user_role'] = (string)$user['role_user'];
         $_SESSION['is_authenticated'] = true;
 
         $this->redirectWithStatus('login', 'login_success');
@@ -104,7 +129,21 @@ class AuthController
         $referer = $_SERVER['HTTP_REFERER'] ?? '/home';
         $path = parse_url($referer, PHP_URL_PATH) ?: '/home';
 
-        $allowed = ['/', '/home', '/offres', '/espace-candidat', '/espace-pilote', '/tasks'];
+        $allowed = ['/', '/home', '/offres', '/espace-candidat', '/espace-pilote', '/tasks', '/entreprises'];
         return in_array($path, $allowed, true) ? $path : '/home';
+    }
+
+    private function isAuthenticated(): bool
+    {
+        return isset($_SESSION['is_authenticated']) && $_SESSION['is_authenticated'] === true;
+    }
+
+    private function normalizeUiRoleToDbRole(string $role): string
+    {
+        if ($role === 'candidat') {
+            return 'etudiant';
+        }
+
+        return $role;
     }
 }

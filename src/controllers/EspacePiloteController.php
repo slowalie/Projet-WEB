@@ -15,6 +15,8 @@ class EspacePiloteController extends Controller
 {
     public function index()
     {
+        $this->requireRole(['pilote', 'admin']);
+
         $entreprisesModel = new EntreprisesModel(new Database('localhost', 'root', 'A2#DevWeb!', 'ideastage_BDD'));
         $entreprises = $entreprisesModel->getEntreprises();
         return $this->render('espace-pilote.twig.html', [

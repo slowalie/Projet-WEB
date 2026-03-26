@@ -9,20 +9,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const signUpPart = document.getElementById("signUpPart");
     const closedLoginPart = document.getElementById("closedLoginPart");
     const closedSignUpPart = document.getElementById("closedSignUpPart");
+    const canSignup = modal.dataset.authCanSignup === "1";
     const closeButton = document.getElementById("authCloseButton");
     const backdrop = modal.querySelector("[data-auth-close='true']");
 
     const loginOpeners = document.querySelectorAll(".navbar .button-connexion");
-    const signUpOpeners = document.querySelectorAll(".button-inscription");
+    const signUpOpeners = document.querySelectorAll(".button-inscription-open");
 
     function setMode(mode) {
-        const isLogin = mode === "login";
+        const isLogin = mode === "login" || !canSignup;
 
         loginPart.style.display = isLogin ? "flex" : "none";
-        signUpPart.style.display = isLogin ? "none" : "flex";
+        if (signUpPart) {
+            signUpPart.style.display = isLogin ? "none" : "flex";
+        }
 
-        closedLoginPart.classList.toggle("is-hidden", isLogin);
-        closedSignUpPart.classList.toggle("is-hidden", !isLogin);
+        if (closedLoginPart) {
+            closedLoginPart.classList.toggle("is-hidden", isLogin);
+        }
+        if (closedSignUpPart) {
+            closedSignUpPart.classList.toggle("is-hidden", !isLogin);
+        }
     }
 
     function getAuthMessage(status) {
@@ -31,8 +38,13 @@ document.addEventListener("DOMContentLoaded", function () {
             login_success: "Connexion reussie.",
             invalid_credentials: "Email ou mot de passe incorrect.",
             email_exists: "Cet email est deja utilise.",
-            missing_fields: "Veuillez remplir tous les champs.",
+            missing_role: "Veuillez selectionner un role.",
             invalid_email: "Adresse email invalide.",
+            invalid_role: "Le role selectionne ne correspond pas au compte.",
+            unauthorized_registration: "Vous devez etre connecte en pilote ou admin pour creer un compte.",
+            forbidden_role_creation: "Creation de role non autorisee avec votre compte.",
+            access_denied: "Acces refuse pour votre role.",
+            login_required: "Veuillez vous connecter pour acceder a cette page.",
             password_mismatch: "Les mots de passe ne correspondent pas.",
             weak_password: "Le mot de passe doit contenir au moins 8 caracteres.",
         };
@@ -79,20 +91,32 @@ document.addEventListener("DOMContentLoaded", function () {
     signUpOpeners.forEach(function (button) {
         button.addEventListener("click", function (event) {
             event.preventDefault();
-            openModal("signup");
+            if (canSignup) {
+                openModal("signup");
+            } else {
+                openModal("login");
+            }
         });
     });
 
-    closedLoginPart.addEventListener("click", function () {
-        setMode("login");
-    });
+    if (closedLoginPart) {
+        closedLoginPart.addEventListener("click", function () {
+            setMode("login");
+        });
+    }
 
-    closedSignUpPart.addEventListener("click", function () {
-        setMode("signup");
-    });
+    if (closedSignUpPart) {
+        closedSignUpPart.addEventListener("click", function () {
+            setMode("signup");
+        });
+    }
 
-    closeButton.addEventListener("click", closeModal);
-    backdrop.addEventListener("click", closeModal);
+    if (closeButton) {
+        closeButton.addEventListener("click", closeModal);
+    }
+    if (backdrop) {
+        backdrop.addEventListener("click", closeModal);
+    }
 
     document.addEventListener("keydown", function (event) {
         if (event.key === "Escape" && modal.classList.contains("is-open")) {
@@ -100,17 +124,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    document.getElementById("showLoginPswd").addEventListener("click", function () {
-        togglePassword("mdpLin", "showLoginPswd");
-    });
+    const showLoginPswd = document.getElementById("showLoginPswd");
+    if (showLoginPswd) {
+        showLoginPswd.addEventListener("click", function () {
+            togglePassword("mdpLin", "showLoginPswd");
+        });
+    }
 
-    document.getElementById("showSignUpPswd").addEventListener("click", function () {
-        togglePassword("mdpSup", "showSignUpPswd");
-    });
-
-    document.getElementById("showSignUpConfPswd").addEventListener("click", function () {
-        togglePassword("confirmMdpSup", "showSignUpConfPswd");
-    });
+    const showSignUpPswd = document.getElementById("showSignUpPswd");
+    if (showSignUpPswd) {
+        showSignUpPswd.addEventListener("click", function () {
+            togglePassword("mdpSup", "showSignUpPswd");
+        });
+    }
 
     const params = new URLSearchParams(window.location.search);
     const authStatus = params.get("auth_status");
@@ -119,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (authStatus) {
         const message = getAuthMessage(authStatus);
         if (message !== "") {
-            openModal(authMode === "signup" ? "signup" : "login");
+            openModal(authMode === "signup" && canSignup ? "signup" : "login");
             window.setTimeout(function () {
                 window.alert(message);
             }, 100);

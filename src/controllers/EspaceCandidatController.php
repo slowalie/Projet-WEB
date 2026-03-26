@@ -8,6 +8,8 @@ class EspaceCandidatController extends Controller
 {
     public function index()
     {
+        $this->requireRole(['etudiant', 'pilote', 'admin']);
+
         return $this->render('espace-candidat.twig.html', [
             'page' => 'espace-candidat'
         ]);

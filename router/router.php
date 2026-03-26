@@ -17,7 +17,12 @@ use Twig\Loader\FilesystemLoader;
 function createTwigEnvironment(): Environment
 {
     $loader = new FilesystemLoader(__DIR__ . '/../templates');
-    return new Environment($loader);
+    $twig = new Environment($loader);
+    $twig->addGlobal('is_authenticated', isset($_SESSION['is_authenticated']) && $_SESSION['is_authenticated'] === true);
+    $twig->addGlobal('user_role', $_SESSION['user_role'] ?? null);
+    $twig->addGlobal('user_email', $_SESSION['user_email'] ?? null);
+
+    return $twig;
 }
 
 function normalizeRoute(string $requestUri): string
@@ -54,6 +59,18 @@ function dispatchRoute(string $requestUri, Environment $twig): string
         }
 
         return '';
+    }
+
+    if ($route === '/logout' && $requestMethod === 'GET') {
+        $_SESSION = [];
+        if (ini_get('session.use_cookies')) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+        }
+        session_destroy();
+
+        header('Location: /home');
+        exit;
     }
 
     if ($route === '/' || $route === '/home') {

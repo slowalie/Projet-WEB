@@ -22,12 +22,21 @@
             <div class="nav-links">
                 <a href="/home">Accueil</a>
                 <a href="/offres">Offres</a>
-                <a href="/espace-pilote">Espace Pilotes</a>
-                <a href="/espace-candidat">Espace Candidats</a>
+                {% if is_authenticated and (user_role == 'pilote' or user_role == 'admin') %}
+                    <a href="/espace-pilote">Espace Pilotes</a>
+                {% endif %}
+                {% if is_authenticated %}
+                    <a href="/espace-candidat">Espace Candidats</a>
+                {% endif %}
                 <a href="/entreprises">Entreprises</a>
             </div>
-            <button class="button-connexion">Connexion</button>
-            
+            {% if is_authenticated %}
+                
+                <a href="/logout" class="button-logout">Déconnexion</a>
+            {% else %}
+                <button class="button-connexion">Connexion</button>
+            {% endif %}
+
             <button class="hamburger" aria-label="Menu">
                 <span></span>
                 <span></span>

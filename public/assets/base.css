@@ -121,7 +121,24 @@ body {
     font-weight: 500;
 }
 
+.button-logout{
+    border: 1px solid var(--border-color-muted);
+    border-radius: var(--border-radius);
+    padding: 5px 10px;
+    background-color: transparent;
+    color: var(--text-muted);
+    margin-right: 10px;
+    font-weight: 400;
+    cursor: pointer;
+    color: var(--text-violet);
+    text-decoration: none;
+}
 
+.button-logout:hover {
+    color: var(--text-violet);
+    border-color: var(--btn-hover);
+    font-weight: 500;
+}
 
 /* --- HAMBURGER --- */
 
