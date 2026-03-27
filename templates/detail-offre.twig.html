@@ -129,10 +129,33 @@
     <aside class="sidebar">
 
         <div class="card apply-card">
-            <button class="btn-apply">
+            {% if apply_status == 'success' %}
+                <div class="apply-alert success">Candidature envoyee avec succes.</div>
+            {% elseif apply_status == 'invalid_file' %}
+                <div class="apply-alert error">Fichier invalide. Formats acceptes: PDF, DOC, DOCX (max 5 Mo).</div>
+            {% elseif apply_status == 'login_required' %}
+                <div class="apply-alert error">Connectez-vous pour candidater.</div>
+            {% elseif apply_status == 'forbidden' %}
+                <div class="apply-alert error">Seuls les etudiants peuvent candidater.</div>
+            {% elseif apply_status == 'error' %}
+                <div class="apply-alert error">Erreur pendant l'envoi de la candidature.</div>
+            {% endif %}
+
+            <button type="button" class="btn-apply" id="open-apply-form">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                Postuler maintenant
+                Candidater
             </button>
+
+            <form id="apply-form" class="apply-form" method="POST" action="/detail-offre/{{ offre.id_offres }}" enctype="multipart/form-data" {% if apply_status == null %}hidden{% endif %}>
+                <label for="cv_file">CV (obligatoire)</label>
+                <input id="cv_file" name="cv_file" type="file" accept=".pdf,.doc,.docx" required>
+
+                <label for="lettre_file">Lettre de motivation (obligatoire)</label>
+                <input id="lettre_file" name="lettre_file" type="file" accept=".pdf,.doc,.docx" required>
+
+                <button type="submit" class="btn-apply-submit">Envoyer ma candidature</button>
+            </form>
+
             <div class="action-row">
                 <button class="btn-save">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -205,5 +228,22 @@
 
     </aside>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const openButton = document.getElementById('open-apply-form');
+    const applyForm = document.getElementById('apply-form');
+
+    if (openButton && applyForm) {
+        openButton.addEventListener('click', function () {
+            applyForm.hidden = false;
+            const firstInput = applyForm.querySelector('input');
+            if (firstInput) {
+                firstInput.focus();
+            }
+        });
+    }
+});
+</script>
 
 {% endblock %}

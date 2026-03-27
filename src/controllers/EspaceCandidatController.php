@@ -74,26 +74,6 @@ class EspaceCandidatController extends Controller
                 $data['cv']
             );
 
-            $data['add_doc'] = $this->processUpload(
-                'add_doc_file',
-                ['pdf', 'doc', 'docx'],
-                [
-                    'application/pdf',
-                    'application/msword',
-                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                ],
-                $userId,
-                $data['add_doc']
-            );
-
-            $data['photo'] = $this->processUpload(
-                'photo_file',
-                ['jpg', 'jpeg', 'png', 'webp'],
-                ['image/jpeg', 'image/png', 'image/webp'],
-                $userId,
-                $data['photo']
-            );
-
             $updated = $candidatModel->updateProfile($userId, $data);
             $status = $updated ? 'success' : 'error';
         } catch (\RuntimeException $exception) {

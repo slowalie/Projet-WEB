@@ -3,11 +3,12 @@
 {% set candidatNom = candidat.nom_user|default('Candidat') %}
 {% set candidatPrenom = candidat.prenom_user|default('') %}
 {% set fullName = (candidatPrenom ~ ' ' ~ candidatNom)|trim %}
+{% set initialNom = candidatNom|slice(0, 1)|upper %}
+{% set initialPrenom = candidatPrenom|slice(0, 1)|upper %}
+{% set avatarInitials = (initialNom ~ initialPrenom)|trim %}
 {% set profileTitle = candidat.titre_profil|default('') %}
 {% set disponibilite = candidat.disponibilite|default('') %}
-{% set photoPath = candidat.photo|default('') %}
 {% set cvPath = candidat.cv|default('') %}
-{% set addDocPath = candidat.add_doc|default('') %}
 {% set isStudent = user_role == 'etudiant' %}
 
 {% block title %}Espace Candidat - IdeaStage{% endblock %}
@@ -21,7 +22,7 @@
     <div class="espace-candidat-header">
         <h3>Bienvenue</h3>
         <div class="photo-candidat">
-            <img src="{{ photoPath ?: '/assets/images/candidat.jpg' }}" alt="Photo du candidat">
+            <div class="photo-candidat-initials">{{ avatarInitials ?: 'CA' }}</div>
         </div>
         <h1>{{ fullName ?: 'Candidat' }}</h1>
     </div>
@@ -229,7 +230,7 @@
         <header class="param-card-profile-header">
             <div class="param-profile-top">
                 <div class="param-user-info">
-                    <img src="{{ photoPath ?: '/assets/images/candidat.jpg' }}" alt="Avatar" class="param-avatar">
+                    <div class="param-avatar-initials">{{ avatarInitials ?: 'CA' }}</div>
                     <div class="param-name-title">
                         <h1>{{ fullName ?: 'Candidat' }}</h1>
                         <p class="param-subtitle">{{ profileTitle ?: 'Etudiant' }}</p>
@@ -254,15 +255,11 @@
                 <span class="param-tag">Titre: {{ profileTitle ?: 'Non renseigne' }}</span>
                 <span class="param-tag">Disponibilite: {{ disponibilite ?: 'Non renseignee' }}</span>
                 <span class="param-tag">CV: {{ cvPath ? (cvPath|split('/')|last) : 'Non renseigne' }}</span>
-                <span class="param-tag">Document: {{ addDocPath ? (addDocPath|split('/')|last) : 'Non renseigne' }}</span>
             </div>
 
             <div class="param-file-links">
                 {% if cvPath %}
                     <a href="{{ cvPath }}" target="_blank" rel="noopener">Voir le CV</a>
-                {% endif %}
-                {% if addDocPath %}
-                    <a href="{{ addDocPath }}" target="_blank" rel="noopener">Voir le document additionnel</a>
                 {% endif %}
             </div>
 
@@ -276,12 +273,6 @@
 
                     <label for="cv_file">CV (PDF/DOC/DOCX)</label>
                     <input id="cv_file" name="cv_file" type="file" accept=".pdf,.doc,.docx">
-
-                    <label for="add_doc_file">Document additionnel (PDF/DOC/DOCX)</label>
-                    <input id="add_doc_file" name="add_doc_file" type="file" accept=".pdf,.doc,.docx">
-
-                    <label for="photo_file">Photo (JPG/PNG/WEBP)</label>
-                    <input id="photo_file" name="photo_file" type="file" accept=".jpg,.jpeg,.png,.webp">
 
                     <div class="param-form-actions">
                         <button type="submit" class="param-btn-save">Enregistrer</button>
@@ -320,22 +311,8 @@
                         <span class="param-btn-replace">Aucun</span>
                     {% endif %}
                 </div>
-                <div class="param-doc-item">
-                    <div class="param-doc-info">
-                        <div class="param-doc-icon orange-doc">📄</div>
-                        <div>
-                            <p class="param-doc-name">{{ addDocPath ? (addDocPath|split('/')|last) : 'Aucun document additionnel' }}</p>
-                            <p class="param-doc-size">{{ addDocPath ? 'Document enregistre' : 'Non disponible' }}</p>
-                        </div>
-                    </div>
-                    {% if addDocPath %}
-                        <a href="{{ addDocPath }}" target="_blank" rel="noopener" class="param-btn-replace">Consulter</a>
-                    {% else %}
-                        <span class="param-btn-replace">Aucun</span>
-                    {% endif %}
-                </div>
             </div>
-            <button type="button" class="param-btn-add-doc" id="open-profile-form-doc">+ Ajouter ou remplacer</button>
+            <button type="button" class="param-btn-add-doc" id="open-profile-form-doc">+ Ajouter ou remplacer mon CV</button>
         </section>
     </div>
 </section>

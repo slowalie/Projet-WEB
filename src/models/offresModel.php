@@ -41,6 +41,51 @@ class OffresModel
         return $offre ?: null;
     }
 
+    public function submitApplication(int $offerId, int $userId, ?string $cvPath, string $lettreMotivationPath): bool
+    {
+        $this->pdo->beginTransaction();
+
+        try {
+            $ensureCandidate = $this->pdo->prepare('INSERT INTO Candidats (id_user)
+                SELECT :id_user
+                WHERE NOT EXISTS (
+                    SELECT 1 FROM Candidats WHERE id_user = :id_user
+                )');
+            $ensureCandidate->execute(['id_user' => $userId]);
+
+            if ($cvPath !== null && $cvPath !== '') {
+                $updateCv = $this->pdo->prepare('UPDATE Candidats SET cv = :cv WHERE id_user = :id_user');
+                $updateCv->execute([
+                    'id_user' => $userId,
+                    'cv' => $cvPath,
+                ]);
+            }
+
+            $applyStmt = $this->pdo->prepare('INSERT INTO Postuler (id_offres, id_user, Date_candidature, statut, lettre_motivation)
+                VALUES (:id_offres, :id_user, NOW(), :statut, :lettre_motivation)
+                ON DUPLICATE KEY UPDATE
+                    Date_candidature = NOW(),
+                    statut = VALUES(statut),
+                    lettre_motivation = VALUES(lettre_motivation)');
+
+            $applyStmt->execute([
+                'id_offres' => $offerId,
+                'id_user' => $userId,
+                'statut' => 'En attente',
+                'lettre_motivation' => $lettreMotivationPath,
+            ]);
+
+            $this->pdo->commit();
+            return true;
+        } catch (\Throwable $exception) {
+            if ($this->pdo->inTransaction()) {
+                $this->pdo->rollBack();
+            }
+
+            throw $exception;
+        }
+    }
+
     public function addOffre($nom, $description, $type_contrat, $salaire, $date_debut, $duree, $entreprise, $mission, $note, $secteur, $profil_recherche, $adresse, $ville, $tag, $departement)
 {
     // 1. Gérer la Localisation

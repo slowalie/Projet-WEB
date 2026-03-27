@@ -182,6 +182,63 @@
             margin-bottom: 10px; letter-spacing: -0.2px;
         }
         .btn-apply:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(79,70,229,.3); }
+
+        .apply-alert {
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 13px;
+            margin-bottom: 10px;
+            border: 1px solid transparent;
+        }
+
+        .apply-alert.success {
+            background: #e9f8ef;
+            border-color: #b6e3c4;
+            color: #1f6d38;
+        }
+
+        .apply-alert.error {
+            background: #fdeeee;
+            border-color: #f2c2c2;
+            color: #8a2323;
+        }
+
+        .apply-form {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .apply-form label {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--text-2);
+        }
+
+        .apply-form input[type="file"] {
+            font-size: 12.5px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--white);
+            padding: 8px;
+        }
+
+        .btn-apply-submit {
+            margin-top: 2px;
+            width: 100%;
+            background: #0f9f67;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-apply-submit:hover {
+            background: #0b8a59;
+        }
  
         .action-row { display: flex; gap: 8px; }
         .btn-save {
