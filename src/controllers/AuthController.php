@@ -79,7 +79,7 @@ class AuthController
 
         // Register user
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-        $this->userModel->createUser($nom, $prenom, $email, $passwordHash, $normalizedRole);
+        $this->userModel->createUserWithRoleProfile($nom, $prenom, $email, $passwordHash, $normalizedRole);
 
         $this->redirectWithStatus('login', 'register_success');
     }

@@ -23,16 +23,40 @@ class UserModel
         return (bool) $stmt->fetch();
     }
 
-    public function createUser(string $nom, string $prenom, string $email, string $passwordHash, string $role): void
+    public function createUserWithRoleProfile(string $nom, string $prenom, string $email, string $passwordHash, string $role): void
     {
-        $insertStmt = $this->pdo->prepare('INSERT INTO Utilisateurs (nom_user, prenom_user, mail_user, mdp_user, role_user) VALUES (:nom_user, :prenom_user, :mail_user, :mdp_user, :role_user)');
-        $insertStmt->execute([
-            'nom_user' => $nom,
-            'prenom_user' => $prenom,
-            'mail_user' => $email,
-            'mdp_user' => $passwordHash,
-            'role_user' => $role,
-        ]);
+        $this->pdo->beginTransaction();
+
+        try {
+            $insertStmt = $this->pdo->prepare('INSERT INTO Utilisateurs (nom_user, prenom_user, mail_user, mdp_user, role_user) VALUES (:nom_user, :prenom_user, :mail_user, :mdp_user, :role_user)');
+            $insertStmt->execute([
+                'nom_user' => $nom,
+                'prenom_user' => $prenom,
+                'mail_user' => $email,
+                'mdp_user' => $passwordHash,
+                'role_user' => $role,
+            ]);
+
+            $userId = (int) $this->pdo->lastInsertId();
+
+            if ($role === 'pilote') {
+                $piloteStmt = $this->pdo->prepare('INSERT INTO pilote (id_user) VALUES (:id_user)');
+                $piloteStmt->execute(['id_user' => $userId]);
+            }
+
+            if ($role === 'etudiant') {
+                $candidatStmt = $this->pdo->prepare('INSERT INTO Candidats (id_user) VALUES (:id_user)');
+                $candidatStmt->execute(['id_user' => $userId]);
+            }
+
+            $this->pdo->commit();
+        } catch (\Throwable $exception) {
+            if ($this->pdo->inTransaction()) {
+                $this->pdo->rollBack();
+            }
+
+            throw $exception;
+        }
     }
 
     public function findByEmail(string $email): ?array
