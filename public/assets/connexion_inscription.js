@@ -78,9 +78,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         
         if (inscriptionTab) {
-            // Masquer inscription pour tout le monde initialement
-            // Elle ne devient visible qu'après connexion
-            inscriptionTab.classList.remove("visible");
+            // Masquer inscription pour les pilotes complètement
+            if (role === "pilot") {
+                inscriptionTab.classList.remove("visible");
+                inscriptionTab.style.display = "none";
+            } else {
+                // Pour les autres rôles, masquer aussi initialement
+                inscriptionTab.classList.remove("visible");
+                inscriptionTab.style.display = "none";
+            }
         }
 
         // Reset tabs
@@ -195,6 +201,15 @@ document.addEventListener("DOMContentLoaded", function () {
             const isAuthenticated = logoutButton !== null;
             
             if (isAuthenticated) {
+                // Vérifier le rôle de l'utilisateur
+                const userRole = logoutButton.getAttribute("data-user-role");
+                
+                // Empêcher les pilotes d'accéder au formulaire d'inscription
+                if (userRole === "pilot") {
+                    window.alert("L'inscription n'est pas disponible pour les pilotes.");
+                    return;
+                }
+                
                 // L'utilisateur est connecté, montrer directement le formulaire d'inscription
                 // Afficher le conteneur de formulaire et cacher le sélecteur de rôle
                 if (roleSelector) roleSelector.style.display = "none";

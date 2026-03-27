@@ -24,6 +24,37 @@ document.addEventListener("DOMContentLoaded", function () {
         etudiant: "Connexion Étudiant"
     };
 
+    // Initialiser les onglets au chargement de la page
+    function initializeTabs() {
+        const logoutButton = document.querySelector(".button-logout");
+        const userRole = logoutButton?.getAttribute("data-user-role");
+        const connexionTab = document.querySelector('.auth-tab[data-tab="connexion"]');
+        const inscriptionTab = document.querySelector('.auth-tab[data-tab="inscription"]');
+        
+        // Masquer les onglets par défaut
+        tabButtons.forEach(tab => {
+            tab.classList.remove('visible');
+            tab.classList.remove('active');
+        });
+        
+        // Afficher l'onglet inscription seulement pour admin
+        if (inscriptionTab) {
+            if (userRole === "admin") {
+                inscriptionTab.classList.add('visible');
+            } else {
+                inscriptionTab.classList.remove('visible');
+                inscriptionTab.style.display = "none !important";
+            }
+        }
+        
+        if (connexionTab) {
+            connexionTab.classList.add('visible');
+        }
+    }
+
+    // Initialiser au chargement
+    initializeTabs();
+
     // Sélection du rôle
     roleCards.forEach(card => {
         card.addEventListener("click", function (e) {
@@ -42,18 +73,29 @@ document.addEventListener("DOMContentLoaded", function () {
             formConnexion.style.display = "block";
             formInscription.style.display = "none";
             
-            // Masquer complètement l'onglet d'inscription pour admin/pilot
-            // Il ne devient visible qu'après connexion
+            // Récupérer les onglets
+            const connexionTab = document.querySelector('.auth-tab[data-tab="connexion"]');
+            const inscriptionTab = document.querySelector('.auth-tab[data-tab="inscription"]');
+            
+            // Réinitialiser tous les onglets
             tabButtons.forEach(tab => {
                 tab.classList.remove('visible');
                 tab.classList.remove('active');
             });
             
-            // Rendre uniquement l'onglet "Connexion" visible
-            const connexionTab = document.querySelector('.auth-tab[data-tab="connexion"]');
+            // Toujours afficher l'onglet Connexion
             if (connexionTab) {
                 connexionTab.classList.add('visible');
                 connexionTab.classList.add('active');
+            }
+            
+            // Afficher l'onglet inscription SEULEMENT pour admin
+            if (inscriptionTab) {
+                if (role === "admin") {
+                    inscriptionTab.classList.add('visible');
+                } else {
+                    inscriptionTab.classList.remove('visible');
+                }
             }
         });
     });
@@ -72,6 +114,15 @@ document.addEventListener("DOMContentLoaded", function () {
         tab.addEventListener("click", function (e) {
             e.preventDefault();
             const targetTab = this.dataset.tab;
+            
+            // Récupérer le rôle sélectionné
+            const selectedRole = roleInputs[0]?.value;
+            
+            // Empêcher les pilotes d'accéder à l'onglet inscription
+            if (targetTab === "inscription" && selectedRole === "pilot") {
+                alert("L'inscription n'est pas disponible pour les pilotes.");
+                return;
+            }
             
             // Vérifier si on essaie d'accéder à l'onglet inscription sans autorisation
             if (targetTab === "inscription" && !this.classList.contains("visible")) {

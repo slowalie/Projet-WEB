@@ -27,7 +27,7 @@
                 <a href="/entreprises">Entreprises</a>
             </div>
             {% if is_authenticated %}
-                <a href="/auth/logout" class="button-logout" style="text-decoration: none;">Déconnexion</a>
+                <a href="/auth/logout" class="button-logout" data-user-role="{{ user_role }}" style="text-decoration: none;">Déconnexion</a>
             {% else %}
                 <button class="button-connexion">Connexion</button>
             {% endif %}
