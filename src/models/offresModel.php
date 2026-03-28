@@ -20,12 +20,48 @@ class OffresModel
         $this->pdo = $db->getConnection();
     }
 
-    public function getOffres(): array
+    public function getOffres(
+        ?string $search = null,
+        ?string $ville = null,
+        ?string $secteur = null,
+        ?string $duree = null
+    ): array
     {
         $sql = 'SELECT * FROM Offres
                 INNER JOIN Entreprises ON Offres.id_entreprise = Entreprises.id_entreprise
-                INNER JOIN Localisation ON Offres.id_localisation = Localisation.id_localisation';             
-        $stmt = $this->pdo->query($sql);
+                INNER JOIN Localisation ON Offres.id_localisation = Localisation.id_localisation';
+
+        $conditions = [];
+        $params = [];
+
+        if ($search !== null && $search !== '') {
+            $conditions[] = '(Offres.nom_offres LIKE :search OR Entreprises.nom_entreprise LIKE :search)';
+            $params[':search'] = '%' . $search . '%';
+        }
+
+        if ($ville !== null && $ville !== '' && strtolower($ville) !== 'toutes') {
+            $conditions[] = 'Localisation.ville = :ville';
+            $params[':ville'] = $ville;
+        }
+
+        if ($secteur !== null && $secteur !== '' && strtolower($secteur) !== 'tous') {
+            $conditions[] = 'Offres.secteur_offres = :secteur';
+            $params[':secteur'] = $secteur;
+        }
+
+        if ($duree !== null && $duree !== '' && strtolower($duree) !== 'toutes') {
+            $conditions[] = 'Offres.duree_offres = :duree';
+            $params[':duree'] = $duree;
+        }
+
+        if (!empty($conditions)) {
+            $sql .= ' WHERE ' . implode(' AND ', $conditions);
+        }
+
+        $sql .= ' ORDER BY Offres.id_offres DESC';
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 

@@ -23,16 +23,27 @@ class OffresController extends Controller
     public function index()
     {
         $currentPage = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
-        $offres = $this->offresModel->getOffres();
-        $secteurs = array_unique(array_column($offres, 'secteur_offres'));
-        $villes = array_unique(array_column($offres, 'ville'));
+        $searchQuery = trim((string) ($_GET['q'] ?? ''));
+        $selectedVille = trim((string) ($_GET['ville'] ?? ''));
+
+        $allOffres = $this->offresModel->getOffres();
+        $offres = $this->offresModel->getOffres($searchQuery, $selectedVille);
+
+        $secteurs = array_unique(array_column($allOffres, 'secteur_offres'));
+        $villes = array_unique(array_column($allOffres, 'ville'));
+
+        sort($secteurs);
+        sort($villes);
+
         return $this->render('offres.twig.html', [
             'page' => 'offres',
             'offres' => $offres,
             'total_offres' => count($offres),
             'currentPage' => $currentPage,
             'secteurs' => $secteurs,
-            'villes' => $villes
+            'villes' => $villes,
+            'search_query' => $searchQuery,
+            'selected_ville' => $selectedVille
         ]);
     }
     public function publish()
