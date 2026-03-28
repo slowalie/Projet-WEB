@@ -100,6 +100,16 @@
             <div style="display: flex; gap: 10px; margin-top: 12px;">
                 <button type="submit" class="publish-submit" style="width: auto;">Enregistrer les modifications</button>
                 <a href="/detail-offre/{{ offre.id_offres }}" class="publish-submit" style="width: auto; text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Retour au detail</a>
+                <button
+                    type="submit"
+                    class="publish-submit"
+                    formaction="/offre/{{ offre.id_offres }}/delete"
+                    formmethod="POST"
+                    onclick="return confirm('Confirmer la suppression definitive de cette offre ?');"
+                    style="width: auto; background: #dc2626; border-color: #dc2626;"
+                >
+                    Supprimer l'offre
+                </button>
             </div>
         </form>
     </section>

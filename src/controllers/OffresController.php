@@ -130,5 +130,21 @@ class OffresController extends Controller
         ]);
     }
 
+    public function delete(int $idOffre): string
+    {
+        $this->requireRole(['pilote', 'admin']);
+
+        if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+            http_response_code(405);
+            return '<h1>405 - Methode non autorisee</h1>';
+        }
+
+        $deleted = $this->offresModel->deleteOffre($idOffre);
+        $status = $deleted ? 'success' : 'error';
+
+        header('Location: /espace-pilote?offer_delete=' . $status);
+        exit;
+    }
+
     
 }
