@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/controller.php';
 require_once __DIR__ . '/../models/offresModel.php';
+require_once __DIR__ . '/../models/candidatModel.php';
 
 use App\Models\OffresModel;
+use App\Models\CandidatModel;
 use App\Models\Database;
 
 
@@ -18,12 +20,14 @@ class detailOffresController extends Controller
     private const ALLOWED_EXTENSIONS = ['pdf', 'doc', 'docx'];
 
     private OffresModel $offresModel;
+    private CandidatModel $candidatModel;
 
     public function __construct($twig)
     {
         parent::__construct($twig);
         $database = new Database('localhost', 'root', 'A2#DevWeb!', 'ideastage_BDD');
         $this->offresModel = new OffresModel($database);
+        $this->candidatModel = new CandidatModel($database);
     }
 
     public function index(int $id_offres): string
@@ -33,13 +37,59 @@ class detailOffresController extends Controller
         }
 
         $offre = $this->offresModel->getOffreById($id_offres);
+        $userId = (int) ($_SESSION['user_id'] ?? 0);
+        $isFavorite = false;
+
+        if ($userId > 0 && (string) ($_SESSION['user_role'] ?? '') === 'etudiant') {
+            $isFavorite = $this->candidatModel->isFavorite($userId, $id_offres);
+        }
         
         return $this->render('detail-offre.twig.html', [
             'page' => 'offres',
             'offre' => $offre,
             'apply_status' => $_GET['apply'] ?? null,
+            'favorite_status' => $_GET['favorite'] ?? null,
+            'is_favorite' => $isFavorite,
             
         ]);
+    }
+
+    public function addFavorite(int $offreId): string
+    {
+        $this->requireRole('etudiant');
+
+        $userId = (int) ($_SESSION['user_id'] ?? 0);
+        if ($userId <= 0) {
+            $this->redirectWithFavoriteStatus($offreId, 'login_required');
+        }
+
+        try {
+            $saved = $this->candidatModel->addFavorite($userId, $offreId);
+            $status = $saved ? 'added' : 'error';
+        } catch (\Throwable $exception) {
+            $status = 'error';
+        }
+
+        $this->redirectWithFavoriteStatus($offreId, $status);
+    }
+
+    public function removeFavorite(int $offreId): string
+    {
+        $this->requireRole('etudiant');
+
+        $userId = (int) ($_SESSION['user_id'] ?? 0);
+        if ($userId <= 0) {
+            $this->redirectWithFavoriteStatus($offreId, 'login_required');
+        }
+
+        try {
+            $removed = $this->candidatModel->removeFavorite($userId, $offreId);
+            $status = $removed ? 'removed' : 'error';
+        } catch (\Throwable $exception) {
+            $status = 'error';
+        }
+
+        $this->redirectWithFavoriteStatus($offreId, $status);
     }
 
     private function handleApply(int $offreId): void
@@ -191,6 +241,12 @@ class detailOffresController extends Controller
     private function redirectWithApplyStatus(int $offreId, string $status): void
     {
         header('Location: /detail-offre/' . $offreId . '?apply=' . urlencode($status));
+        exit();
+    }
+
+    private function redirectWithFavoriteStatus(int $offreId, string $status): void
+    {
+        header('Location: /detail-offre/' . $offreId . '?favorite=' . urlencode($status));
         exit();
     }
 

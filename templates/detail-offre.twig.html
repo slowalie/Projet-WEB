@@ -153,6 +153,14 @@
                 <div class="apply-alert error">Erreur pendant l'envoi de la candidature.</div>
             {% endif %}
 
+            {% if favorite_status == 'added' %}
+                <div class="apply-alert success">Offre ajoutee aux favoris.</div>
+            {% elseif favorite_status == 'removed' %}
+                <div class="apply-alert success">Offre retiree des favoris.</div>
+            {% elseif favorite_status == 'error' %}
+                <div class="apply-alert error">Impossible de mettre a jour les favoris.</div>
+            {% endif %}
+
             {% if user_role in ['pilote', 'admin'] %}
                 <a href="/offre/{{ offre.id_offres }}/edit" class="btn-apply">Modifier</a>
             {% else %}
@@ -177,10 +185,23 @@
             
 
             <div class="action-row">
-                <button class="btn-save">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                    Sauvegarder
-                </button>
+                {% if user_role == 'etudiant' %}
+                    {% if is_favorite %}
+                        <form method="POST" action="/detail-offre/{{ offre.id_offres }}/unfavorite">
+                            <button class="btn-save" type="submit">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                Retirer des favoris
+                            </button>
+                        </form>
+                    {% else %}
+                        <form method="POST" action="/detail-offre/{{ offre.id_offres }}/favorite">
+                            <button class="btn-save" type="submit">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                Ajouter aux favoris
+                            </button>
+                        </form>
+                    {% endif %}
+                {% endif %}
                 <button class="btn-share">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
                 </button>

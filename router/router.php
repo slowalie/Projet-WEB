@@ -109,6 +109,16 @@ function dispatchRoute(string $requestUri, Environment $twig): string
         return $controller->edit((int) $matches[1]);
     }
 
+    if (preg_match('/^\/detail-offre\/(\d+)\/favorite$/', $route, $matches) && $requestMethod === 'POST') {
+        $controller = new detailOffresController($twig);
+        return $controller->addFavorite((int) $matches[1]);
+    }
+
+    if (preg_match('/^\/detail-offre\/(\d+)\/unfavorite$/', $route, $matches) && $requestMethod === 'POST') {
+        $controller = new detailOffresController($twig);
+        return $controller->removeFavorite((int) $matches[1]);
+    }
+
     if (preg_match('/^\/detail-offre\/(\d+)$/', $route, $matches) && in_array($requestMethod, ['GET', 'POST'], true)) {
         $controller = new detailOffresController($twig);
         return $controller->index((int) $matches[1]);

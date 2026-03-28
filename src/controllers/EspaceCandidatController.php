@@ -31,6 +31,7 @@ class EspaceCandidatController extends Controller
 
         $candidat = $candidatModel->getByUserId($userId);
         $applications = $candidatModel->getApplicationsByUserId($userId);
+        $favorites = $candidatModel->getfavorites($userId);
 
         return $this->render('espace-candidat.twig.html', [
             'page' => 'espace-candidat',
@@ -38,8 +39,10 @@ class EspaceCandidatController extends Controller
             'applications' => $applications,
             'applications_count' => count($applications),
             'profile_update_status' => $_GET['update'] ?? null,
+            'favorites' => $favorites,
         ]);
     }
+
 
     private function handleProfileUpdate(CandidatModel $candidatModel, int $userId): void
     {
