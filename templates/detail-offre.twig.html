@@ -131,6 +131,18 @@
         <div class="card apply-card">
             {% if apply_status == 'success' %}
                 <div class="apply-alert success">Candidature envoyee avec succes.</div>
+            {% elseif apply_status == 'missing_file' %}
+                <div class="apply-alert error">Veuillez joindre les deux fichiers: CV et lettre de motivation.</div>
+            {% elseif apply_status == 'file_too_large' %}
+                <div class="apply-alert error">Fichier trop volumineux. Taille maximale: 5 Mo par fichier.</div>
+            {% elseif apply_status == 'invalid_extension' %}
+                <div class="apply-alert error">Format de fichier invalide. Formats acceptes: PDF, DOC, DOCX.</div>
+            {% elseif apply_status == 'invalid_mime' %}
+                <div class="apply-alert error">Le contenu du fichier ne correspond pas a un format autorise.</div>
+            {% elseif apply_status == 'upload_error' %}
+                <div class="apply-alert error">Erreur technique pendant l'upload des fichiers. Merci de reessayer.</div>
+            {% elseif apply_status == 'db_not_saved' %}
+                <div class="apply-alert error">La candidature n'a pas pu etre enregistree en base.</div>
             {% elseif apply_status == 'invalid_file' %}
                 <div class="apply-alert error">Fichier invalide. Formats acceptes: PDF, DOC, DOCX (max 5 Mo).</div>
             {% elseif apply_status == 'login_required' %}
@@ -146,15 +158,19 @@
                 Candidater
             </button>
 
-            <form id="apply-form" class="apply-form" method="POST" action="/detail-offre/{{ offre.id_offres }}" enctype="multipart/form-data" {% if apply_status == null %}hidden{% endif %}>
-                <label for="cv_file">CV (obligatoire)</label>
-                <input id="cv_file" name="cv_file" type="file" accept=".pdf,.doc,.docx" required>
+            <form id="apply-form" class="apply-form is-hidden" method="POST" enctype="multipart/form-data" novalidate>
+                    <div class="apply-form-title">Envoyer ma candidature</div>
 
-                <label for="lettre_file">Lettre de motivation (obligatoire)</label>
-                <input id="lettre_file" name="lettre_file" type="file" accept=".pdf,.doc,.docx" required>
+                    <label for="cv_file">CV (PDF, DOC, DOCX)</label>
+                    <input type="file" id="cv_file" name="cv_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
 
-                <button type="submit" class="btn-apply-submit">Envoyer ma candidature</button>
-            </form>
+                    <label for="lettre_file">Lettre de motivation (PDF, DOC, DOCX)</label>
+                    <input type="file" id="lettre_file" name="lettre_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+
+                    <p class="apply-hint">Taille maximale: 5 Mo par fichier.</p>
+                    <button type="submit" class="btn-apply-submit">Envoyer</button>
+                </form>
+            
 
             <div class="action-row">
                 <button class="btn-save">
@@ -186,7 +202,7 @@
                     <div class="info-icon-wrap" style="background:#fef3c7;">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                     </div>
-                    <div class="info-text"><small>Rémunération</small><strong>{{ offre.salaire_offres }}/mois</strong></div>
+                    <div class="info-text"><small>Rémunération</small><strong>{{ offre.salaire_offres }}€/mois</strong></div>
                 </div>
                 <div class="info-item">
                     <div class="info-icon-wrap" style="background:#fee2e2;">
@@ -208,7 +224,7 @@
             <div class="card-title">Statistiques</div>
             <div class="stats-list">
                 <div class="stats-row"><span>Note entreprise</span><strong class="stat-rating">★ {{ offre.note_entreprise }}/5</strong></div>
-                <div class="stats-row"><span>Candidatures</span><strong>42</strong></div>
+                
                 
             </div>
         </div>
@@ -226,24 +242,46 @@
             </a>
         </div>
 
+    <script>
+        (function () {
+            var openButton = document.getElementById('open-apply-form');
+            var applyForm = document.getElementById('apply-form');
+            var applyStatus = "{{ apply_status|default('') }}";
+
+            if (!openButton || !applyForm) {
+                return;
+            }
+
+            function showForm() {
+                applyForm.classList.remove('is-hidden');
+                openButton.setAttribute('aria-expanded', 'true');
+            }
+
+            function toggleForm() {
+                var isHidden = applyForm.classList.contains('is-hidden');
+                if (isHidden) {
+                    showForm();
+                    return;
+                }
+
+                applyForm.classList.add('is-hidden');
+                openButton.setAttribute('aria-expanded', 'false');
+            }
+
+            openButton.setAttribute('aria-controls', 'apply-form');
+            openButton.setAttribute('aria-expanded', 'false');
+            openButton.addEventListener('click', toggleForm);
+
+            if (applyStatus !== '') {
+                showForm();
+            }
+        })();
+    </script>
+
+
     </aside>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const openButton = document.getElementById('open-apply-form');
-    const applyForm = document.getElementById('apply-form');
 
-    if (openButton && applyForm) {
-        openButton.addEventListener('click', function () {
-            applyForm.hidden = false;
-            const firstInput = applyForm.querySelector('input');
-            if (firstInput) {
-                firstInput.focus();
-            }
-        });
-    }
-});
-</script>
 
 {% endblock %}

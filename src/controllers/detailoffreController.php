@@ -11,7 +11,11 @@ use App\Models\Database;
 
 class detailOffresController extends Controller
 {
+
+
     private const MAX_UPLOAD_SIZE = 5242880; // 5 MB
+
+    private const ALLOWED_EXTENSIONS = ['pdf', 'doc', 'docx'];
 
     private OffresModel $offresModel;
 
@@ -38,130 +42,156 @@ class detailOffresController extends Controller
         ]);
     }
 
-    private function handleApply(int $offerId): void
+    private function handleApply(int $offreId): void
     {
-        if (!$this->isAuthenticated()) {
-            header('Location: /detail-offre/' . $offerId . '?apply=login_required');
-            exit;
+        if (!isset($_SESSION['is_authenticated']) || $_SESSION['is_authenticated'] !== true || !isset($_SESSION['user_id'])) {
+            $this->redirectWithApplyStatus($offreId, 'login_required');
         }
 
-        $role = (string) ($_SESSION['user_role'] ?? '');
-        $userId = (int) ($_SESSION['user_id'] ?? 0);
+        $userRole = (string) ($_SESSION['user_role'] ?? '');
+        if ($userRole !== 'etudiant') {
+            $this->redirectWithApplyStatus($offreId, 'forbidden');
+        }
 
-        if ($role !== 'etudiant' || $userId <= 0) {
-            header('Location: /detail-offre/' . $offerId . '?apply=forbidden');
-            exit;
+        if (!isset($_FILES['cv_file'], $_FILES['lettre_file'])) {
+            $this->redirectWithApplyStatus($offreId, 'missing_file');
+        }
+
+        $cvFile = $_FILES['cv_file'];
+        $lettreFile = $_FILES['lettre_file'];
+
+        $cvValidationStatus = $this->validateUpload($cvFile);
+        if ($cvValidationStatus !== null) {
+            $this->redirectWithApplyStatus($offreId, $cvValidationStatus);
+        }
+
+        $lettreValidationStatus = $this->validateUpload($lettreFile);
+        if ($lettreValidationStatus !== null) {
+            $this->redirectWithApplyStatus($offreId, $lettreValidationStatus);
+        }
+
+        $uploadDir = dirname(__DIR__, 2) . '/public/docs/candidatures/';
+        if (!is_dir($uploadDir) && !mkdir($uploadDir, 0775, true) && !is_dir($uploadDir)) {
+            error_log('Upload error: unable to create directory ' . $uploadDir);
+            $this->redirectWithApplyStatus($offreId, 'upload_error');
+        }
+
+        if (!is_writable($uploadDir)) {
+            error_log('Upload error: directory is not writable ' . $uploadDir . ' perms=' . substr(sprintf('%o', fileperms($uploadDir)), -4));
+            $this->redirectWithApplyStatus($offreId, 'upload_error');
+        }
+
+        $cvFilename = $this->buildUploadName('cv', (string) $cvFile['name']);
+        $lettreFilename = $this->buildUploadName('lettre', (string) $lettreFile['name']);
+        $cvDestination = $uploadDir . $cvFilename;
+        $lettreDestination = $uploadDir . $lettreFilename;
+        $cvDbPath = '/docs/candidatures/' . $cvFilename;
+        $lettreDbPath = '/docs/candidatures/' . $lettreFilename;
+
+        $cvMoved = move_uploaded_file((string) $cvFile['tmp_name'], $cvDestination);
+        $lettreMoved = move_uploaded_file((string) $lettreFile['tmp_name'], $lettreDestination);
+
+        if (!$cvMoved || !$lettreMoved) {
+            if ($cvMoved && is_file($cvDestination)) {
+                @unlink($cvDestination);
+            }
+            if ($lettreMoved && is_file($lettreDestination)) {
+                @unlink($lettreDestination);
+            }
+
+            error_log('Upload error: move_uploaded_file failed for offer ' . $offreId
+                . ' cv_tmp=' . (string) $cvFile['tmp_name']
+                . ' lettre_tmp=' . (string) $lettreFile['tmp_name']
+                . ' cv_dest=' . $cvDestination
+                . ' lettre_dest=' . $lettreDestination);
+            $this->redirectWithApplyStatus($offreId, 'upload_error');
         }
 
         try {
-            $cvPath = $this->processUpload(
-                'cv_file',
-                ['pdf', 'doc', 'docx'],
-                [
-                    'application/pdf',
-                    'application/msword',
-                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                ],
-                $userId,
-                true
+            $saved = $this->offresModel->submitApplication(
+                $offreId,
+                (int) $_SESSION['user_id'],
+                    $cvDbPath,
+                    $lettreDbPath
             );
 
-            $lettrePath = $this->processUpload(
-                'lettre_file',
-                ['pdf', 'doc', 'docx'],
-                [
-                    'application/pdf',
-                    'application/msword',
-                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                ],
-                $userId,
-                false
-            );
-
-            $applied = $this->offresModel->submitApplication($offerId, $userId, $cvPath, $lettrePath);
-            $status = $applied ? 'success' : 'error';
-        } catch (\RuntimeException $exception) {
-            $status = 'invalid_file';
+            if (!$saved) {
+                $this->redirectWithApplyStatus($offreId, 'db_not_saved');
+            }
         } catch (\Throwable $exception) {
-            $status = 'error';
+            $this->redirectWithApplyStatus($offreId, 'db_not_saved');
         }
 
-        header('Location: /detail-offre/' . $offerId . '?apply=' . $status . '#apply-form');
-        exit;
+        $this->redirectWithApplyStatus($offreId, 'success');
     }
 
-    private function processUpload(
-        string $fieldName,
-        array $allowedExtensions,
-        array $allowedMimeTypes,
-        int $userId,
-        bool $required
-    ): ?string {
-        if (!isset($_FILES[$fieldName]) || !is_array($_FILES[$fieldName])) {
-            if ($required) {
-                throw new \RuntimeException('Missing required file');
+    private function validateUpload(array $file): ?string
+    {
+        if (!isset($file['error'], $file['size'], $file['name'], $file['tmp_name'])) {
+            return 'invalid_file';
+        }
+
+        if ((int) $file['error'] !== UPLOAD_ERR_OK) {
+            $errorCode = (int) $file['error'];
+            if ($errorCode === UPLOAD_ERR_NO_FILE) {
+                return 'missing_file';
             }
 
-            return null;
-        }
-
-        $upload = $_FILES[$fieldName];
-        $error = (int) ($upload['error'] ?? UPLOAD_ERR_NO_FILE);
-
-        if ($error === UPLOAD_ERR_NO_FILE) {
-            if ($required) {
-                throw new \RuntimeException('Missing required file');
+            if ($errorCode === UPLOAD_ERR_INI_SIZE || $errorCode === UPLOAD_ERR_FORM_SIZE) {
+                return 'file_too_large';
             }
 
-            return null;
+            return 'upload_error';
         }
 
-        if ($error !== UPLOAD_ERR_OK) {
-            throw new \RuntimeException('Upload failed');
+        $size = (int) $file['size'];
+        if ($size <= 0) {
+            return 'invalid_file';
         }
 
-        $tmpName = (string) ($upload['tmp_name'] ?? '');
-        $originalName = (string) ($upload['name'] ?? '');
-        $size = (int) ($upload['size'] ?? 0);
-
-        if ($tmpName === '' || !is_uploaded_file($tmpName)) {
-            throw new \RuntimeException('Invalid upload');
+        if ($size > self::MAX_UPLOAD_SIZE) {
+            return 'file_too_large';
         }
 
-        if ($size <= 0 || $size > self::MAX_UPLOAD_SIZE) {
-            throw new \RuntimeException('Invalid file size');
+        $extension = strtolower(pathinfo((string) $file['name'], PATHINFO_EXTENSION));
+        if (!in_array($extension, self::ALLOWED_EXTENSIONS, true)) {
+            return 'invalid_extension';
         }
 
-        $extension = strtolower((string) pathinfo($originalName, PATHINFO_EXTENSION));
-        if ($extension === '' || !in_array($extension, $allowedExtensions, true)) {
-            throw new \RuntimeException('Invalid extension');
+        if (!is_uploaded_file((string) $file['tmp_name'])) {
+            return 'upload_error';
         }
 
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mimeType = $finfo ? (string) finfo_file($finfo, $tmpName) : '';
-        if ($finfo) {
-            finfo_close($finfo);
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $finfo->file((string) $file['tmp_name']);
+
+        $allowedMimesByExtension = [
+            'pdf' => ['application/pdf'],
+            'doc' => ['application/msword', 'application/octet-stream'],
+            'docx' => [
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/zip',
+                'application/octet-stream',
+            ],
+        ];
+
+        if (!is_string($mimeType) || !in_array($mimeType, $allowedMimesByExtension[$extension], true)) {
+            return 'invalid_mime';
         }
 
-        if ($mimeType === '' || !in_array($mimeType, $allowedMimeTypes, true)) {
-            throw new \RuntimeException('Invalid mime type');
-        }
-
-        $relativeDir = '/uploads/candidatures/' . $userId;
-        $targetDir = __DIR__ . '/../../public' . $relativeDir;
-
-        if (!is_dir($targetDir) && !mkdir($targetDir, 0775, true) && !is_dir($targetDir)) {
-            throw new \RuntimeException('Cannot create directory');
-        }
-
-        $safeField = preg_replace('/[^a-z0-9_]/i', '_', $fieldName) ?: 'file';
-        $filename = sprintf('%s_%s_%s.%s', $safeField, date('YmdHis'), bin2hex(random_bytes(4)), $extension);
-        $targetPath = $targetDir . '/' . $filename;
-
-        if (!move_uploaded_file($tmpName, $targetPath)) {
-            throw new \RuntimeException('Cannot move file');
-        }
-
-        return $relativeDir . '/' . $filename;
+        return null;
     }
+
+    private function buildUploadName(string $prefix, string $originalName): string
+    {
+        $extension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
+        return sprintf('%s_%s.%s', $prefix, bin2hex(random_bytes(16)), $extension);
+    }
+
+    private function redirectWithApplyStatus(int $offreId, string $status): void
+    {
+        header('Location: /detail-offre/' . $offreId . '?apply=' . urlencode($status));
+        exit();
+    }
+
 }

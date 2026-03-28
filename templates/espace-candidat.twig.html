@@ -53,7 +53,7 @@
                         <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
                     </svg>
                 </div>
-                <div class="apercu-stat"><h2>25</h2></div>
+                <div class="apercu-stat"><h2>{{ candidat.id_offres | length }}</h2></div>
                 <div class="stat-name">Candidatures</div>
             </div>
             <div class="apercu-card">
@@ -126,42 +126,23 @@
 <section id="candidatures" class="candidatures">
     <div class="card">
         <div class="card-header">
-            <h2>Mes candidatures <span>(3)</span></h2>
+            <h2>Mes candidatures <span>({{ candidat.id_offres | length }})</span></h2>
         </div>
         <ul class="activity-list">
+            {% if candidat.id_offres %}
             <li class="activity-item">
                 <div class="icon-circle tv">TV</div>
                 <div class="activity-info">
-                    <h3>Développeur Full-Stack React/Node</h3>
-                    <p>TechVision • <span><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                    <h3>{{ candidat.nom_offres }}</h3>
+                    <p>{{candidat.nom_entreprise}}  <span><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
                         <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
                         <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                    </svg></span>Nantes</p>
+                    </svg></span>{{ candidat.ville }}</p>
                 </div>
-                <span class="badge yellow">En cours</span>
+                <span class="badge yellow">{{ candidat.statut }}</span>
             </li>
-            <li class="activity-item">
-                <div class="icon-circle ds">DS</div>
-                <div class="activity-info">
-                    <h3>Stage UX/UI Designer</h3>
-                    <p>DesignStudio • <span><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                    </svg></span>Paris</p>
-                </div>
-                <span class="badge blue">Entretien</span>
-            </li>
-            <li class="activity-item">
-                <div class="icon-circle dc">DC</div>
-                <div class="activity-info">
-                    <h3>Alternance Data Analyst</h3>
-                    <p>DataCorp • <span><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                    </svg></span> Lyon </p>
-                </div>
-                <span class="badge red">Refusée</span>
-            </li>
+            {% endif %}
+            
         </ul>
     </div>
 </section>
@@ -254,7 +235,6 @@
             <div class="param-tags">
                 <span class="param-tag">Titre: {{ profileTitle ?: 'Non renseigne' }}</span>
                 <span class="param-tag">Disponibilite: {{ disponibilite ?: 'Non renseignee' }}</span>
-                <span class="param-tag">CV: {{ cvPath ? (cvPath|split('/')|last) : 'Non renseigne' }}</span>
             </div>
 
             <div class="param-file-links">
@@ -271,8 +251,7 @@
                     <label for="disponibilite">Disponibilite</label>
                     <input id="disponibilite" name="disponibilite" type="text" value="{{ disponibilite }}" placeholder="Ex: Septembre 2026">
 
-                    <label for="cv_file">CV (PDF/DOC/DOCX)</label>
-                    <input id="cv_file" name="cv_file" type="file" accept=".pdf,.doc,.docx">
+                    
 
                     <div class="param-form-actions">
                         <button type="submit" class="param-btn-save">Enregistrer</button>
@@ -281,39 +260,10 @@
             {% endif %}
         </section>
 
-        <section class="param-card">
-            <div class="param-section-header">
-                <h3>Langues</h3>
-            </div>
-            <ul class="param-list-items">
-                <li><span class="param-check">✓</span> Français (natif)</li>
-                <li><span class="param-check">✓</span> Anglais (C1)</li>
-                <li><span class="param-check">✓</span> Espagnol (B2)</li>
-            </ul>
-        </section>
+    
 
-        <section class="param-card">
-            <div class="param-section-header">
-                <h3>Documents</h3>
-            </div>
-            <div class="param-document-list">
-                <div class="param-doc-item">
-                    <div class="param-doc-info">
-                        <div class="param-doc-icon blue-doc">📄</div>
-                        <div>
-                            <p class="param-doc-name">{{ cvPath ? (cvPath|split('/')|last) : 'Aucun CV' }}</p>
-                            <p class="param-doc-size">{{ cvPath ? 'Document enregistre' : 'Non disponible' }}</p>
-                        </div>
-                    </div>
-                    {% if cvPath %}
-                        <a href="{{ cvPath }}" target="_blank" rel="noopener" class="param-btn-replace">Consulter</a>
-                    {% else %}
-                        <span class="param-btn-replace">Aucun</span>
-                    {% endif %}
-                </div>
-            </div>
-            <button type="button" class="param-btn-add-doc" id="open-profile-form-doc">+ Ajouter ou remplacer mon CV</button>
-        </section>
+        
+        
     </div>
 </section>
 

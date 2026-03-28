@@ -218,8 +218,7 @@ main {
   margin: 20px 0;
 }
 
-h2 { font-size: 1.1rem; color: var(--text-dark1); margin-bottom: 20px; }
-h3 { font-size: 1rem; margin: 0; color: var(--text-dark1); }
+
 
 /* --- Liste d'activités --- */
 .activity-list { list-style: none; padding: 0; }
@@ -772,27 +771,7 @@ h3 { font-size: 1rem; margin: 0; color: var(--text-dark1); }
     }
 
 
-    /* Footer */
-    footer .footer-content {
-        flex-direction: column;
-        padding: 10px;
-    }
-
-    .footer-about {
-        max-width: 100%;
-    }
-
-    .footer-links-container {
-        flex-direction: column;
-        gap: 20px;
-        padding: 10px;
-    }
-
-    .footer-bottom {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-    }
+   
 
     .job-card {
         padding: 10px 15px;
@@ -911,17 +890,7 @@ h3 { font-size: 1rem; margin: 0; color: var(--text-dark1); }
     .tags {
         justify-content: center; /* Centre les tags sous la barre de recherche */
     }
-    .footer-container {
-        padding: 10px;
-    }
-
-    .footer-about {
-        padding: 10px;
-    }
-
-    .footer-links-container {
-        padding: 5px;
-    }
+   
 
     .legal-links {
         flex-direction: column;

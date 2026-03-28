@@ -59,6 +59,14 @@ class OffresModel
                     'id_user' => $userId,
                     'cv' => $cvPath,
                 ]);
+
+                $checkCvStmt = $this->pdo->prepare('SELECT cv FROM Candidats WHERE id_user = :id_user LIMIT 1');
+                $checkCvStmt->execute(['id_user' => $userId]);
+                $savedCvPath = $checkCvStmt->fetchColumn();
+
+                if (!is_string($savedCvPath) || $savedCvPath !== $cvPath) {
+                    throw new \RuntimeException('CV path not persisted in Candidats');
+                }
             }
 
             $applyStmt = $this->pdo->prepare('INSERT INTO Postuler (id_offres, id_user, Date_candidature, statut, lettre_motivation)
@@ -75,6 +83,27 @@ class OffresModel
                 'lettre_motivation' => $lettreMotivationPath,
             ]);
 
+            $checkStmt = $this->pdo->prepare('SELECT 1 FROM Postuler WHERE id_offres = :id_offres AND id_user = :id_user LIMIT 1');
+            $checkStmt->execute([
+                'id_offres' => $offerId,
+                'id_user' => $userId,
+            ]);
+
+            if ($checkStmt->fetchColumn() === false) {
+                throw new \RuntimeException('Application row not persisted in Postuler');
+            }
+
+            $checkLettreStmt = $this->pdo->prepare('SELECT lettre_motivation FROM Postuler WHERE id_offres = :id_offres AND id_user = :id_user LIMIT 1');
+            $checkLettreStmt->execute([
+                'id_offres' => $offerId,
+                'id_user' => $userId,
+            ]);
+            $savedLettrePath = $checkLettreStmt->fetchColumn();
+
+            if (!is_string($savedLettrePath) || $savedLettrePath !== $lettreMotivationPath) {
+                throw new \RuntimeException('Motivation letter path not persisted in Postuler');
+            }
+
             $this->pdo->commit();
             return true;
         } catch (\Throwable $exception) {
@@ -85,6 +114,14 @@ class OffresModel
             throw $exception;
         }
     }
+    public function deleteOffre(int $id): bool
+    {
+        $sql = 'DELETE FROM Offres WHERE id_offres = :id';
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([':id' => $id]);
+    }
+
+    
 
     public function addOffre($nom, $description, $type_contrat, $salaire, $date_debut, $duree, $entreprise, $mission, $note, $secteur, $profil_recherche, $adresse, $ville, $tag, $departement)
 {
