@@ -4,29 +4,30 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="http://ideaStageassets.local/publier-offre.css">
+    <link rel="stylesheet" href="http://ideaStageassets.local/edit-offre.css">
 {% endblock %}
 
 {% block content %}
-<main style="padding: 100px 20px 40px; background: #f8fafc; min-height: 100vh;">
-    <section style="max-width: 980px; margin: 0 auto;">
-        <h1 style="margin: 0 0 12px; color: #0f172a;">Modifier l'offre</h1>
-        <p style="margin: 0 0 20px; color: #475569;">Offre #{{ offre.id_offres }} - {{ offre.nom_entreprise }}</p>
+<main class="edit-offre-page">
+    <section class="edit-offre-wrapper">
+        <h1 class="edit-offre-title">Modifier l'offre</h1>
+        <p class="edit-offre-subtitle">Offre #{{ offre.id_offres }} - {{ offre.nom_entreprise }}</p>
 
         {% if edit_status == 'success' %}
-            <div style="margin-bottom: 12px; padding: 10px 12px; border-radius: 10px; background: #dcfce7; color: #166534; border: 1px solid #86efac;">
+            <div class="edit-offre-alert edit-offre-alert-success">
                 L'offre a ete mise a jour avec succes.
             </div>
         {% elseif edit_status == 'missing_fields' %}
-            <div style="margin-bottom: 12px; padding: 10px 12px; border-radius: 10px; background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5;">
+            <div class="edit-offre-alert edit-offre-alert-error">
                 Merci de renseigner les champs obligatoires.
             </div>
         {% elseif edit_status == 'error' %}
-            <div style="margin-bottom: 12px; padding: 10px 12px; border-radius: 10px; background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5;">
+            <div class="edit-offre-alert edit-offre-alert-error">
                 Une erreur technique est survenue pendant la mise a jour.
             </div>
         {% endif %}
 
-        <form class="publish-form" method="POST" action="/offre/{{ offre.id_offres }}/edit" style="width: 100%; height: auto; max-height: none;">
+        <form class="publish-form edit-offre-form" method="POST" action="/offre/{{ offre.id_offres }}/edit">
             <div class="publish-form-grid">
                 <div class="publish-field">
                     <label for="nom_offres">Nom de l'offre</label>
@@ -86,27 +87,26 @@
                     <input class="publish-input" type="text" id="skils" name="skils" value="{{ offre.skils }}">
                 </div>
 
-                <div class="publish-field" style="grid-column: 1 / -1;">
+                <div class="publish-field edit-offre-field-full">
                     <label for="description_offres">Description</label>
                     <textarea class="publish-input" id="description_offres" name="description_offres" required>{{ offre.description_offres }}</textarea>
                 </div>
 
-                <div class="publish-field" style="grid-column: 1 / -1;">
+                <div class="publish-field edit-offre-field-full">
                     <label for="missions">Missions</label>
                     <textarea class="publish-input" id="missions" name="missions">{{ offre.missions }}</textarea>
                 </div>
             </div>
 
-            <div style="display: flex; gap: 10px; margin-top: 12px;">
-                <button type="submit" class="publish-submit" style="width: auto;">Enregistrer les modifications</button>
-                <a href="/detail-offre/{{ offre.id_offres }}" class="publish-submit" style="width: auto; text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Retour au detail</a>
+            <div class="edit-offre-actions">
+                <button type="submit" class="publish-submit edit-offre-btn">Enregistrer les modifications</button>
+                <a href="/detail-offre/{{ offre.id_offres }}" class="publish-submit edit-offre-btn edit-offre-btn-link">Retour au detail</a>
                 <button
                     type="submit"
-                    class="publish-submit"
+                    class="publish-submit edit-offre-btn edit-offre-btn-delete"
                     formaction="/offre/{{ offre.id_offres }}/delete"
                     formmethod="POST"
                     onclick="return confirm('Confirmer la suppression definitive de cette offre ?');"
-                    style="width: auto; background: #dc2626; border-color: #dc2626;"
                 >
                     Supprimer l'offre
                 </button>
