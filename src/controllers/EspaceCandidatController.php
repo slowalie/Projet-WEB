@@ -18,12 +18,23 @@ class EspaceCandidatController extends Controller
         $this->requireRole(['etudiant', 'pilote', 'admin']);
 
         $userId = (int) ($_SESSION['user_id'] ?? 0);
+        $userRole = (string) ($_SESSION['user_role'] ?? '');
         if ($userId <= 0) {
             $this->redirectUnauthorized('login_required');
         }
 
         $database = new Database('localhost', 'root', 'A2#DevWeb!', 'ideastage_BDD');
         $candidatModel = new CandidatModel($database);
+
+        if (in_array($userRole, ['pilote', 'admin'], true)) {
+            $candidates = $candidatModel->getAllCandidates();
+
+            return $this->render('candidats.twig.html', [
+                'page' => 'espace-candidat',
+                'candidates' => $candidates,
+                'candidates_count' => count($candidates),
+            ]);
+        }
 
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             $this->handleProfileUpdate($candidatModel, $userId);

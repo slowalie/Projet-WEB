@@ -1,0 +1,48 @@
+{% extends 'base.twig.html' %}
+
+{% block title %}Liste des candidats - IdeaStage{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="http://ideaStageassets.local/candidat.css">
+{% endblock %}
+
+{% block content %}
+<main class="candidates-page">
+    <section class="candidates-wrapper">
+        <h1 class="candidates-title">Liste des candidats</h1>
+        <p class="candidates-subtitle">Total: {{ candidates_count }} candidat(s)</p>
+
+        {% if candidates is empty %}
+            <div class="candidates-empty">
+                Aucun candidat trouve.
+            </div>
+        {% else %}
+            <div class="candidates-table-wrap">
+                <table class="candidates-table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Titre profil</th>
+                            <th>Disponibilite</th>
+                            <th>Candidatures</th>
+                            <th>Favoris</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for candidate in candidates %}
+                            <tr>
+                                <td>{{ candidate.prenom_user }} {{ candidate.nom_user }}</td>
+                                <td>{{ candidate.mail_user }}</td>
+                                <td>{{ candidate.titre_profil|default('-') }}</td>
+                                <td>{{ candidate.disponibilite|default('-') }}</td>
+                                <td>{{ candidate.applications_count }}</td>
+                                <td>{{ candidate.favorites_count }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </section>
+</main>
+{% endblock %}
