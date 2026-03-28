@@ -25,9 +25,12 @@ class OffresController extends Controller
         $currentPage = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
         $searchQuery = trim((string) ($_GET['q'] ?? ''));
         $selectedVille = trim((string) ($_GET['ville'] ?? ''));
+        $selectedSecteur = trim((string) ($_GET['secteur'] ?? ''));
+        $selectedDuree = trim((string) ($_GET['duree'] ?? ''));
+        $selectedType = trim((string) ($_GET['type'] ?? ''));
 
         $allOffres = $this->offresModel->getOffres();
-        $offres = $this->offresModel->getOffres($searchQuery, $selectedVille);
+        $offres = $this->offresModel->getOffres($searchQuery, $selectedVille, $selectedSecteur, $selectedDuree, $selectedType);
 
         $secteurs = array_unique(array_column($allOffres, 'secteur_offres'));
         $villes = array_unique(array_column($allOffres, 'ville'));
@@ -43,7 +46,11 @@ class OffresController extends Controller
             'secteurs' => $secteurs,
             'villes' => $villes,
             'search_query' => $searchQuery,
-            'selected_ville' => $selectedVille
+            'selected_ville' => $selectedVille,
+            'selected_secteur' => $selectedSecteur,
+            'selected_duree' => $selectedDuree,
+            'selected_type' => $selectedType
+
         ]);
     }
     public function publish()

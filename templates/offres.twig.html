@@ -9,14 +9,13 @@
 
 {% block content %}
 
-
-
+<form method="GET" action="/offres">
 <div class="recherche-offres">
     <div1>Recherche d'offres</div1>
     <div2>
         Toutes les offres de stage & alternance
     </div2>
-    <form class="search-bar" method="GET" action="/offres">
+    <div class="search-bar">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
             viewBox="0 0 16 16">
             <path
@@ -46,7 +45,7 @@
                     d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
             </svg>Rechercher</button>
 
-    </form>
+    </div>
 
 </div>
 
@@ -69,15 +68,15 @@
                 <h4>TYPE</h4>
                 <div class="radio-group">
                     <label>
-                        <input type="radio" name="type" value="tous" checked>
+                        <input type="radio" name="type" value="tous" {{ selected_type == 'tous' ? 'checked' : '' }}>
                         <span>Tous</span>
                     </label>
                     <label>
-                        <input type="radio" name="type" value="stage">
+                        <input type="radio" name="type" value="stage" {{ selected_type == 'stage' ? 'checked' : '' }}>
                         <span>Stage</span>
                     </label>
                     <label>
-                        <input type="radio" name="type" value="alternance">
+                        <input type="radio" name="type" value="alternance" {{ selected_type == 'alternance' ? 'checked' : '' }}>
                         <span>Alternance</span>
                     </label>
                 </div>
@@ -86,10 +85,16 @@
             <!-- SECTEUR -->
             <div class="filter-group">
                 <h4>SECTEUR</h4>
-                <div class="tag-buttons">
-                    <button class="tag active">Tous</button>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="secteur" value="" {{ selected_secteur is empty ? 'checked' : '' }}>
+                        <span>Tous</span>
+                    </label>
                     {% for secteur in secteurs %}
-                    <button class="tag">{{ secteur }}</button>
+                    <label>
+                        <input type="radio" name="secteur" value="{{ secteur }}" {{ selected_secteur == secteur ? 'checked' : '' }}>
+                        <span>{{ secteur }}</span>
+                    </label>
                     {% endfor %}
                 </div>
             </div>
@@ -99,30 +104,34 @@
                 <h4>DURÉE</h4>
                 <div class="radio-group">
                     <label>
-                        <input type="radio" name="duree" value="toutes" checked>
+                        <input type="radio" name="duree" value="" {{ selected_duree is empty ? 'checked' : '' }}>
                         <span>Toutes</span>
                     </label>
                     <label>
-                        <input type="radio" name="duree" value="2mois">
+                        <input type="radio" name="duree" value="2 mois" {{ selected_duree == '2 mois' ? 'checked' : '' }}>
                         <span>2 mois</span>
                     </label>
                     <label>
-                        <input type="radio" name="duree" value="4mois">
+                        <input type="radio" name="duree" value="4 mois" {{ selected_duree == '4 mois' ? 'checked' : '' }}>
                         <span>4 mois</span>
                     </label>
                     <label>
-                        <input type="radio" name="duree" value="6mois">
+                        <input type="radio" name="duree" value="6 mois" {{ selected_duree == '6 mois' ? 'checked' : '' }}>
                         <span>6 mois</span>
                     </label>
                     <label>
-                        <input type="radio" name="duree" value="12mois">
+                        <input type="radio" name="duree" value="12 mois" {{ selected_duree == '12 mois' ? 'checked' : '' }}>
                         <span>12 mois</span>
                     </label>
                     <label>
-                        <input type="radio" name="duree" value="24mois">
+                        <input type="radio" name="duree" value="24 mois" {{ selected_duree == '24 mois' ? 'checked' : '' }}>
                         <span>24 mois</span>
                     </label>
                 </div>
+            </div>
+
+            <div class="filter-group">
+                <button type="submit">Appliquer les filtres</button>
             </div>
         </aside>
 
@@ -143,6 +152,12 @@
             {% endif %}
             {% if selected_ville is not empty %}
                 {% set query_string = query_string ~ '&ville=' ~ selected_ville|url_encode %}
+            {% endif %}
+            {% if selected_secteur is not empty %}
+                {% set query_string = query_string ~ '&secteur=' ~ selected_secteur|url_encode %}
+            {% endif %}
+            {% if selected_duree is not empty %}
+                {% set query_string = query_string ~ '&duree=' ~ selected_duree|url_encode %}
             {% endif %}
 
             
@@ -211,6 +226,7 @@
             {% endif %}
         </main>
     </div>
+    </form>
 
 
 </main>

@@ -24,7 +24,8 @@ class OffresModel
         ?string $search = null,
         ?string $ville = null,
         ?string $secteur = null,
-        ?string $duree = null
+        ?string $duree = null,
+        ?string $type = null
     ): array
     {
         $sql = 'SELECT * FROM Offres
@@ -52,6 +53,11 @@ class OffresModel
         if ($duree !== null && $duree !== '' && strtolower($duree) !== 'toutes') {
             $conditions[] = 'Offres.duree_offres = :duree';
             $params[':duree'] = $duree;
+        }
+
+        if ($type !== null && $type !== '' && strtolower($type) !== 'tous') {
+            $conditions[] = 'Offres.type_offres = :type';
+            $params[':type'] = $type;
         }
 
         if (!empty($conditions)) {
