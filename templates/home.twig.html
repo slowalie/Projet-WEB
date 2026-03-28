@@ -22,14 +22,21 @@
             </p>
 
             <div class="search-box">
-                <div class="input-group">
-                    <input type="text" placeholder="Métier, mot-clé...">
-                    <input type="text" placeholder="Ville, région...">
-                    <select>
-                        <option>Tous les types</option>
+                <form class="input-group" method="GET" action="/offres">
+                    <input type="text" name="q" placeholder="Métier, mot-clé...">
+                    <select name="ville" id="ville">
+                        <option value="">Toutes les villes</option>
+                        {% for ville in villes %}
+                            <option value="{{ ville }}" {{ selected_ville == ville ? 'selected' : '' }}>{{ ville }}</option>
+                        {% endfor %}
                     </select>
-                    <button class="btn-search">Rechercher</button>
-                </div>
+                    <select name="type" id="type">
+                        <option value="">Tous les types</option>
+                        <option value="stage" {{ selected_type == 'stage' ? 'selected' : '' }}>Stage</option>
+                        <option value="alternance" {{ selected_type == 'alternance' ? 'selected' : '' }}>Alternance</option>
+                    </select>
+                    <button type="submit" class="btn-search">Rechercher</button>
+                </form>
             </div>
 
             <div class="tags">
