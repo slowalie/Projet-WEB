@@ -163,7 +163,7 @@
             
             <!-- GRID D'OFFRES -->
             <div class="offers-grid">
-                {% for offre in offres|slice(offset, limit) %}
+            {% for offre in offres|slice(offset, limit) %}
                 <!-- OFFRE 1 -->
                 <div class="offer-card">
                     {% if offre.tag == "une" %}
@@ -183,7 +183,8 @@
                             <h3><a href="/detail-offre/{{ offre.id_offres }}">{{ offre.nom_offres }}</a></h3>
                             <p class="company-name" >{{ offre.nom_entreprise }}</p>
                         </div>
-                        <button class="heart-btn">♡</button>
+                        
+                        
                     </div>
                     <div class="offer-tags">
                         <span class="tag-type">{{ offre.type_offres }}</span>
@@ -212,7 +213,7 @@
                         </a>
                     </div>
                 </div>
-                {% endfor %}
+            {% endfor %}
 
             </div>
             {%if totalPages > 1 %}
