@@ -153,23 +153,27 @@
                 <div class="apply-alert error">Erreur pendant l'envoi de la candidature.</div>
             {% endif %}
 
-            <button type="button" class="btn-apply" id="open-apply-form">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                Candidater
-            </button>
+            {% if user_role in ['pilote', 'admin'] %}
+                <a href="/offre/{{ offre.id_offres }}/edit" class="btn-apply">Modifier</a>
+            {% else %}
+                <button type="button" class="btn-apply" id="open-apply-form">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    Candidater
+                </button>
 
-            <form id="apply-form" class="apply-form is-hidden" method="POST" enctype="multipart/form-data" novalidate>
-                    <div class="apply-form-title">Envoyer ma candidature</div>
+                <form id="apply-form" class="apply-form is-hidden" method="POST" enctype="multipart/form-data" novalidate>
+                        <div class="apply-form-title">Envoyer ma candidature</div>
 
-                    <label for="cv_file">CV (PDF, DOC, DOCX)</label>
-                    <input type="file" id="cv_file" name="cv_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+                        <label for="cv_file">CV (PDF, DOC, DOCX)</label>
+                        <input type="file" id="cv_file" name="cv_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
 
-                    <label for="lettre_file">Lettre de motivation (PDF, DOC, DOCX)</label>
-                    <input type="file" id="lettre_file" name="lettre_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+                        <label for="lettre_file">Lettre de motivation (PDF, DOC, DOCX)</label>
+                        <input type="file" id="lettre_file" name="lettre_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
 
-                    <p class="apply-hint">Taille maximale: 5 Mo par fichier.</p>
-                    <button type="submit" class="btn-apply-submit">Envoyer</button>
-                </form>
+                        <p class="apply-hint">Taille maximale: 5 Mo par fichier.</p>
+                        <button type="submit" class="btn-apply-submit">Envoyer</button>
+                    </form>
+            {% endif %}
             
 
             <div class="action-row">

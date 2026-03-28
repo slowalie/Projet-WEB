@@ -159,7 +159,7 @@
             </div>
             <div class="job-actions">
                 <span class="badge badge-blue">Alternance</span>
-                <button class="btn-postuler">Postuler</button>
+                <button class="btn-postuler">{{ user_role in ['pilote', 'admin'] ? 'Modifier' : 'Postuler' }}</button>
                 <button class="btn-heart">❤</button>
             </div>
         </article>
@@ -174,7 +174,7 @@
             </div>
             <div class="job-actions">
                 <span class="badge badge-orange">Stage</span>
-                <button class="btn-postuler">Postuler</button>
+                <button class="btn-postuler">{{ user_role in ['pilote', 'admin'] ? 'Modifier' : 'Postuler' }}</button>
                 <button class="btn-heart">❤</button>
             </div>
         </article>
@@ -189,7 +189,7 @@
             </div>
             <div class="job-actions">
                 <span class="badge badge-blue">Alternance</span>
-                <button class="btn-postuler">Postuler</button>
+                <button class="btn-postuler">{{ user_role in ['pilote', 'admin'] ? 'Modifier' : 'Postuler' }}</button>
                 <button class="btn-heart">❤</button>
             </div>
         </article>

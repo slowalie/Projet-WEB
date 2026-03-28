@@ -1,0 +1,107 @@
+{% extends 'base.twig.html' %}
+
+{% block title %}Modifier une offre - IdeaStage{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="http://ideaStageassets.local/publier-offre.css">
+{% endblock %}
+
+{% block content %}
+<main style="padding: 100px 20px 40px; background: #f8fafc; min-height: 100vh;">
+    <section style="max-width: 980px; margin: 0 auto;">
+        <h1 style="margin: 0 0 12px; color: #0f172a;">Modifier l'offre</h1>
+        <p style="margin: 0 0 20px; color: #475569;">Offre #{{ offre.id_offres }} - {{ offre.nom_entreprise }}</p>
+
+        {% if edit_status == 'success' %}
+            <div style="margin-bottom: 12px; padding: 10px 12px; border-radius: 10px; background: #dcfce7; color: #166534; border: 1px solid #86efac;">
+                L'offre a ete mise a jour avec succes.
+            </div>
+        {% elseif edit_status == 'missing_fields' %}
+            <div style="margin-bottom: 12px; padding: 10px 12px; border-radius: 10px; background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5;">
+                Merci de renseigner les champs obligatoires.
+            </div>
+        {% elseif edit_status == 'error' %}
+            <div style="margin-bottom: 12px; padding: 10px 12px; border-radius: 10px; background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5;">
+                Une erreur technique est survenue pendant la mise a jour.
+            </div>
+        {% endif %}
+
+        <form class="publish-form" method="POST" action="/offre/{{ offre.id_offres }}/edit" style="width: 100%; height: auto; max-height: none;">
+            <div class="publish-form-grid">
+                <div class="publish-field">
+                    <label for="nom_offres">Nom de l'offre</label>
+                    <input class="publish-input" type="text" id="nom_offres" name="nom_offres" value="{{ offre.nom_offres }}" required>
+                </div>
+
+                <div class="publish-field">
+                    <label for="type_offres">Type d'offre</label>
+                    <select class="publish-input" id="type_offres" name="type_offres" required>
+                        {% for type in ['Stage', 'Alternance', 'CDI', 'CDD'] %}
+                            <option value="{{ type }}" {{ offre.type_offres == type ? 'selected' : '' }}>{{ type }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="publish-field">
+                    <label for="duree_offres">Duree</label>
+                    <input class="publish-input" type="text" id="duree_offres" name="duree_offres" value="{{ offre.duree_offres }}">
+                </div>
+
+                <div class="publish-field">
+                    <label for="salaire_offres">Salaire</label>
+                    <input class="publish-input" type="number" step="0.01" id="salaire_offres" name="salaire_offres" value="{{ offre.salaire_offres }}">
+                </div>
+
+                <div class="publish-field">
+                    <label for="date_debut">Date de debut</label>
+                    <input class="publish-input" type="date" id="date_debut" name="date_debut" value="{{ offre.date_debut }}">
+                </div>
+
+                <div class="publish-field">
+                    <label for="note">Note</label>
+                    <input class="publish-input" type="number" id="note" name="note" min="0" max="5" value="{{ offre.note }}">
+                </div>
+
+                <div class="publish-field">
+                    <label for="secteur_offres">Secteur</label>
+                    <input class="publish-input" type="text" id="secteur_offres" name="secteur_offres" value="{{ offre.secteur_offres }}" required>
+                </div>
+
+                <div class="publish-field">
+                    <label for="Profil_recherche">Profil recherche</label>
+                    <input class="publish-input" type="text" id="Profil_recherche" name="Profil_recherche" value="{{ offre.Profil_recherche }}">
+                </div>
+
+                <div class="publish-field">
+                    <label for="tag">Tag</label>
+                    <select class="publish-input" id="tag" name="tag">
+                        <option value="" {{ offre.tag == '' ? 'selected' : '' }}>Aucun</option>
+                        <option value="new" {{ offre.tag == 'new' ? 'selected' : '' }}>Nouveau</option>
+                        <option value="une" {{ offre.tag == 'une' ? 'selected' : '' }}>A la une</option>
+                    </select>
+                </div>
+
+                <div class="publish-field">
+                    <label for="skils">Skills (separes par des virgules)</label>
+                    <input class="publish-input" type="text" id="skils" name="skils" value="{{ offre.skils }}">
+                </div>
+
+                <div class="publish-field" style="grid-column: 1 / -1;">
+                    <label for="description_offres">Description</label>
+                    <textarea class="publish-input" id="description_offres" name="description_offres" required>{{ offre.description_offres }}</textarea>
+                </div>
+
+                <div class="publish-field" style="grid-column: 1 / -1;">
+                    <label for="missions">Missions</label>
+                    <textarea class="publish-input" id="missions" name="missions">{{ offre.missions }}</textarea>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 12px;">
+                <button type="submit" class="publish-submit" style="width: auto;">Enregistrer les modifications</button>
+                <a href="/detail-offre/{{ offre.id_offres }}" class="publish-submit" style="width: auto; text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Retour au detail</a>
+            </div>
+        </form>
+    </section>
+</main>
+{% endblock %}

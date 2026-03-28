@@ -104,6 +104,11 @@ function dispatchRoute(string $requestUri, Environment $twig): string
         return $controller->publish();
     }
 
+    if (preg_match('/^\/offre\/(\d+)\/edit$/', $route, $matches) && in_array($requestMethod, ['GET', 'POST'], true)) {
+        $controller = new OffresController($twig);
+        return $controller->edit((int) $matches[1]);
+    }
+
     if (preg_match('/^\/detail-offre\/(\d+)$/', $route, $matches) && in_array($requestMethod, ['GET', 'POST'], true)) {
         $controller = new detailOffresController($twig);
         return $controller->index((int) $matches[1]);

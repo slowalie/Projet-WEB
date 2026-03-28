@@ -206,7 +206,13 @@
                     <div class="rating">
                         <span class="stars">⭐ {{ offre.note }}</span>
                     </div>
-                    <a href="/offres" class="apply-btn">Postuler</a>
+                    <a href="{{ user_role in ['pilote', 'admin'] ? '/offre/' ~ offre.id_offres ~ '/edit' : '/offres' }}" class="apply-btn">
+                        {% if user_role in ['pilote', 'admin'] %}
+                            Modifier
+                        {% else %}
+                            Postuler
+                        {% endif %}
+                    </a>
                 </div>
             </div>
             {% endif %}

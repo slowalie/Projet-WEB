@@ -83,6 +83,41 @@ class OffresModel
         return $offre ?: null;
     }
 
+    public function updateOffre(int $id, array $data): bool
+    {
+        $sql = 'UPDATE Offres
+                SET nom_offres = :nom_offres,
+                    description_offres = :description_offres,
+                    type_offres = :type_offres,
+                    salaire_offres = :salaire_offres,
+                    date_debut = :date_debut,
+                    duree_offres = :duree_offres,
+                    missions = :missions,
+                    note = :note,
+                    secteur_offres = :secteur_offres,
+                    Profil_recherche = :profil_recherche,
+                    tag = :tag,
+                    skils = :skils
+                WHERE id_offres = :id_offres';
+
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            ':id_offres' => $id,
+            ':nom_offres' => $data['nom_offres'],
+            ':description_offres' => $data['description_offres'],
+            ':type_offres' => $data['type_offres'],
+            ':salaire_offres' => $data['salaire_offres'],
+            ':date_debut' => $data['date_debut'],
+            ':duree_offres' => $data['duree_offres'],
+            ':missions' => $data['missions'],
+            ':note' => $data['note'],
+            ':secteur_offres' => $data['secteur_offres'],
+            ':profil_recherche' => $data['Profil_recherche'],
+            ':tag' => $data['tag'],
+            ':skils' => $data['skils'],
+        ]);
+    }
+
     public function submitApplication(int $offerId, int $userId, ?string $cvPath, string $lettreMotivationPath): bool
     {
         $this->pdo->beginTransaction();
