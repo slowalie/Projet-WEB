@@ -10,6 +10,7 @@
 {% set disponibilite = candidat.disponibilite|default('') %}
 {% set cvPath = candidat.cv|default('') %}
 {% set isStudent = user_role == 'etudiant' %}
+{% set candidaturesCount = applications_count|default(0) %}
 
 {% block title %}Espace Candidat - IdeaStage{% endblock %}
 
@@ -53,7 +54,7 @@
                         <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
                     </svg>
                 </div>
-                <div class="apercu-stat"><h2>{{ candidat.id_offres | length }}</h2></div>
+                <div class="apercu-stat"><h2>{{ candidaturesCount }}</h2></div>
                 <div class="stat-name">Candidatures</div>
             </div>
             <div class="apercu-card">
@@ -92,30 +93,25 @@
             <h2>Activité récente</h2>
         </div>
         <ul class="activity-list">
+            {% if applications is empty %}
+                <li class="activity-item">
+                    <p>Aucune candidature pour le moment. Explorez les offres et postulez pour trouver votre prochaine opportunité !</p>
+                </li>
+            {% endif %}
+
+            {% for candidature in applications |slice(0, 3) %}
             <li class="activity-item">
-                <div class="icon-circle tv">TV</div>
+                <div class="icon-circle tv">{{ candidature.logo_entreprise|default('') }}</div>
                 <div class="activity-info">
-                    <h3>Développeur Full-Stack React/Node</h3>
-                    <p>TechVision • il y a 2 j</p>
+                    <h3>{{ candidature.nom_offres }}</h3>
+                    <p>{{ candidature.nom_entreprise }}  <span><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                    </svg></span>{{ candidature.ville }}</p>
                 </div>
-                <span class="badge yellow">En cours</span>
+                <span class="badge yellow">{{ candidature.statut }}</span>
             </li>
-            <li class="activity-item">
-                <div class="icon-circle ds">DS</div>
-                <div class="activity-info">
-                    <h3>Stage UX/UI Designer</h3>
-                    <p>DesignStudio • il y a 5 j</p>
-                </div>
-                <span class="badge blue">Entretien</span>
-            </li>
-            <li class="activity-item">
-                <div class="icon-circle dc">DC</div>
-                <div class="activity-info">
-                    <h3>Alternance Data Analyst</h3>
-                    <p>DataCorp • il y a 12 j</p>
-                </div>
-                <span class="badge red">Refusée</span>
-            </li>
+            {% endfor %}
         </ul>
         <a href="#candidatures" id="toggle-link-candidatures" class="view-all">Voir toutes les candidatures ></a>
     </div>
@@ -126,23 +122,29 @@
 <section id="candidatures" class="candidatures">
     <div class="card">
         <div class="card-header">
-            <h2>Mes candidatures <span>({{ candidat.id_offres | length }})</span></h2>
+            <h2>Mes candidatures <span>({{ candidaturesCount }})</span></h2>
         </div>
+        
         <ul class="activity-list">
-            {% if candidat.id_offres %}
+            {% if applications is empty %}
+                <li class="activity-item">
+                    <p>Aucune candidature pour le moment. Explorez les offres et postulez pour trouver votre prochaine opportunité !</p>
+                </li>
+            {% endif %}
+
+            {% for candidature in applications %}
             <li class="activity-item">
-                <div class="icon-circle tv">TV</div>
+                <div class="icon-circle tv">{{ candidature.logo_entreprise|default('') }}</div>
                 <div class="activity-info">
-                    <h3>{{ candidat.nom_offres }}</h3>
-                    <p>{{candidat.nom_entreprise}}  <span><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                    <h3>{{ candidature.nom_offres }}</h3>
+                    <p>{{ candidature.nom_entreprise }}  <span><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
                         <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
                         <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                    </svg></span>{{ candidat.ville }}</p>
+                    </svg></span>{{ candidature.ville }}</p>
                 </div>
-                <span class="badge yellow">{{ candidat.statut }}</span>
+                <span class="badge yellow">{{ candidature.statut }}</span>
             </li>
-            {% endif %}
-            
+            {% endfor %}
         </ul>
     </div>
 </section>

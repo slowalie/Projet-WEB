@@ -18,17 +18,9 @@ class CandidatModel
 	public function getByUserId(int $userId): ?array
 	{
 		$sql = 'SELECT u.id_user, u.nom_user, u.prenom_user, u.mail_user,
-					   c.titre_profil, c.cv, c.photo, c.add_doc, c.disponibilite,
-					   p.id_offres, p.Date_candidature, p.statut,
-					   o.nom_offres, o.description_offres,
-					   e.nom_entreprise,
-					   l.ville
+					   c.titre_profil, c.cv, c.photo, c.add_doc, c.disponibilite
 				FROM Utilisateurs u
 				LEFT JOIN Candidats c ON c.id_user = u.id_user
-				LEFT JOIN Postuler p ON p.id_user = u.id_user
-				LEFT JOIN Offres o ON p.id_offres = o.id_offres
-				LEFT JOIN Entreprises e ON o.id_entreprise = e.id_entreprise
-				LEFT JOIN Localisation l ON o.id_localisation = l.id_localisation
 				WHERE u.id_user = :id_user
 				LIMIT 1';
 
@@ -41,6 +33,25 @@ class CandidatModel
 		}
 
 		return $result;
+	}
+
+	public function getApplicationsByUserId(int $userId): array
+	{
+		$sql = 'SELECT p.id_offres, p.Date_candidature, p.statut,
+					   o.nom_offres,
+					   e.nom_entreprise, e.logo_entreprise,
+					   l.ville
+				FROM Postuler p
+				INNER JOIN Offres o ON p.id_offres = o.id_offres
+				INNER JOIN Entreprises e ON o.id_entreprise = e.id_entreprise
+				INNER JOIN Localisation l ON o.id_localisation = l.id_localisation
+				WHERE p.id_user = :id_user
+				ORDER BY p.Date_candidature DESC';
+
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->execute(['id_user' => $userId]);
+
+		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
 	public function createIfMissing(int $userId): void
