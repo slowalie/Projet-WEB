@@ -134,6 +134,16 @@ function dispatchRoute(string $requestUri, Environment $twig): string
         return $controller->index();
     }
 
+    if (preg_match('/^\/entreprise\/(\d+)\/edit$/', $route, $matches) && in_array($requestMethod, ['GET', 'POST'], true)) {
+        $controller = new EntreprisesController($twig);
+        return $controller->edit((int) $matches[1]);
+    }
+
+    if (preg_match('/^\/entreprise\/(\d+)\/delete$/', $route, $matches) && $requestMethod === 'POST') {
+        $controller = new EntreprisesController($twig);
+        return $controller->delete((int) $matches[1]);
+    }
+
     http_response_code(404);
     return '<h1>404 - Page non trouvee</h1>';
 }

@@ -9,6 +9,7 @@
     padding: 100px 20px 40px;
     min-height: 100vh;
     background: linear-gradient(145deg, #111827, #1e293b);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .edit-offre-wrapper {

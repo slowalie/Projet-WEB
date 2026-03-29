@@ -546,7 +546,8 @@ main {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.apply-btn{
+.apply-btn a{
+    color: white;
 text-decoration: none;
 display: inline-block;
 }

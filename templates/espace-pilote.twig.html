@@ -154,6 +154,7 @@
                             <h3>{{ entreprise.nom_entreprise }}</h3>
                         </div>
                         <p><strong>Secteur :</strong> {{ entreprise.secteur_offres }}<br><strong>Localisation :</strong> {{ entreprise.ville }}</p>
+                        <div class="author"><a href="/entreprise/{{ entreprise.id_entreprise }}/edit">Modifier l'entreprise</a></div>
                         <div class="author">www.{{ entreprise.nom_entreprise }}.com</div>
                     </div>
                     {%endfor %}
