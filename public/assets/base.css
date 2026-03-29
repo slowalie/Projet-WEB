@@ -341,29 +341,48 @@ footer .footer-content {
 
     .hamburger {
         display: flex;
+        grid-column-start: 5;
+        
     }
 
     .nav-links,
     .button-connexion,
-    .button-inscription {
+    .button-logout {
         display: none;
     }
 
+    .navbar.nav-open{
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        width: 100%;
+        
+    }
+    .navbar.nav-open .logo {
+        grid-column: span 2 / span 2;
+        
+    }
     .navbar.nav-open .nav-links {
+        grid-column: span 3 / span 3;
+        grid-row: span 3 / span 3;
+        grid-column-start: 2;
+        grid-row-start: 2;
         display: flex;
         flex-direction: column;
-        width: 100%;
-        order: 3;
+        order: 2;
         padding: 15px 0;
+        
         gap: 15px;
         text-align: center;
         justify-content: space-between;
     }
 
     .navbar.nav-open .button-connexion,
-    .navbar.nav-open .button-inscription {
+    .navbar.nav-open .button-logout {
+        grid-column: span 5 /span 5;
+        grid-row: span 2 / span 2;
         display: block;
-        order: 4;
+        order: 3;
         width: 80%;
         margin: 5px auto;
         text-align: center;
