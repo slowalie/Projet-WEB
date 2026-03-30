@@ -7,6 +7,7 @@ require_once __DIR__ . '/../src/controllers/EspaceCandidatController.php';
 require_once __DIR__ . '/../src/controllers/TaskController.php';
 require_once __DIR__ . '/../src/controllers/OffresController.php';
 require_once __DIR__ . '/../src/controllers/EspacePiloteController.php';
+require_once __DIR__ . '/../src/controllers/EspaceAdminController.php';
 require_once __DIR__ . '/../src/controllers/AuthController.php';
 require_once __DIR__ . '/../src/controllers/EntreprisesController.php';
 require_once __DIR__ . '/../src/controllers/detailoffreController.php';
@@ -95,7 +96,17 @@ function dispatchRoute(string $requestUri, Environment $twig): string
     }
 
     if ($route === '/espace-pilote') {
+        // Redirect admins to admin dashboard
+        if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
+            header('Location: /espace-admin');
+            exit;
+        }
         $controller = new EspacePiloteController($twig);
+        return $controller->index();
+    }
+
+    if ($route === '/espace-admin') {
+        $controller = new EspaceAdminController($twig);
         return $controller->index();
     }
 

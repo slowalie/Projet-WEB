@@ -78,4 +78,74 @@ class UserModel
         $stmt->execute(['role_user' => $role]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function getUserById(int $id): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT id_user, nom_user, prenom_user, mail_user, role_user FROM Utilisateurs WHERE id_user = :id_user LIMIT 1');
+        $stmt->execute(['id_user' => $id]);
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        if ($user === false) {
+            return null;
+        }
+
+        return $user;
+    }
+
+    public function updateUser(int $id, string $nom, string $prenom, string $email): void
+    {
+        $stmt = $this->pdo->prepare('UPDATE Utilisateurs SET nom_user = :nom_user, prenom_user = :prenom_user, mail_user = :mail_user WHERE id_user = :id_user');
+        $stmt->execute([
+            'id_user' => $id,
+            'nom_user' => $nom,
+            'prenom_user' => $prenom,
+            'mail_user' => $email,
+        ]);
+    }
+
+    public function deleteUserById(int $id): void
+    {
+        $this->pdo->beginTransaction();
+
+        try {
+            // Get user role first
+            $user = $this->getUserById($id);
+            if ($user === null) {
+                throw new \Exception('User not found');
+            }
+
+            $role = $user['role_user'];
+
+            // Delete from related tables based on role
+            if ($role === 'pilote') {
+                $deleteStmt = $this->pdo->prepare('DELETE FROM pilote WHERE id_user = :id_user');
+                $deleteStmt->execute(['id_user' => $id]);
+            }
+
+            if ($role === 'etudiant') {
+                $deleteStmt = $this->pdo->prepare('DELETE FROM Candidats WHERE id_user = :id_user');
+                $deleteStmt->execute(['id_user' => $id]);
+            }
+
+            // Delete from users table
+            $deleteUserStmt = $this->pdo->prepare('DELETE FROM Utilisateurs WHERE id_user = :id_user');
+            $deleteUserStmt->execute(['id_user' => $id]);
+
+            $this->pdo->commit();
+        } catch (\Throwable $exception) {
+            if ($this->pdo->inTransaction()) {
+                $this->pdo->rollBack();
+            }
+
+            throw $exception;
+        }
+    }
+
+    public function searchUsersByRole(string $role, string $search): array
+    {
+        $searchTerm = '%' . $search . '%';
+        $stmt = $this->pdo->prepare('SELECT id_user, nom_user, prenom_user, mail_user FROM Utilisateurs WHERE role_user = :role_user AND (nom_user LIKE :search OR prenom_user LIKE :search OR mail_user LIKE :search)');
+        $stmt->execute(['role_user' => $role, 'search' => $searchTerm]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }
