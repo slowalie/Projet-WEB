@@ -23,8 +23,11 @@
             <div class="nav-links">
                 <a href="/home" class="{{ navCurrentPage == 'home' ? 'active' : '' }}">Accueil</a>
                 <a href="/offres" class="{{ navCurrentPage == 'offres' ? 'active' : '' }}">Offres</a>
-                {% if is_authenticated and (user_role == 'pilote' or user_role == 'admin') %}
+                {% if is_authenticated and (user_role == 'pilote') %}
                     <a href="/espace-pilote" class="{{ navCurrentPage == 'espace-pilote' ? 'active' : '' }}">Espace Pilotes</a>
+                {% endif %}
+                {% if is_authenticated and (user_role == 'admin') %}
+                    <a href="/espace-admin" class="{{ navCurrentPage == 'espace-admin' ? 'active' : '' }}">Espace Administrateur</a>
                 {% endif %}
                 {% if is_authenticated %}
                     <a href="/espace-candidat" class="{{ navCurrentPage == 'espace-candidat' ? 'active' : '' }}">Espace Candidats</a>
