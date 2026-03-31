@@ -24,10 +24,16 @@ class HomeController extends Controller
     {
         $offres = $this->offresModel->getOffres();
         $villes = array_unique(array_column($offres, 'ville'));
+        $featuredOffres = array_values(array_filter($offres, static function (array $offre): bool {
+            $tag = (string) ($offre['tag'] ?? '');
+            return $tag === 'une' || $tag === 'new';
+        }));
+
         return $this->render('home.twig.html', [
             'page' => 'home',
             'offres' => $offres,
-            'villes' => $villes
+            'villes' => $villes,
+            'featured_offres' => array_slice($featuredOffres, 0, 6),
         ]);
        
     }

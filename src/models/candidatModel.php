@@ -59,6 +59,43 @@ class CandidatModel
 		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
+	public function getAllCandidatesByPilot(int $pilotUserId): array
+	{
+		$sql = 'SELECT u.id_user, u.nom_user, u.prenom_user, u.mail_user,
+					   c.titre_profil, c.disponibilite,
+					   COALESCE(app_counts.applications_count, 0) AS applications_count,
+					   COALESCE(fav_counts.favorites_count, 0) AS favorites_count
+				FROM Candidats c
+				INNER JOIN Utilisateurs u ON u.id_user = c.id_user
+				LEFT JOIN (
+					SELECT p.id_user, COUNT(*) AS applications_count
+					FROM Postuler p
+					GROUP BY p.id_user
+				) app_counts ON app_counts.id_user = c.id_user
+				LEFT JOIN (
+					SELECT af.id_user, COUNT(*) AS favorites_count
+					FROM Ajouter_favoris af
+					GROUP BY af.id_user
+				) fav_counts ON fav_counts.id_user = c.id_user
+				WHERE c.id_user_pilote = :pilot_id
+				ORDER BY u.nom_user ASC, u.prenom_user ASC';
+
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->execute(['pilot_id' => $pilotUserId]);
+		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+	}
+
+	public function candidateBelongsToPilot(int $candidateId, int $pilotUserId): bool
+	{
+		$stmt = $this->pdo->prepare('SELECT 1 FROM Candidats WHERE id_user = :candidate_id AND id_user_pilote = :pilot_id LIMIT 1');
+		$stmt->execute([
+			'candidate_id' => $candidateId,
+			'pilot_id' => $pilotUserId,
+		]);
+
+		return $stmt->fetchColumn() !== false;
+	}
+
 	public function getfavorites(int $userId): array
 	{
 		$sql = 'SELECT o.id_offres, o.nom_offres, o.type_offres, o.tag,

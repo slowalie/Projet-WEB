@@ -165,8 +165,7 @@
             </span>
         </button>
         <div class="offer-preview-grid">
-            {% for offre in offres|slice(0, 6) %}
-            {% if offre.tag == "une" or offre.tag == "new" %}
+            {% for offre in featured_offres|default([]) %}
             <div class="offer-card">
                 {% if offre.tag == "une" %}
                 <div class="offer-badge">
@@ -189,7 +188,7 @@
                 <div class="offer-tags">
                     <span class="tag-type">{{ offre.type_offres }}</span>
                     <span class="location">📍 {{ offre.ville }}</span>
-                    <span class="duration">⏱ {{ offre.duree_offres }}</span>
+                    <span class="duration"> {{ offre.duree_offres }}</span>
                 </div>
                 
                 <div class="skills">
@@ -215,7 +214,8 @@
                     </a>
                 </div>
             </div>
-            {% endif %}
+            {% else %}
+            <p>Aucune offre en vedette pour le moment. Consulte toutes les offres disponibles.</p>
             {% endfor %}
             
         </div>

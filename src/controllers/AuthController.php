@@ -79,7 +79,15 @@ class AuthController
 
         // Register user
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-        $this->userModel->createUserWithRoleProfile($nom, $prenom, $email, $passwordHash, $normalizedRole);
+        $pilotUserId = null;
+        if ($normalizedRole === 'etudiant' && $creatorRole === 'pilote') {
+            $pilotUserId = (int) ($_SESSION['user_id'] ?? 0);
+            if ($pilotUserId <= 0) {
+                $pilotUserId = null;
+            }
+        }
+
+        $this->userModel->createUserWithRoleProfile($nom, $prenom, $email, $passwordHash, $normalizedRole, $pilotUserId);
 
         $this->redirectWithStatus('login', 'register_success');
     }

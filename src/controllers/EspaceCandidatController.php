@@ -28,14 +28,16 @@ class EspaceCandidatController extends Controller
 
         if (in_array($userRole, ['pilote', 'admin'], true)) {
             if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && (string) ($_POST['form_type'] ?? '') === 'candidate_edit') {
-                $this->handleCandidateEditByPilot($candidatModel);
+                $this->handleCandidateEditByPilot($candidatModel, $userId, $userRole);
             }
 
             if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && (string) ($_POST['form_type'] ?? '') === 'candidate_delete') {
-                $this->handleCandidateDeleteByPilot($candidatModel);
+                $this->handleCandidateDeleteByPilot($candidatModel, $userId, $userRole);
             }
 
-            $candidates = $candidatModel->getAllCandidates();
+            $candidates = $userRole === 'admin'
+                ? $candidatModel->getAllCandidates()
+                : $candidatModel->getAllCandidatesByPilot($userId);
 
             return $this->render('candidats.twig.html', [
                 'page' => 'espace-candidat',
@@ -180,10 +182,9 @@ class EspaceCandidatController extends Controller
         return $relativeDir . '/' . $filename;
     }
 
-    private function handleCandidateEditByPilot(CandidatModel $candidatModel): void
+    private function handleCandidateEditByPilot(CandidatModel $candidatModel, int $currentUserId, string $currentUserRole): void
     {
-        $userRole = (string) ($_SESSION['user_role'] ?? '');
-        if (!in_array($userRole, ['pilote', 'admin'], true)) {
+        if (!in_array($currentUserRole, ['pilote', 'admin'], true)) {
             header('Location: /espace-candidat?candidate_update=forbidden');
             exit;
         }
@@ -202,6 +203,11 @@ class EspaceCandidatController extends Controller
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             header('Location: /espace-candidat?candidate_update=invalid_email');
+            exit;
+        }
+
+        if ($currentUserRole === 'pilote' && !$candidatModel->candidateBelongsToPilot($candidateId, $currentUserId)) {
+            header('Location: /espace-candidat?candidate_update=forbidden');
             exit;
         }
 
@@ -233,10 +239,9 @@ class EspaceCandidatController extends Controller
         exit;
     }
 
-    private function handleCandidateDeleteByPilot(CandidatModel $candidatModel): void
+    private function handleCandidateDeleteByPilot(CandidatModel $candidatModel, int $currentUserId, string $currentUserRole): void
     {
-        $userRole = (string) ($_SESSION['user_role'] ?? '');
-        if (!in_array($userRole, ['pilote', 'admin'], true)) {
+        if (!in_array($currentUserRole, ['pilote', 'admin'], true)) {
             header('Location: /espace-candidat?candidate_delete=forbidden');
             exit;
         }
@@ -245,6 +250,11 @@ class EspaceCandidatController extends Controller
 
         if ($candidateId <= 0) {
             header('Location: /espace-candidat?candidate_delete=invalid_id');
+            exit;
+        }
+
+        if ($currentUserRole === 'pilote' && !$candidatModel->candidateBelongsToPilot($candidateId, $currentUserId)) {
+            header('Location: /espace-candidat?candidate_delete=forbidden');
             exit;
         }
 

@@ -23,7 +23,7 @@ class UserModel
         return (bool) $stmt->fetch();
     }
 
-    public function createUserWithRoleProfile(string $nom, string $prenom, string $email, string $passwordHash, string $role): void
+    public function createUserWithRoleProfile(string $nom, string $prenom, string $email, string $passwordHash, string $role, ?int $pilotUserId = null): void
     {
         $this->pdo->beginTransaction();
 
@@ -45,8 +45,11 @@ class UserModel
             }
 
             if ($role === 'etudiant') {
-                $candidatStmt = $this->pdo->prepare('INSERT INTO Candidats (id_user) VALUES (:id_user)');
-                $candidatStmt->execute(['id_user' => $userId]);
+                $candidatStmt = $this->pdo->prepare('INSERT INTO Candidats (id_user, id_user_pilote) VALUES (:id_user, :id_user_pilote)');
+                $candidatStmt->execute([
+                    'id_user' => $userId,
+                    'id_user_pilote' => $pilotUserId,
+                ]);
             }
 
             $this->pdo->commit();
