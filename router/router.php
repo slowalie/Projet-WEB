@@ -145,6 +145,18 @@ function dispatchRoute(string $requestUri, Environment $twig): string
         return $controller->index();
     }
 
+    if ($route === '/politique-confidentialite') {
+        return $twig->render('politique-confidentialite.twig.html', [
+            'page' => 'politique-confidentialite',
+        ]);
+    }
+
+    if ($route === '/conditions-utilisation') {
+        return $twig->render('conditions-utilisation.twig.html', [
+            'page' => 'conditions-utilisation',
+        ]);
+    }
+
     if (preg_match('/^\/entreprise\/(\d+)\/edit$/', $route, $matches) && in_array($requestMethod, ['GET', 'POST'], true)) {
         $controller = new EntreprisesController($twig);
         return $controller->edit((int) $matches[1]);
