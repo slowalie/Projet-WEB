@@ -50,8 +50,6 @@
 </div>
 
 
-</header>
-<main>
     <div class="container">
         <!-- SIDEBAR FILTRES -->
         <aside class="sidebar">
@@ -136,9 +134,9 @@
         </aside>
 
         <!-- MAIN CONTENT -->
-        <main class="main-content">
+        <section class="main-content">
             <div class="header">
-                <h2> {{ total_offres }} offres trouvées</h2>
+                <h1>{{ total_offres }} offres trouvées</h1>
             </div>
 
             {% set limit = 9 %}
@@ -231,12 +229,9 @@
                 {% endif %}
             </div>
             {% endif %}
-        </main>
+        </section>
     </div>
     </form>
-
-
-</main>
 <script src="http://ideaStageassets.local/offres.js"></script>
 
 {% endblock %}

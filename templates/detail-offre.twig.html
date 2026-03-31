@@ -1,6 +1,6 @@
 {% extends 'base.twig.html' %}
 
-{% block title %}Détail de l'offre - IdeaStage{% endblock %}
+{% block title %}{{ offre.nom_offres|default("Détail de l'offre") }} - IdeaStage{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="http://ideaStageassets.local/detail-offre-style.css">
@@ -30,7 +30,7 @@
                         
                     </div>
                     
-                    <div class="offer-title">{{ offre.nom_offres }}</div>
+                    <h1 class="offer-title">{{ offre.nom_offres }}</h1>
                     <div class="company-name">{{ offre.nom_entreprise }}</div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 {% extends "base.twig.html" %}
 
-{% block title %}Offres - IdeaStage{% endblock %}
+{% block title %}Entreprises - IdeaStage{% endblock %}
 
 {% block stylesheets %}
 
@@ -62,16 +62,14 @@
 {% endif %}
 
 
-</header>
-<main>
     <div class="container">
         <!-- SIDEBAR FILTRES -->
         
 
         <!-- MAIN CONTENT -->
-        <main class="main-content">
+        <section class="main-content">
             <div class="header">
-                <h2> {{ total_entreprises }} entreprises trouvées</h2>
+                <h1>{{ total_entreprises }} entreprises trouvées</h1>
             </div>
 
             {% set limit = 9 %}
@@ -136,11 +134,8 @@
                 {% endif %}
             </div>
             {% endif %}
-        </main>
+        </section>
     </div>
-
-
-</main>
 <script src="http://ideaStageassets.local/offres.js"></script>
 
 {% endblock %}
