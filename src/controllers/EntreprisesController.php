@@ -23,12 +23,20 @@ class EntreprisesController extends Controller
     public function index()
     {
         $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $entreprises = $this->entreprisesModel->getEntreprises();
+        $searchQuery = trim((string) ($_GET['q'] ?? ''));
+        $selectedVille = trim((string) ($_GET['ville'] ?? ''));
+
+        $entreprises = $this->entreprisesModel->getEntreprises($searchQuery, $selectedVille);
+        $villes = $this->entreprisesModel->getVilles();
+
         return $this->render('Entreprise.twig.html', [
             'page' => 'entreprises',
             'entreprises' => $entreprises,
             'total_entreprises' => count($entreprises),
             'currentPage' => $currentPage,
+            'search_query' => $searchQuery,
+            'selected_ville' => $selectedVille,
+            'villes' => $villes,
             'company_delete_status' => $_GET['company_delete'] ?? null,
         ]);
     }

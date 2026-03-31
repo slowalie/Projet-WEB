@@ -8,9 +8,7 @@
 {% endblock %}
 
 {% block content %}
-
-
-
+<form method="GET" action="/entreprises">
 <div class="recherche-offres">
     <div1>Recherche d'entreprises</div1>
     <div2>
@@ -23,7 +21,7 @@
                 d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
         </svg>
 
-        <input type="text" placeholder="entreprise..." />
+        <input type="text" name="q" value="{{ search_query|default('') }}" placeholder="entreprise..." />
 
         <div class="select-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt"
@@ -32,15 +30,15 @@
                     d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
                 <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
             </svg>
-            <select>
-                <option>Toutes</option>
-                {% for offres in offres %}
-                <option>{{ offres.ville }}</option>
+            <select name="ville">
+                <option value="" {{ selected_ville is empty ? 'selected' : '' }}>Toutes</option>
+                {% for ville in villes %}
+                <option value="{{ ville }}" {{ selected_ville == ville ? 'selected' : '' }}>{{ ville }}</option>
                 {% endfor %}
             </select>
         </div>
 
-        <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+        <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
                 viewBox="0 0 16 16">
                 <path
                     d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
@@ -50,6 +48,7 @@
     </div>
 
 </div>
+</form>
 
 {% if company_delete_status == 'success' %}
     <div style="max-width: 980px; margin: 12px auto; padding: 10px 12px; border-radius: 10px; background: #dcfce7; color: #166534; border: 1px solid #86efac;">
@@ -77,6 +76,13 @@
             {% set totalentreprises = entreprises|length %}
             {% set totalPages = (totalentreprises / limit)|round(0, 'ceil') %}
             {% set offset = (currentPage - 1) * limit %}
+            {% set query_string = '' %}
+            {% if search_query is not empty %}
+                {% set query_string = query_string ~ '&q=' ~ search_query|url_encode %}
+            {% endif %}
+            {% if selected_ville is not empty %}
+                {% set query_string = query_string ~ '&ville=' ~ selected_ville|url_encode %}
+            {% endif %}
 
             
             <!-- GRID D'OFFRES -->
@@ -122,15 +128,15 @@
             {%if totalPages > 1 %}
             <div class="pagination-container">
                 {%if currentPage > 1 %}
-                <a href="?page={{ currentPage - 1}}" class="btn-nav-page">Précédent</a>
+                <a href="?page={{ currentPage - 1}}{{ query_string }}" class="btn-nav-page">Précédent</a>
                 {% endif %}
 
                 {% for page in 1..totalPages %}
-                <a href="?page={{ page }}" class= "{{ page==currentPage ? 'active-page' : 'btn-page' }}">{{ page }}</a>
+                <a href="?page={{ page }}{{ query_string }}" class= "{{ page==currentPage ? 'active-page' : 'btn-page' }}">{{ page }}</a>
                 {% endfor %}
 
                 {%if currentPage < totalPages %} 
-                <a href="?page={{ currentPage + 1}}" class="btn-nav-page">Suivant</a>
+                <a href="?page={{ currentPage + 1}}{{ query_string }}" class="btn-nav-page">Suivant</a>
                 {% endif %}
             </div>
             {% endif %}

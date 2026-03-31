@@ -16,12 +16,46 @@ class EntreprisesModel
         $this->pdo = $db->getConnection();
     }
 
-    public function getEntreprises(): array
+    public function getEntreprises(?string $search = null, ?string $ville = null): array
     {
-        $sql = 'SELECT * FROM Entreprises';
-                
-        $stmt = $this->pdo->query($sql);
+        $sql = 'SELECT DISTINCT e.*
+                FROM Entreprises e
+                LEFT JOIN Offres o ON o.id_entreprise = e.id_entreprise
+                LEFT JOIN Localisation l ON l.id_localisation = o.id_localisation';
+
+        $conditions = [];
+        $params = [];
+
+        if ($search !== null && $search !== '') {
+            $conditions[] = '(e.nom_entreprise LIKE :search OR e.description_entreprise LIKE :search)';
+            $params[':search'] = '%' . $search . '%';
+        }
+
+        if ($ville !== null && $ville !== '' && strtolower($ville) !== 'toutes') {
+            $conditions[] = 'l.ville = :ville';
+            $params[':ville'] = $ville;
+        }
+
+        if (!empty($conditions)) {
+            $sql .= ' WHERE ' . implode(' AND ', $conditions);
+        }
+
+        $sql .= ' ORDER BY e.nom_entreprise ASC';
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getVilles(): array
+    {
+        $sql = 'SELECT DISTINCT l.ville
+                FROM Localisation l
+                INNER JOIN Offres o ON o.id_localisation = l.id_localisation
+                ORDER BY l.ville ASC';
+
+        $stmt = $this->pdo->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_COLUMN) ?: [];
     }
 
     public function addEntreprises($nom, $logo, $description, $note): int
