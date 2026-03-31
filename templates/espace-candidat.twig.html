@@ -38,9 +38,6 @@
             <a id="toggle-link-favoris" href="#favoris" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
             </svg>Favoris</a>
-            <a id="toggle-link-parametres" href="#parametres" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z"/>
-            </svg>Paramètres</a>
         </nav>
     </div>
 </header>
@@ -173,77 +170,6 @@
                 </div>
             </article>
         {% endfor %}
-    </div>
-</section>
-
-<section id="parametres" class="parametres">
-    <div class="param-container">
-        {% if profile_update_status == 'success' %}
-            <div class="param-alert success">Profil mis a jour avec succes.</div>
-        {% elseif profile_update_status == 'invalid_file' %}
-            <div class="param-alert error">Format de fichier invalide ou fichier trop volumineux.</div>
-        {% elseif profile_update_status == 'error' %}
-            <div class="param-alert error">La mise a jour a echoue. Reessayez.</div>
-        {% elseif profile_update_status == 'forbidden' %}
-            <div class="param-alert error">Seul un etudiant peut modifier son profil.</div>
-        {% endif %}
-
-        <header class="param-card-profile-header">
-            <div class="param-profile-top">
-                <div class="param-user-info">
-                    <div class="param-avatar-initials">{{ avatarInitials ?: 'CA' }}</div>
-                    <div class="param-name-title">
-                        <h1>{{ fullName ?: 'Candidat' }}</h1>
-                        <p class="param-subtitle">{{ profileTitle ?: 'Etudiant' }}</p>
-                    </div>
-                </div>
-                <button type="button" class="param-btn-edit" id="open-profile-form">Modifier</button>
-            </div>
-            <p class="param-description">
-                Disponibilite: {{ disponibilite ?: 'Non renseignee' }}
-            </p>
-        </header>
-
-        <section class="param-card">
-            <div class="param-section-header">
-                <h3>Mon profil</h3>
-                {% if isStudent %}
-                    <button type="button" class="param-plus-icon" id="toggle-profile-form" aria-label="Modifier mon profil">+</button>
-                {% endif %}
-            </div>
-
-            <div class="param-tags">
-                <span class="param-tag">Titre: {{ profileTitle ?: 'Non renseigne' }}</span>
-                <span class="param-tag">Disponibilite: {{ disponibilite ?: 'Non renseignee' }}</span>
-            </div>
-
-            <div class="param-file-links">
-                {% if cvPath %}
-                    <a href="{{ cvPath }}" target="_blank" rel="noopener">Voir le CV</a>
-                {% endif %}
-            </div>
-
-            {% if isStudent %}
-                <form id="profile-form" class="param-edit-form" method="POST" action="/espace-candidat" enctype="multipart/form-data" hidden>
-                    <label for="titre_profil">Titre de profil</label>
-                    <input id="titre_profil" name="titre_profil" type="text" value="{{ profileTitle }}" placeholder="Ex: Etudiant M1 Informatique">
-
-                    <label for="disponibilite">Disponibilite</label>
-                    <input id="disponibilite" name="disponibilite" type="text" value="{{ disponibilite }}" placeholder="Ex: Septembre 2026">
-
-                    
-
-                    <div class="param-form-actions">
-                        <button type="submit" class="param-btn-save">Enregistrer</button>
-                    </div>
-                </form>
-            {% endif %}
-        </section>
-
-    
-
-        
-        
     </div>
 </section>
 

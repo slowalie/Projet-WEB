@@ -27,17 +27,23 @@ class EspaceCandidatController extends Controller
         $candidatModel = new CandidatModel($database);
 
         if (in_array($userRole, ['pilote', 'admin'], true)) {
+            if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && (string) ($_POST['form_type'] ?? '') === 'candidate_edit') {
+                $this->handleCandidateEditByPilot($candidatModel);
+            }
+
+            if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && (string) ($_POST['form_type'] ?? '') === 'candidate_delete') {
+                $this->handleCandidateDeleteByPilot($candidatModel);
+            }
+
             $candidates = $candidatModel->getAllCandidates();
 
             return $this->render('candidats.twig.html', [
                 'page' => 'espace-candidat',
                 'candidates' => $candidates,
                 'candidates_count' => count($candidates),
+                'candidate_update_status' => $_GET['candidate_update'] ?? null,
+                'candidate_delete_status' => $_GET['candidate_delete'] ?? null,
             ]);
-        }
-
-        if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
-            $this->handleProfileUpdate($candidatModel, $userId);
         }
 
         $candidat = $candidatModel->getByUserId($userId);
@@ -49,7 +55,6 @@ class EspaceCandidatController extends Controller
             'candidat' => $candidat,
             'applications' => $applications,
             'applications_count' => count($applications),
-            'profile_update_status' => $_GET['update'] ?? null,
             'favorites' => $favorites,
         ]);
     }
@@ -173,5 +178,89 @@ class EspaceCandidatController extends Controller
         }
 
         return $relativeDir . '/' . $filename;
+    }
+
+    private function handleCandidateEditByPilot(CandidatModel $candidatModel): void
+    {
+        $userRole = (string) ($_SESSION['user_role'] ?? '');
+        if (!in_array($userRole, ['pilote', 'admin'], true)) {
+            header('Location: /espace-candidat?candidate_update=forbidden');
+            exit;
+        }
+
+        $candidateId = (int) ($_POST['candidate_id'] ?? 0);
+        $nom = trim((string) ($_POST['nom_user'] ?? ''));
+        $prenom = trim((string) ($_POST['prenom_user'] ?? ''));
+        $email = trim((string) ($_POST['mail_user'] ?? ''));
+        $titreProfil = trim((string) ($_POST['titre_profil'] ?? ''));
+        $disponibilite = trim((string) ($_POST['disponibilite'] ?? ''));
+
+        if ($candidateId <= 0 || $nom === '' || $prenom === '' || $email === '') {
+            header('Location: /espace-candidat?candidate_update=missing_fields');
+            exit;
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            header('Location: /espace-candidat?candidate_update=invalid_email');
+            exit;
+        }
+
+        $updated = $candidatModel->updateCandidateByPilot(
+            $candidateId,
+            $nom,
+            $prenom,
+            $email,
+            $titreProfil === '' ? null : $titreProfil,
+            $disponibilite === '' ? null : $disponibilite
+        );
+
+        if ($updated === 'email_exists') {
+            header('Location: /espace-candidat?candidate_update=email_exists');
+            exit;
+        }
+
+        if ($updated === 'not_found') {
+            header('Location: /espace-candidat?candidate_update=not_found');
+            exit;
+        }
+
+        if ($updated === true) {
+            header('Location: /espace-candidat?candidate_update=success');
+            exit;
+        }
+
+        header('Location: /espace-candidat?candidate_update=error');
+        exit;
+    }
+
+    private function handleCandidateDeleteByPilot(CandidatModel $candidatModel): void
+    {
+        $userRole = (string) ($_SESSION['user_role'] ?? '');
+        if (!in_array($userRole, ['pilote', 'admin'], true)) {
+            header('Location: /espace-candidat?candidate_delete=forbidden');
+            exit;
+        }
+
+        $candidateId = (int) ($_POST['candidate_id'] ?? 0);
+
+        if ($candidateId <= 0) {
+            header('Location: /espace-candidat?candidate_delete=invalid_id');
+            exit;
+        }
+
+        $deleted = $candidatModel->deleteCandidateByPilot($candidateId);
+
+        if ($deleted === 'not_found') {
+            header('Location: /espace-candidat?candidate_delete=not_found');
+            exit;
+        }
+
+        if ($deleted === true) {
+            header('Location: /espace-candidat?candidate_delete=success');
+            exit;
+        }
+
+        header('Location: /espace-candidat?candidate_delete=error');
+        exit;
     }
 }

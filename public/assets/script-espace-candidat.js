@@ -7,12 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const targetExists = Array.from(sections).some((section) => section.id === hash);
+        const safeHash = targetExists ? hash : 'apercu';
+
         sections.forEach((section) => {
-            section.style.display = section.id === hash ? 'block' : 'none';
+            section.style.display = section.id === safeHash ? 'block' : 'none';
         });
 
         navLinks.forEach((link) => {
-            link.classList.toggle('active', link.getAttribute('href') === `#${hash}`);
+            link.classList.toggle('active', link.getAttribute('href') === `#${safeHash}`);
         });
     };
 

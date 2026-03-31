@@ -165,6 +165,101 @@ class CandidatModel
 			'photo' => $data['photo'],
 		]);
 	}
+
+	public function updateCandidateByPilot(
+		int $candidateId,
+		string $nom,
+		string $prenom,
+		string $email,
+		?string $titreProfil,
+		?string $disponibilite
+	): bool|string {
+		$existsStmt = $this->pdo->prepare('SELECT id_user FROM Candidats WHERE id_user = :id_user LIMIT 1');
+		$existsStmt->execute(['id_user' => $candidateId]);
+		if ($existsStmt->fetchColumn() === false) {
+			return 'not_found';
+		}
+
+		$emailStmt = $this->pdo->prepare('SELECT id_user FROM Utilisateurs WHERE mail_user = :mail_user AND id_user <> :id_user LIMIT 1');
+		$emailStmt->execute([
+			'mail_user' => $email,
+			'id_user' => $candidateId,
+		]);
+		if ($emailStmt->fetchColumn() !== false) {
+			return 'email_exists';
+		}
+
+		$this->pdo->beginTransaction();
+
+		try {
+			$userStmt = $this->pdo->prepare('UPDATE Utilisateurs
+				SET nom_user = :nom_user,
+					prenom_user = :prenom_user,
+					mail_user = :mail_user
+				WHERE id_user = :id_user');
+
+			$userStmt->execute([
+				'nom_user' => $nom,
+				'prenom_user' => $prenom,
+				'mail_user' => $email,
+				'id_user' => $candidateId,
+			]);
+
+			$candidatStmt = $this->pdo->prepare('UPDATE Candidats
+				SET titre_profil = :titre_profil,
+					disponibilite = :disponibilite
+				WHERE id_user = :id_user');
+
+			$candidatStmt->execute([
+				'titre_profil' => $titreProfil,
+				'disponibilite' => $disponibilite,
+				'id_user' => $candidateId,
+			]);
+
+			$this->pdo->commit();
+			return true;
+		} catch (\Throwable $exception) {
+			if ($this->pdo->inTransaction()) {
+				$this->pdo->rollBack();
+			}
+
+			return false;
+		}
+	}
+
+	public function deleteCandidateByPilot(int $candidateId): bool|string
+	{
+		$existsStmt = $this->pdo->prepare('SELECT id_user FROM Candidats WHERE id_user = :id_user LIMIT 1');
+		$existsStmt->execute(['id_user' => $candidateId]);
+		if ($existsStmt->fetchColumn() === false) {
+			return 'not_found';
+		}
+
+		$this->pdo->beginTransaction();
+
+		try {
+			$deleteAjouter = $this->pdo->prepare('DELETE FROM Ajouter_favoris WHERE id_user = :id_user');
+			$deleteAjouter->execute(['id_user' => $candidateId]);
+
+			$deletePostuler = $this->pdo->prepare('DELETE FROM Postuler WHERE id_user = :id_user');
+			$deletePostuler->execute(['id_user' => $candidateId]);
+
+			$deleteCandidat = $this->pdo->prepare('DELETE FROM Candidats WHERE id_user = :id_user');
+			$deleteCandidat->execute(['id_user' => $candidateId]);
+
+			$deleteUser = $this->pdo->prepare('DELETE FROM Utilisateurs WHERE id_user = :id_user');
+			$deleteUser->execute(['id_user' => $candidateId]);
+
+			$this->pdo->commit();
+			return true;
+		} catch (\Throwable $exception) {
+			if ($this->pdo->inTransaction()) {
+				$this->pdo->rollBack();
+			}
+
+			return false;
+		}
+	}
 	
 
 }
