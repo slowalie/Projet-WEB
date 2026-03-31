@@ -22,14 +22,21 @@
             </p>
 
             <div class="search-box">
-                <div class="input-group">
-                    <input type="text" placeholder="Métier, mot-clé...">
-                    <input type="text" placeholder="Ville, région...">
-                    <select>
-                        <option>Tous les types</option>
+                <form class="input-group" method="GET" action="/offres">
+                    <input type="text" name="q" placeholder="Métier, mot-clé...">
+                    <select name="ville" id="ville">
+                        <option value="">Toutes les villes</option>
+                        {% for ville in villes %}
+                            <option value="{{ ville }}" {{ selected_ville == ville ? 'selected' : '' }}>{{ ville }}</option>
+                        {% endfor %}
                     </select>
-                    <button class="btn-search">Rechercher</button>
-                </div>
+                    <select name="type" id="type">
+                        <option value="">Tous les types</option>
+                        <option value="stage" {{ selected_type == 'stage' ? 'selected' : '' }}>Stage</option>
+                        <option value="alternance" {{ selected_type == 'alternance' ? 'selected' : '' }}>Alternance</option>
+                    </select>
+                    <button type="submit" class="btn-search">Rechercher</button>
+                </form>
             </div>
 
             <div class="tags">
@@ -174,10 +181,10 @@
                 <div class="offer-header">
                     <div class="company-logo">{{ offre.logo_entreprise }}</div>
                     <div class="offer-title">
-                        <h3>{{ offre.nom_offres }}</h3>
+                        <h3><a href="/detail-offre/{{ offre.id_offres }}" >{{ offre.nom_offres }}</a></h3>
                         <p class="company-name">{{ offre.nom_entreprise }}</p>
                     </div>
-                    <button class="heart-btn" aria-label="Ajouter aux favoris">♡</button>
+                    
                 </div>
                 <div class="offer-tags">
                     <span class="tag-type">{{ offre.type_offres }}</span>
@@ -199,7 +206,13 @@
                     <div class="rating">
                         <span class="stars">⭐ {{ offre.note }}</span>
                     </div>
-                    <a href="/offres" class="apply-btn">Postuler</a>
+                    <a href="{{ user_role in ['pilote', 'admin'] ? '/offre/' ~ offre.id_offres ~ '/edit' : '/detail-offre/' ~ offre.id_offres }}" class="apply-btn">
+                        {% if user_role in ['pilote', 'admin'] %}
+                            Modifier
+                        {% else %}
+                            Postuler
+                        {% endif %}
+                    </a>
                 </div>
             </div>
             {% endif %}

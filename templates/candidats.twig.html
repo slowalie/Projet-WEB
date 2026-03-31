@@ -1,0 +1,201 @@
+{% extends 'base.twig.html' %}
+
+{% block title %}Liste des candidats - IdeaStage{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="http://ideaStageassets.local/candidat.css">
+    
+{% endblock %}
+
+{% block content %}
+<main class="candidates-page">
+    <section class="candidates-wrapper">
+        <h1 class="candidates-title">Liste des candidats</h1>
+        <p class="candidates-subtitle">Total: {{ candidates_count }} candidat(s)</p>
+
+        {% if candidate_update_status == 'success' %}
+            <div class="status-message status-success">Informations du candidat mises a jour.</div>
+        {% elseif candidate_update_status in ['missing_fields', 'invalid_email', 'email_exists', 'not_found', 'forbidden', 'error'] %}
+            <div class="status-message status-error">
+                {% if candidate_update_status == 'missing_fields' %}
+                    Tous les champs obligatoires doivent etre remplis.
+                {% elseif candidate_update_status == 'invalid_email' %}
+                    Adresse email invalide.
+                {% elseif candidate_update_status == 'email_exists' %}
+                    Cette adresse email est deja utilisee.
+                {% elseif candidate_update_status == 'not_found' %}
+                    Candidat introuvable.
+                {% elseif candidate_update_status == 'forbidden' %}
+                    Action non autorisee.
+                {% else %}
+                    Erreur lors de la mise a jour.
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if candidate_delete_status == 'success' %}
+            <div class="status-message status-success">Candidat supprime avec succes.</div>
+        {% elseif candidate_delete_status in ['invalid_id', 'not_found', 'forbidden', 'error'] %}
+            <div class="status-message status-error">
+                {% if candidate_delete_status == 'invalid_id' or candidate_delete_status == 'not_found' %}
+                    Candidat introuvable.
+                {% elseif candidate_delete_status == 'forbidden' %}
+                    Action non autorisee.
+                {% else %}
+                    Erreur lors de la suppression.
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if candidates is empty %}
+            <div class="candidates-empty">
+                Aucun candidat trouve.
+            </div>
+        {% else %}
+            <div class="candidates-table-wrap">
+                <table class="candidates-table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Titre profil</th>
+                            <th>Disponibilite</th>
+                            <th>Candidatures</th>
+                            <th>Favoris</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for candidate in candidates %}
+                            <tr>
+                                <td>{{ candidate.prenom_user }} {{ candidate.nom_user }}</td>
+                                <td>{{ candidate.mail_user }}</td>
+                                <td>{{ candidate.titre_profil|default('-') }}</td>
+                                <td>{{ candidate.disponibilite|default('-') }}</td>
+                                <td>{{ candidate.applications_count }}</td>
+                                <td>{{ candidate.favorites_count }}</td>
+                                <td>
+                                    <button
+                                        type="button"
+                                        class="btn-edit-candidate"
+                                        data-id="{{ candidate.id_user }}"
+                                        data-nom="{{ candidate.nom_user }}"
+                                        data-prenom="{{ candidate.prenom_user }}"
+                                        data-email="{{ candidate.mail_user }}"
+                                        data-titre="{{ candidate.titre_profil|default('') }}"
+                                        data-disponibilite="{{ candidate.disponibilite|default('') }}"
+                                        onclick="openEditCandidateModal(this)">
+                                        Modifier
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </section>
+
+    <div id="edit-candidate-modal" class="modal">
+        <div class="modal-card">
+            <h2 class="modal-title">Modifier un candidat</h2>
+            <form method="POST" action="/espace-candidat">
+                <input type="hidden" name="form_type" value="candidate_edit">
+                <input type="hidden" name="candidate_id" id="candidate_id">
+
+                <div class="form-grid">
+                    <label class="form-row">
+                        <span>Nom</span>
+                        <input type="text" name="nom_user" id="nom_user" required>
+                    </label>
+                    <label class="form-row">
+                        <span>Prenom</span>
+                        <input type="text" name="prenom_user" id="prenom_user" required>
+                    </label>
+                    <label class="form-row full">
+                        <span>Email</span>
+                        <input type="email" name="mail_user" id="mail_user" required>
+                    </label>
+                    <label class="form-row">
+                        <span>Titre profil</span>
+                        <input type="text" name="titre_profil" id="titre_profil">
+                    </label>
+                    <label class="form-row">
+                        <span>Disponibilite</span>
+                        <input type="text" name="disponibilite" id="disponibilite">
+                    </label>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeEditCandidateModal()">Annuler</button>
+                    <button type="button" class="btn-delete-modal" onclick="openDeleteCandidateModal()">Supprimer</button>
+                    <button type="submit" class="btn-submit">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<div id="delete-candidate-modal" class="modal">
+    <div class="modal-card">
+        <h2 class="modal-title">Supprimer un candidat</h2>
+        <div class="delete-warning">
+            Attention ! Cette action est irreversible. Toutes les donnees du candidat seront supprimees.
+        </div>
+        <p style="margin: 0 0 1rem; color: #374151;">
+            Voulez-vous vraiment supprimer <strong id="delete-candidate-name"></strong> ?
+        </p>
+        <form method="POST" action="/espace-candidat">
+            <input type="hidden" name="form_type" value="candidate_delete">
+            <input type="hidden" name="candidate_id" id="delete_candidate_id">
+
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" onclick="closeDeleteCandidateModal()">Annuler</button>
+                <button type="submit" class="btn-delete-modal" style="padding: 0.45rem 0.85rem;">Supprimer definitivement</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openEditCandidateModal(button) {
+        document.getElementById('candidate_id').value = button.dataset.id || '';
+        document.getElementById('nom_user').value = button.dataset.nom || '';
+        document.getElementById('prenom_user').value = button.dataset.prenom || '';
+        document.getElementById('mail_user').value = button.dataset.email || '';
+        document.getElementById('titre_profil').value = button.dataset.titre || '';
+        document.getElementById('disponibilite').value = button.dataset.disponibilite || '';
+        document.getElementById('edit-candidate-modal').classList.add('show');
+    }
+
+    function closeEditCandidateModal() {
+        document.getElementById('edit-candidate-modal').classList.remove('show');
+    }
+
+    function openDeleteCandidateModal() {
+        const candidateId = document.getElementById('candidate_id').value;
+        const nom = document.getElementById('nom_user').value;
+        const prenom = document.getElementById('prenom_user').value;
+        const fullName = prenom + ' ' + nom;
+
+        document.getElementById('delete_candidate_id').value = candidateId;
+        document.getElementById('delete-candidate-name').textContent = fullName;
+        closeEditCandidateModal();
+        document.getElementById('delete-candidate-modal').classList.add('show');
+    }
+
+    function closeDeleteCandidateModal() {
+        document.getElementById('delete-candidate-modal').classList.remove('show');
+    }
+
+    window.addEventListener('click', function (event) {
+        const modal = document.getElementById('edit-candidate-modal');
+        const deleteModal = document.getElementById('delete-candidate-modal');
+        if (event.target === modal) {
+            closeEditCandidateModal();
+        }
+        if (event.target === deleteModal) {
+            closeDeleteCandidateModal();
+        }
+    });
+</script>
+{% endblock %}

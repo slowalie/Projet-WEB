@@ -18,9 +18,8 @@ class EntreprisesModel
 
     public function getEntreprises(): array
     {
-        $sql = 'SELECT * FROM Entreprises
-                INNER JOIN Offres ON Entreprises.id_entreprise = Offres.id_entreprise
-                INNER JOIN Localisation ON Offres.id_localisation = Localisation.id_localisation';
+        $sql = 'SELECT * FROM Entreprises';
+                
         $stmt = $this->pdo->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
@@ -38,6 +37,42 @@ class EntreprisesModel
         ]);
 
         return (int) $this->pdo->lastInsertId();
+    }
+
+    public function getEntrepriseById(int $idEntreprise): ?array
+    {
+        $sql = 'SELECT * FROM Entreprises WHERE id_entreprise = :id_entreprise LIMIT 1';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id_entreprise' => $idEntreprise]);
+        $entreprise = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        return $entreprise ?: null;
+    }
+
+    public function updateEntreprise(int $idEntreprise, array $data): bool
+    {
+        $sql = 'UPDATE Entreprises
+                SET nom_entreprise = :nom_entreprise,
+                    logo_entreprise = :logo_entreprise,
+                    description_entreprise = :description_entreprise,
+                    note_entreprise = :note_entreprise
+                WHERE id_entreprise = :id_entreprise';
+
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            ':id_entreprise' => $idEntreprise,
+            ':nom_entreprise' => $data['nom_entreprise'],
+            ':logo_entreprise' => $data['logo_entreprise'],
+            ':description_entreprise' => $data['description_entreprise'],
+            ':note_entreprise' => $data['note_entreprise'],
+        ]);
+    }
+
+    public function deleteEntreprise(int $idEntreprise): bool
+    {
+        $sql = 'DELETE FROM Entreprises WHERE id_entreprise = :id_entreprise';
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([':id_entreprise' => $idEntreprise]);
     }
 
 }

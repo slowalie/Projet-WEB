@@ -1,0 +1,48 @@
+<div class="publish-modal" id="popUpCreateCompany" aria-hidden="true">
+    <div class="publish-modal-backdrop" data-company-close="true"></div>
+
+    <div class="publish-modal-panel" role="dialog" aria-modal="true" aria-label="creation entreprise">
+        <button class="publish-close" type="button" id="companyCloseButton" aria-label="Fermer">×</button>
+
+        <div class="publish-forms-space">
+            <form class="publish-form" id="createCompanyForm" action="/espace-pilote" method="post">
+                <input type="hidden" name="form_type" value="company_create">
+                <h2>Ajouter une entreprise</h2>
+
+                {% if company_status == 'success' %}
+                    <p>Entreprise creee avec succes.</p>
+                {% elseif company_status == 'missing_name' %}
+                    <p>Le nom de l'entreprise est obligatoire.</p>
+                {% elseif company_status == 'invalid_note' %}
+                    <p>La note doit etre un nombre valide.</p>
+                {% elseif company_status == 'error' %}
+                    <p>Erreur technique lors de la creation de l'entreprise.</p>
+                {% endif %}
+
+                <div class="publish-form-grid">
+                    <div class="publish-field">
+                        <label for="nom_entreprise">Nom de l'entreprise</label>
+                        <input type="text" id="nom_entreprise" name="nom_entreprise" class="publish-input" required>
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="logo_entreprise">Initiales / logo texte</label>
+                        <input type="text" id="logo_entreprise" name="logo_entreprise" class="publish-input" maxlength="10">
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="note_entreprise">Note entreprise</label>
+                        <input type="number" id="note_entreprise" name="note_entreprise" class="publish-input" step="0.1" min="0" max="5" placeholder="Ex: 4.5">
+                    </div>
+
+                    <div class="publish-field">
+                        <label for="description_entreprise">Description</label>
+                        <textarea id="description_entreprise" name="description_entreprise" class="publish-input"></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="publish-submit">Ajouter l'entreprise</button>
+            </form>
+        </div>
+    </div>
+</div>

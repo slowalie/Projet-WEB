@@ -1,0 +1,141 @@
+{% extends "base.twig.html" %}
+
+{% block title %}Entreprises - IdeaStage{% endblock %}
+
+{% block stylesheets %}
+
+<link rel="stylesheet" href="http://ideaStageassets.local/entreprise-style.css">
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="recherche-offres">
+    <div1>Recherche d'entreprises</div1>
+    <div2>
+        Toutes les entreprises
+    </div2>
+    <div class="search-bar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+            viewBox="0 0 16 16">
+            <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+        </svg>
+
+        <input type="text" placeholder="entreprise..." />
+
+        <div class="select-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt"
+                viewBox="0 0 16 16">
+                <path
+                    d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+            </svg>
+            <select>
+                <option>Toutes</option>
+                {% for offres in offres %}
+                <option>{{ offres.ville }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                viewBox="0 0 16 16">
+                <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+            </svg>Rechercher</button>
+
+
+    </div>
+
+</div>
+
+{% if company_delete_status == 'success' %}
+    <div style="max-width: 980px; margin: 12px auto; padding: 10px 12px; border-radius: 10px; background: #dcfce7; color: #166534; border: 1px solid #86efac;">
+        L'entreprise a ete supprimee avec succes.
+    </div>
+{% elseif company_delete_status == 'error' %}
+    <div style="max-width: 980px; margin: 12px auto; padding: 10px 12px; border-radius: 10px; background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5;">
+        Impossible de supprimer l'entreprise.
+    </div>
+{% endif %}
+
+
+    <div class="container">
+        <!-- SIDEBAR FILTRES -->
+        
+
+        <!-- MAIN CONTENT -->
+        <section class="main-content">
+            <div class="header">
+                <h1>{{ total_entreprises }} entreprises trouvées</h1>
+            </div>
+
+            {% set limit = 9 %}
+
+            {% set totalentreprises = entreprises|length %}
+            {% set totalPages = (totalentreprises / limit)|round(0, 'ceil') %}
+            {% set offset = (currentPage - 1) * limit %}
+
+            
+            <!-- GRID D'OFFRES -->
+            <div class="offers-grid">
+                {% for entreprise in entreprises|slice(offset, limit) %}
+                <!-- OFFRE 1 -->
+                <div class="offer-card">
+                    {% if offre.tag == "une" %}
+                    <div class="offer-badge">
+                        <span class="badge badge-priority">★ À la une</span>
+                    </div>
+                    {% elseif offre.tag == "new" %}
+                    <div class="offer-badge">
+                        <span class="badge badge-new">♦ Nouveau</span>
+                    </div>
+                    {% elseif offre.tag == "" %}
+
+                    {% endif %}
+                    <div class="offer-header">
+                        <div class="company-logo">{{ entreprise.logo_entreprise }}</div>
+                        <div class="offer-title">
+                            <h3>{{ entreprise.nom_entreprise }}</h3>
+                            <p class="company-name">{{ entreprise.nom_entreprise }}</p>
+                            <p class="company-desc">{{ entreprise.description_entreprise }}</p>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="offer-footer">
+                        
+                        <div class="rating">
+                            <span class="stars">⭐ {{ entreprise.note_entreprise }}</span>
+                        </div>
+                        {% if user_role in ['pilote', 'admin'] %}
+                            <div class="apply-btn"><a href="/entreprise/{{ entreprise.id_entreprise }}/edit">Modifier</a></div>
+                        {% endif %}
+                        <div class="author"><a href="#">www.{{ entreprise.nom_entreprise }}.com</a></div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            {%if totalPages > 1 %}
+            <div class="pagination-container">
+                {%if currentPage > 1 %}
+                <a href="?page={{ currentPage - 1}}" class="btn-nav-page">Précédent</a>
+                {% endif %}
+
+                {% for page in 1..totalPages %}
+                <a href="?page={{ page }}" class= "{{ page==currentPage ? 'active-page' : 'btn-page' }}">{{ page }}</a>
+                {% endfor %}
+
+                {%if currentPage < totalPages %} 
+                <a href="?page={{ currentPage + 1}}" class="btn-nav-page">Suivant</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </section>
+    </div>
+<script src="http://ideaStageassets.local/offres.js"></script>
+
+{% endblock %}

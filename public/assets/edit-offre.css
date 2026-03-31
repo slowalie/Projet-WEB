@@ -1,0 +1,112 @@
+.edit-offre-page {
+    --eo-accent: #5850ec;
+    --eo-bg-dark: #0f172a;
+    --eo-bg-surface: #1e293b;
+    --eo-text-main: #ffffff;
+    --eo-text-muted: #cbd5e1;
+    --eo-border: #475569;
+
+    padding: 100px 20px 40px;
+    min-height: 100vh;
+    background: linear-gradient(145deg, #111827, #1e293b);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.edit-offre-wrapper {
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.edit-offre-title {
+    margin: 0 0 12px;
+    color: var(--eo-text-main);
+}
+
+.edit-offre-subtitle {
+    margin: 0 0 20px;
+    color: var(--eo-text-muted);
+}
+
+.edit-offre-alert {
+    margin-bottom: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid;
+}
+
+.edit-offre-alert-success {
+    background: rgba(16, 185, 129, 0.14);
+    color: #86efac;
+    border-color: rgba(16, 185, 129, 0.45);
+}
+
+.edit-offre-alert-error {
+    background: rgba(239, 68, 68, 0.14);
+    color: #fca5a5;
+    border-color: rgba(239, 68, 68, 0.45);
+}
+
+.edit-offre-form {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    border: 1px solid rgba(88, 80, 236, 0.35);
+    background: rgba(15, 23, 42, 0.62);
+}
+
+.edit-offre-form .publish-field label {
+    color: var(--eo-text-main);
+}
+
+.edit-offre-form .publish-input {
+    border: 1px solid var(--eo-border);
+    background: #ffffff;
+    color: var(--eo-bg-dark);
+}
+
+.edit-offre-field-full {
+    grid-column: 1 / -1;
+}
+
+.edit-offre-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.edit-offre-btn {
+    width: auto;
+}
+
+.edit-offre-btn-link {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-offre-btn-delete {
+    background: #dc2626;
+    border-color: #dc2626;
+}
+
+.edit-offre-btn-delete:hover {
+    background: #b91c1c;
+    border-color: #b91c1c;
+}
+
+@media (max-width: 900px) {
+    .edit-offre-page {
+        padding: 90px 12px 28px;
+    }
+
+    .edit-offre-actions {
+        flex-direction: column;
+    }
+
+    .edit-offre-btn,
+    .edit-offre-btn-link {
+        width: 100%;
+    }
+}

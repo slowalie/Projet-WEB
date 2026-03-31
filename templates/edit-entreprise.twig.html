@@ -1,0 +1,73 @@
+{% extends 'base.twig.html' %}
+
+{% block title %}Modifier une entreprise - IdeaStage{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="http://ideaStageassets.local/publier-offre.css">
+    <link rel="stylesheet" href="http://ideaStageassets.local/edit-offre.css">
+{% endblock %}
+
+{% block content %}
+<main class="edit-offre-page">
+    <section class="edit-offre-wrapper">
+        <h1 class="edit-offre-title">Modifier l'entreprise</h1>
+        <p class="edit-offre-subtitle">Entreprise #{{ entreprise.id_entreprise }} - {{ entreprise.nom_entreprise }}</p>
+
+        {% if edit_status == 'success' %}
+            <div class="edit-offre-alert edit-offre-alert-success">
+                L'entreprise a ete mise a jour avec succes.
+            </div>
+        {% elseif edit_status == 'missing_fields' %}
+            <div class="edit-offre-alert edit-offre-alert-error">
+                Merci de renseigner le nom de l'entreprise.
+            </div>
+        {% elseif edit_status == 'invalid_note' %}
+            <div class="edit-offre-alert edit-offre-alert-error">
+                La note doit etre numerique.
+            </div>
+        {% elseif edit_status == 'error' %}
+            <div class="edit-offre-alert edit-offre-alert-error">
+                Une erreur technique est survenue pendant la mise a jour.
+            </div>
+        {% endif %}
+
+        <form class="publish-form edit-offre-form" method="POST" action="/entreprise/{{ entreprise.id_entreprise }}/edit">
+            <div class="publish-form-grid">
+                <div class="publish-field">
+                    <label for="nom_entreprise">Nom de l'entreprise</label>
+                    <input class="publish-input" type="text" id="nom_entreprise" name="nom_entreprise" value="{{ entreprise.nom_entreprise }}" required>
+                </div>
+
+                <div class="publish-field">
+                    <label for="logo_entreprise">Logo/Initial</label>
+                    <input class="publish-input" type="text" id="logo_entreprise" name="logo_entreprise" value="{{ entreprise.logo_entreprise }}">
+                </div>
+
+                <div class="publish-field">
+                    <label for="note_entreprise">Note</label>
+                    <input class="publish-input" type="number" step="0.1" id="note_entreprise" name="note_entreprise" min="0" max="5" value="{{ entreprise.note_entreprise }}">
+                </div>
+
+                <div class="publish-field edit-offre-field-full">
+                    <label for="description_entreprise">Description</label>
+                    <textarea class="publish-input" id="description_entreprise" name="description_entreprise">{{ entreprise.description_entreprise }}</textarea>
+                </div>
+            </div>
+
+            <div class="edit-offre-actions">
+                <button type="submit" class="publish-submit edit-offre-btn">Enregistrer les modifications</button>
+                <a href="/entreprises" class="publish-submit edit-offre-btn edit-offre-btn-link">Retour aux entreprises</a>
+                <button
+                    type="submit"
+                    class="publish-submit edit-offre-btn edit-offre-btn-delete"
+                    formaction="/entreprise/{{ entreprise.id_entreprise }}/delete"
+                    formmethod="POST"
+                    onclick="return confirm('Confirmer la suppression definitive de cette entreprise ?');"
+                >
+                    Supprimer l'entreprise
+                </button>
+            </div>
+        </form>
+    </section>
+</main>
+{% endblock %}

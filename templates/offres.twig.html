@@ -4,13 +4,12 @@
 
 {% block stylesheets %}
 
-<link rel="stylesheet" href="/assets/offre-style.css">
+<link rel="stylesheet" href="http://ideaStageassets.local/offre-style.css">
 {% endblock %}
 
 {% block content %}
 
-
-
+<form method="GET" action="/offres">
 <div class="recherche-offres">
     <div1>Recherche d'offres</div1>
     <div2>
@@ -23,7 +22,7 @@
                 d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
         </svg>
 
-        <input type="text" placeholder="Poste, compétence, entreprise..." />
+        <input type="text" name="q" value="{{ search_query|default('') }}" placeholder="Poste, competence, entreprise..." />
 
         <div class="select-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt"
@@ -32,28 +31,25 @@
                     d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
                 <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
             </svg>
-            <select>
-                <option>Toutes</option>
-                {% for offres in offres %}
-                <option>{{ offres.ville }}</option>
+            <select name="ville">
+                <option value="" {{ selected_ville is empty ? 'selected' : '' }}>Toutes</option>
+                {% for ville in villes %}
+                <option value="{{ ville }}" {{ selected_ville == ville ? 'selected' : '' }}>{{ ville }}</option>
                 {% endfor %}
             </select>
         </div>
 
-        <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+        <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
                 viewBox="0 0 16 16">
                 <path
                     d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
             </svg>Rechercher</button>
-
 
     </div>
 
 </div>
 
 
-</header>
-<main>
     <div class="container">
         <!-- SIDEBAR FILTRES -->
         <aside class="sidebar">
@@ -70,15 +66,15 @@
                 <h4>TYPE</h4>
                 <div class="radio-group">
                     <label>
-                        <input type="radio" name="type" value="tous" checked>
+                        <input type="radio" name="type" value="tous" {{ selected_type == 'tous' ? 'checked' : '' }}>
                         <span>Tous</span>
                     </label>
                     <label>
-                        <input type="radio" name="type" value="stage">
+                        <input type="radio" name="type" value="stage" {{ selected_type == 'stage' ? 'checked' : '' }}>
                         <span>Stage</span>
                     </label>
                     <label>
-                        <input type="radio" name="type" value="alternance">
+                        <input type="radio" name="type" value="alternance" {{ selected_type == 'alternance' ? 'checked' : '' }}>
                         <span>Alternance</span>
                     </label>
                 </div>
@@ -87,10 +83,16 @@
             <!-- SECTEUR -->
             <div class="filter-group">
                 <h4>SECTEUR</h4>
-                <div class="tag-buttons">
-                    <button class="tag active">Tous</button>
-                    {% for item in offres %}
-                    <button class="tag">{{ item.secteur_offres }}</button>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="secteur" value="" {{ selected_secteur is empty ? 'checked' : '' }}>
+                        <span>Tous</span>
+                    </label>
+                    {% for secteur in secteurs %}
+                    <label>
+                        <input type="radio" name="secteur" value="{{ secteur }}" {{ selected_secteur == secteur ? 'checked' : '' }}>
+                        <span>{{ secteur }}</span>
+                    </label>
                     {% endfor %}
                 </div>
             </div>
@@ -100,37 +102,41 @@
                 <h4>DURÉE</h4>
                 <div class="radio-group">
                     <label>
-                        <input type="radio" name="duree" value="toutes" checked>
+                        <input type="radio" name="duree" value="" {{ selected_duree is empty ? 'checked' : '' }}>
                         <span>Toutes</span>
                     </label>
                     <label>
-                        <input type="radio" name="duree" value="2mois">
+                        <input type="radio" name="duree" value="2 mois" {{ selected_duree == '2 mois' ? 'checked' : '' }}>
                         <span>2 mois</span>
                     </label>
                     <label>
-                        <input type="radio" name="duree" value="4mois">
+                        <input type="radio" name="duree" value="4 mois" {{ selected_duree == '4 mois' ? 'checked' : '' }}>
                         <span>4 mois</span>
                     </label>
                     <label>
-                        <input type="radio" name="duree" value="6mois">
+                        <input type="radio" name="duree" value="6 mois" {{ selected_duree == '6 mois' ? 'checked' : '' }}>
                         <span>6 mois</span>
                     </label>
                     <label>
-                        <input type="radio" name="duree" value="12mois">
+                        <input type="radio" name="duree" value="12 mois" {{ selected_duree == '12 mois' ? 'checked' : '' }}>
                         <span>12 mois</span>
                     </label>
                     <label>
-                        <input type="radio" name="duree" value="24mois">
+                        <input type="radio" name="duree" value="24 mois" {{ selected_duree == '24 mois' ? 'checked' : '' }}>
                         <span>24 mois</span>
                     </label>
                 </div>
             </div>
+
+            <div class="filter-submit">
+                <button type="submit">Appliquer les filtres</button>
+            </div>
         </aside>
 
         <!-- MAIN CONTENT -->
-        <main class="main-content">
+        <section class="main-content">
             <div class="header">
-                <h2> {{ total_offres }} offres trouvées</h2>
+                <h1>{{ total_offres }} offres trouvées</h1>
             </div>
 
             {% set limit = 9 %}
@@ -138,11 +144,24 @@
             {% set totalOffres = offres|length %}
             {% set totalPages = (totalOffres / limit)|round(0, 'ceil') %}
             {% set offset = (currentPage - 1) * limit %}
+            {% set query_string = '' %}
+            {% if search_query is not empty %}
+                {% set query_string = query_string ~ '&q=' ~ search_query|url_encode %}
+            {% endif %}
+            {% if selected_ville is not empty %}
+                {% set query_string = query_string ~ '&ville=' ~ selected_ville|url_encode %}
+            {% endif %}
+            {% if selected_secteur is not empty %}
+                {% set query_string = query_string ~ '&secteur=' ~ selected_secteur|url_encode %}
+            {% endif %}
+            {% if selected_duree is not empty %}
+                {% set query_string = query_string ~ '&duree=' ~ selected_duree|url_encode %}
+            {% endif %}
 
             
             <!-- GRID D'OFFRES -->
             <div class="offers-grid">
-                {% for offre in offres|slice(offset, limit) %}
+            {% for offre in offres|slice(offset, limit) %}
                 <!-- OFFRE 1 -->
                 <div class="offer-card">
                     {% if offre.tag == "une" %}
@@ -159,10 +178,11 @@
                     <div class="offer-header">
                         <div class="company-logo">{{ offre.logo_entreprise }}</div>
                         <div class="offer-title">
-                            <h3>{{ offre.nom_offres }}</h3>
-                            <p class="company-name">{{ offre.nom_entreprise }}</p>
+                            <h3><a href="/detail-offre/{{ offre.id_offres }}">{{ offre.nom_offres }}</a></h3>
+                            <p class="company-name" >{{ offre.nom_entreprise }}</p>
                         </div>
-                        <button class="heart-btn">♡</button>
+                        
+                        
                     </div>
                     <div class="offer-tags">
                         <span class="tag-type">{{ offre.type_offres }}</span>
@@ -170,44 +190,48 @@
                         <span class="duration">⏱ {{ offre.duree_offres }}</span>
                     </div>
                     <div class="skills">
-                        {% for profil_recherche in offre.Profil_recherche|split(',') %}
-                        <span class="skill">{{ profil_recherche|trim }}</span>
+                        {% for skill in offre.skils|split(',') %}
+                        <span class="skill">{{ skill|trim }}</span>
                         {% endfor %}
                     </div>
                     <div class="offer-footer">
                         <div class="salary">
                             <span class="amount">€ {{ offre.salaire_offres }} /mois</span>
-                            <span class="candidates">👥 42 candidatures</span>
+                            
                         </div>
                         <div class="rating">
                             <span class="stars">⭐ {{ offre.note }}</span>
                         </div>
-                        <a href="detail-offre.html" class="apply-btn">Postuler</a>
+                        <a href="{{ user_role in ['pilote', 'admin'] ? '/offre/' ~ offre.id_offres ~ '/edit' : '/detail-offre/' ~ offre.id_offres }}" class="apply-btn">
+                            {% if user_role in ['pilote', 'admin'] %}
+                                Modifier
+                            {% else %}
+                                Postuler
+                            {% endif %}
+                        </a>
                     </div>
                 </div>
-                {% endfor %}
+            {% endfor %}
 
             </div>
             {%if totalPages > 1 %}
             <div class="pagination-container">
                 {%if currentPage > 1 %}
-                <a href="?page={{ currentPage - 1}}" class="btn-nav-page">Précédent</a>
+                <a href="?page={{ currentPage - 1}}{{ query_string }}" class="btn-nav-page">Précédent</a>
                 {% endif %}
 
                 {% for page in 1..totalPages %}
-                <a href="?page={{ page }}" class= "{{ page==currentPage ? 'active-page' : 'btn-page' }}">{{ page }}</a>
+                <a href="?page={{ page }}{{ query_string }}" class= "{{ page==currentPage ? 'active-page' : 'btn-page' }}">{{ page }}</a>
                 {% endfor %}
 
                 {%if currentPage < totalPages %} 
-                <a href="?page={{ currentPage + 1}}" class="btn-nav-page">Suivant</a>
+                <a href="?page={{ currentPage + 1}}{{ query_string }}" class="btn-nav-page">Suivant</a>
                 {% endif %}
             </div>
             {% endif %}
-        </main>
+        </section>
     </div>
-
-
-</main>
-<script src="/assets/offres.js"></script>
+    </form>
+<script src="http://ideaStageassets.local/offres.js"></script>
 
 {% endblock %}

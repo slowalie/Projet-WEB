@@ -256,6 +256,29 @@ main {
     border-color: var(--primary-violet);
 }
 
+.button-add-company-open {
+    background-color: var(--primary-violet);
+    border: 2px solid var(--primary-violet);
+    color: var(--text-main);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 12px 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 5px;
+    margin-top: 20px;
+}
+
+.button-add-company-open:hover {
+    background-color: #4436d8;
+    color: var(--text-main);
+    border-color: var(--primary-violet);
+}
+
 .fonctionnalites-title {
     font-size: 40px;
     color: var(--text-dark);

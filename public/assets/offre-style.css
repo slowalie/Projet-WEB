@@ -386,12 +386,22 @@ main {
     flex: 1;
 }
 
-.offer-title h3 {
+.offer-title h3 a{
     color: var(--text-dark);
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 4px;
+    text-decoration: none;
 }
+
+.offer-title h3 a:hover{
+    color: var(--primary-yellow);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    text-decoration: none;
+}
+
 
 .company-name {
     color: #94a3b8;
@@ -539,7 +549,21 @@ main {
     background-color: #4338ca;
 }
 
+.filter-submit button{
+    background-color: var(--primary-violet);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
 
+.filter-submit button:hover {
+    background-color: #4338ca;
+}
 
 .apply-btn{
 text-decoration: none;

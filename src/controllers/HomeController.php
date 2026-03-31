@@ -23,9 +23,11 @@ class HomeController extends Controller
     public function index()
     {
         $offres = $this->offresModel->getOffres();
+        $villes = array_unique(array_column($offres, 'ville'));
         return $this->render('home.twig.html', [
             'page' => 'home',
-            'offres' => $offres
+            'offres' => $offres,
+            'villes' => $villes
         ]);
        
     }

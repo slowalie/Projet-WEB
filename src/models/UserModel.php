@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
-
 require_once __DIR__ . '/Database.php';
+
+use App\models\Database;
 
 class UserModel
 {
@@ -17,18 +17,16 @@ class UserModel
 
     public function existsByEmail(string $email): bool
     {
-        try {
-            $stmt = $this->pdo->prepare('SELECT id_user FROM Utilisateurs WHERE mail_user = :mail_user LIMIT 1');
-            $stmt->execute(['mail_user' => $email]);
-            return (bool) $stmt->fetch();
-        } catch (\PDOException $e) {
-            error_log('Database error checking email: ' . $e->getMessage());
-            return false;
-        }
+        $stmt = $this->pdo->prepare('SELECT id_user FROM Utilisateurs WHERE mail_user = :mail_user LIMIT 1');
+        $stmt->execute(['mail_user' => $email]);
+
+        return (bool) $stmt->fetch();
     }
 
-    public function createUser(string $nom, string $prenom, string $email, string $passwordHash, string $role): bool
+    public function createUserWithRoleProfile(string $nom, string $prenom, string $email, string $passwordHash, string $role): void
     {
+        $this->pdo->beginTransaction();
+
         try {
             $insertStmt = $this->pdo->prepare('INSERT INTO Utilisateurs (nom_user, prenom_user, mail_user, mdp_user, role_user) VALUES (:nom_user, :prenom_user, :mail_user, :mdp_user, :role_user)');
             $insertStmt->execute([
@@ -38,10 +36,26 @@ class UserModel
                 'mdp_user' => $passwordHash,
                 'role_user' => $role,
             ]);
-            return true;
-        } catch (\PDOException $e) {
-            error_log('Database error during user creation: ' . $e->getMessage());
-            return false;
+
+            $userId = (int) $this->pdo->lastInsertId();
+
+            if ($role === 'pilote') {
+                $piloteStmt = $this->pdo->prepare('INSERT INTO pilote (id_user) VALUES (:id_user)');
+                $piloteStmt->execute(['id_user' => $userId]);
+            }
+
+            if ($role === 'etudiant') {
+                $candidatStmt = $this->pdo->prepare('INSERT INTO Candidats (id_user) VALUES (:id_user)');
+                $candidatStmt->execute(['id_user' => $userId]);
+            }
+
+            $this->pdo->commit();
+        } catch (\Throwable $exception) {
+            if ($this->pdo->inTransaction()) {
+                $this->pdo->rollBack();
+            }
+
+            throw $exception;
         }
     }
 
@@ -56,5 +70,82 @@ class UserModel
         }
 
         return $user;
+    }
+
+    public function getuserbyrole(string $role): array
+    {
+        $stmt = $this->pdo->prepare('SELECT id_user, nom_user, prenom_user, mail_user FROM Utilisateurs WHERE role_user = :role_user');
+        $stmt->execute(['role_user' => $role]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getUserById(int $id): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT id_user, nom_user, prenom_user, mail_user, role_user FROM Utilisateurs WHERE id_user = :id_user LIMIT 1');
+        $stmt->execute(['id_user' => $id]);
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        if ($user === false) {
+            return null;
+        }
+
+        return $user;
+    }
+
+    public function updateUser(int $id, string $nom, string $prenom, string $email): void
+    {
+        $stmt = $this->pdo->prepare('UPDATE Utilisateurs SET nom_user = :nom_user, prenom_user = :prenom_user, mail_user = :mail_user WHERE id_user = :id_user');
+        $stmt->execute([
+            'id_user' => $id,
+            'nom_user' => $nom,
+            'prenom_user' => $prenom,
+            'mail_user' => $email,
+        ]);
+    }
+
+    public function deleteUserById(int $id): void
+    {
+        $this->pdo->beginTransaction();
+
+        try {
+            // Get user role first
+            $user = $this->getUserById($id);
+            if ($user === null) {
+                throw new \Exception('User not found');
+            }
+
+            $role = $user['role_user'];
+
+            // Delete from related tables based on role
+            if ($role === 'pilote') {
+                $deleteStmt = $this->pdo->prepare('DELETE FROM pilote WHERE id_user = :id_user');
+                $deleteStmt->execute(['id_user' => $id]);
+            }
+
+            if ($role === 'etudiant') {
+                $deleteStmt = $this->pdo->prepare('DELETE FROM Candidats WHERE id_user = :id_user');
+                $deleteStmt->execute(['id_user' => $id]);
+            }
+
+            // Delete from users table
+            $deleteUserStmt = $this->pdo->prepare('DELETE FROM Utilisateurs WHERE id_user = :id_user');
+            $deleteUserStmt->execute(['id_user' => $id]);
+
+            $this->pdo->commit();
+        } catch (\Throwable $exception) {
+            if ($this->pdo->inTransaction()) {
+                $this->pdo->rollBack();
+            }
+
+            throw $exception;
+        }
+    }
+
+    public function searchUsersByRole(string $role, string $search): array
+    {
+        $searchTerm = '%' . $search . '%';
+        $stmt = $this->pdo->prepare('SELECT id_user, nom_user, prenom_user, mail_user FROM Utilisateurs WHERE role_user = :role_user AND (nom_user LIKE :search OR prenom_user LIKE :search OR mail_user LIKE :search)');
+        $stmt->execute(['role_user' => $role, 'search' => $searchTerm]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
