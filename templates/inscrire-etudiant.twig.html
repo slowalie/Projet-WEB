@@ -1,0 +1,77 @@
+{% extends "base.twig.html" %}
+
+{% block title %}Inscrire un Étudiant - IdeaStage{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/assets/publier-offre.css">
+{% endblock %}
+
+{% block content %}
+<div class="publish-container">
+    <div class="publish-form-wrapper">    
+        <div class="publish-header">
+            <h1>Inscrire un Nouvel Étudiant</h1>
+            <p>Remplissez le formulaire ci-dessous pour inscrire un nouvel étudiant</p>
+        </div>
+
+        <form action="/auth/register-student" method="post" class="publish-form">
+            <input type="hidden" name="role" value="etudiant">
+
+            <div class="form-section">
+                <h2>Informations Personnelles</h2>
+                
+                <div class="form-group">
+                    <label for="nom">Nom *</label>
+                    <input 
+                        type="text" 
+                        id="nom" 
+                        name="nom" 
+                        placeholder="Dupont" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="prenom">Prénom *</label>
+                    <input 
+                        type="text" 
+                        id="prenom" 
+                        name="prenom" 
+                        placeholder="Jean" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Adresse Email *</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="jean.dupont@exemple.fr" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="mdp">Mot de Passe *</label>
+                    <input 
+                        type="password" 
+                        id="mdp" 
+                        name="mdp" 
+                        placeholder="Minimum 8 caractères" 
+                        minlength="8"
+                        required
+                    >
+                    <small>Le mot de passe doit contenir au moins 8 caractères</small>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-publish">Inscrire l'Étudiant</button>
+                <a href="javascript:history.back()" class="btn-cancel">Annuler</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

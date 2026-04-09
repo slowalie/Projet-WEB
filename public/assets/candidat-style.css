@@ -730,7 +730,8 @@ main {
 
     .nav-links,
     .button-connexion,
-    .button-inscription {
+    .button-inscription,
+    .button-logout {
         display: none;
     }
 
@@ -746,7 +747,8 @@ main {
     }
 
     .navbar.nav-open .button-connexion,
-    .navbar.nav-open .button-inscription {
+    .navbar.nav-open .button-inscription,
+    .navbar.nav-open .button-logout {
         display: block;
         order: 4;
         width: 80%;
